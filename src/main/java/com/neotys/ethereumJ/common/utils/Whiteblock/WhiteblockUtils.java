@@ -6,7 +6,8 @@ import java.net.URL;
 public class WhiteblockUtils {
     private static final ImageIcon WHITEBLOCK_ICON;
     static {
-        final URL iconURL = WhiteblockUtils.class.getResource("whiteblock.png");
+
+        final URL iconURL = WhiteblockUtils.class.getResource("wb.png");
         if (iconURL != null) {
             WHITEBLOCK_ICON = new ImageIcon(iconURL);
         } else {
