@@ -1,0 +1,21 @@
+package com.neotys.ethereumJ.common.utils.Whiteblock;
+
+public class Constants {
+
+    /*** Dynatrace ***/
+    public static final String WHITEBLOCK = "WHITEBLOCK";
+
+    /*** NeoLoad context (Data Exchange API) ***/
+    public static final String NEOLOAD_CONTEXT_HARDWARE = WHITEBLOCK;
+    public static final String NEOLOAD_CONTEXT_LOCATION = WHITEBLOCK;
+    public static final String NEOLOAD_CONTEXT_SOFTWARE = WHITEBLOCK;
+
+    /*** NeoLoad Current Virtual user context (Keep object in cache cross iterations) ***/
+    public static final String NL_DATA_EXCHANGE_API_CLIENT = "NLDataExchangeAPIClient";
+	public static final String WHITEBLOCK_LAST_EXECUTION_TIME = "WhiteblockLastExecutionTime";
+
+	public static final int WHITEBLOCK_MAX_DELAY=2;
+	public static final String WHITEBLOCK_DEFAULT_PASSWORD="second";
+	public static final String WHITEBLOCK_RPC_PORT="8545";
+
+}
