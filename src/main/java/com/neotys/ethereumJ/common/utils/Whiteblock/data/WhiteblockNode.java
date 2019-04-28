@@ -1,44 +1,61 @@
 package com.neotys.ethereumJ.common.utils.Whiteblock.data;
 
 public class WhiteblockNode {
-    //[
+    // [
     //  {
-    //    "cpu": 186.5,
+    //    "ip": "10.1.0.2",
     //    "name": "whiteblock-node0",
+    //    "resourceUse": {
+    //      "cpu": 6.8,
+    //      "residentSetSize": 1095612,
+    //      "virtualMemorySize": 4758028
+    //    },
     //    "server": 1,
     //    "up": true
     //  },
     //  {
-    //    "cpu": 480.50000000000006,
+    //    "ip": "10.1.0.6",
     //    "name": "whiteblock-node1",
+    //    "resourceUse": {
+    //      "cpu": 6.1000000000000005,
+    //      "residentSetSize": 1094216,
+    //      "virtualMemorySize": 4832592
+    //    },
     //    "server": 1,
     //    "up": true
     //  },
     //  {
-    //    "cpu": 153.7,
+    //    "ip": "10.1.0.10",
     //    "name": "whiteblock-node2",
+    //    "resourceUse": {
+    //      "cpu": 9.5,
+    //      "residentSetSize": 1078752,
+    //      "virtualMemorySize": 4752256
+    //    },
     //    "server": 1,
     //    "up": true
     //  }
     //]
-    double cpu;
+
+    RessouceUse resourceUse;
     String name;
     String server;
     boolean up;
+    String ip;
 
-    public WhiteblockNode(double cpu, String name, String server, boolean up) {
-        this.cpu = cpu;
+    public WhiteblockNode(RessouceUse resourceUse, String name, String server, boolean up) {
+        this.resourceUse = resourceUse;
         this.name = name;
         this.server = server;
         this.up = up;
     }
 
-    public double getCpu() {
-        return cpu;
+    public RessouceUse getResourceUse() {
+        return resourceUse;
     }
 
-    public void setCpu(double cpu) {
-        this.cpu = cpu;
+    public void setResourceUse(RessouceUse resourceUse) {
+        this.resourceUse = resourceUse;
     }
 
     public String getName() {

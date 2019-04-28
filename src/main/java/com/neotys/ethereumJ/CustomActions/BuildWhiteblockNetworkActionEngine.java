@@ -76,7 +76,7 @@ public class BuildWhiteblockNetworkActionEngine implements ActionEngine {
 
     private boolean validatetypeofBlockChain(String mode)
     {
-        ImmutableList<String> minerMode=ImmutableList.of(" ethereum", "syscoin", "rchain", "eos", "monero", "nem", "fabric", "quorum");
+        ImmutableList<String> minerMode=ImmutableList.of("ethereum", "parity","pantheon","syscoin", "rchain", "eos", "artemis", "beam", "cosmos");
         if(minerMode.contains(mode.toLowerCase()))
             return true;
         else

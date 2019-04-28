@@ -20,7 +20,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class WhiteblockProcessbuilder {
     private static ProcessBuilder processBuilder;
-    private static String USER="";
+    private static String USER="master";
     private static String JOINSEPERATOR=" ";
 
     private static String getPrivateKeyFromNode(String host,int node) throws WhiteblockConnectionException
