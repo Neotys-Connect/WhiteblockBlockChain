@@ -12,9 +12,9 @@ import static com.neotys.extensions.action.ActionParameter.Type.TEXT;
 
 enum SendTransactionOption implements Option {
 
-        WhiteBlocMasterHost("WhiteBlocMasterHost", Required, True, TEXT,
-                "Host of the master Node ",
-                "Master Node of your Whiteblock Network",
+    ipOfTheWhiteblockNode("ipOfTheWhiteblockNode", Required, True, TEXT,
+                "Ip of one of the Whiteblock Node ",
+                "Ip of one of the Whiteblock Node",
                 NON_EMPTY),
     from("from", Required, True, TEXT,
             "Address of the account that will send the transaction",
@@ -31,7 +31,7 @@ enum SendTransactionOption implements Option {
     amount("amount", Required, True, TEXT,
             "Amount to send",
             "Amount to send",
-            INTEGER_VALIDATOR);
+            NON_EMPTY);
 
     private final String name;
     private final Option.OptionalRequired optionalRequired;

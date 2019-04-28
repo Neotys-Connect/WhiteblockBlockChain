@@ -28,7 +28,7 @@ public class GetAccountListActionEngine implements ActionEngine {
 
         final Map<String, Optional<String>> parsedArgs;
         try {
-            parsedArgs = parseArguments(list, BuildWhiteblockNetworkOption.values());
+            parsedArgs = parseArguments(list, GetAccountListOption.values());
         } catch (final IllegalArgumentException iae) {
             return ResultFactory.newErrorResult(context, STATUS_CODE_INVALID_PARAMETER, "Could not parse arguments: ", iae);
         }

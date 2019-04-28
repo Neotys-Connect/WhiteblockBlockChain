@@ -56,7 +56,7 @@ public class BuildWhiteblockNetworkActionEngine implements ActionEngine {
             String output= WhiteblockProcessbuilder.buildEnvironment(whiteBlocMasterHost,typeofBlochacin,Integer.parseInt(numberofnodes));
             if(output.toLowerCase().contains(VALIDATION.toLowerCase()))
             {
-                responseBuilder.append("Network propperly created");
+                responseBuilder.append("Network  created");
             }
             else
                 return ResultFactory.newErrorResult(context, STATUS_CODE_TECHNICAL_ERROR, "unable to create the network  :"+output, null);

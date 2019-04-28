@@ -13,6 +13,7 @@ import org.web3j.protocol.http.HttpService;
 import org.web3j.utils.Convert;
 import org.web3j.utils.Numeric;
 
+import com.neotys.extensions.action.engine.Context;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -28,14 +29,16 @@ public class Web3JUtils {
     private String walletpassword;
     private Admin web3J;
     private String keystore;
+    private Context context;
 
-    public Web3JUtils(String hostname, String port, String walletAdress, String walletpassword,String key) {
+    public Web3JUtils(String hostname, String port, String walletAdress, String walletpassword,String key,Context context) {
         this.hostname = hostname;
         this.port = port;
         this.walletAdress = walletAdress;
         this.walletpassword = walletpassword;
+        this.context=context;
         this.keystore=key;
-        web3J= build(new HttpService("http://"+hostname+":"+port));
+        web3J   = build(new HttpService("http://"+hostname+":"+port));
 
     }
 
@@ -87,8 +90,9 @@ public class Web3JUtils {
 
     private BigInteger convertStringTOBigInteger(String amount)
     {
+        context.getLogger().debug(" amount  :"+amount);
         BigInteger amountWei = Convert.toWei(amount, Convert.Unit.ETHER).toBigInteger();
-
+        context.getLogger().debug("conveted amount  :"+amountWei.toString());
 
         return amountWei;
     }
@@ -96,25 +100,30 @@ public class Web3JUtils {
         PersonalUnlockAccount personalUnlockAccount = web3J.personalUnlockAccount(walletAdress, walletpassword).send();
         if (personalUnlockAccount.accountUnlocked()) {
 
-
             // get the next available nonce
             BigInteger nonce = getNonce(web3J, walletAdress);
-
+            context.getLogger().debug("nonce :"+nonce.toString());
             Credentials credentials = Credentials.create(walletAdress);
             //--get gas price
             BigInteger gasprice = web3J.ethGasPrice().send().getGasPrice();
-            //--get gas limit
+            context.getLogger().debug("Gas Price :"+gasprice.toString());
+           //--get gas limit
             BigInteger blockGasLimit = web3J.ethGetBlockByNumber(DefaultBlockParameterName.LATEST, false).send().getBlock().getGasLimit();
 
+            context.getLogger().debug("Gaslimit :"+blockGasLimit.toString());
             // create our transaction
-            RawTransaction rawTransaction = RawTransaction.createEtherTransaction(nonce, gasprice, blockGasLimit, to, convertStringTOBigInteger(amountWei));
+            Transaction transaction= Transaction.createEtherTransaction(walletAdress,nonce,gasprice,blockGasLimit,to,convertStringTOBigInteger(amountWei));
+//            RawTransaction rawTransaction = RawTransaction.createEtherTransaction(nonce, gasprice, blockGasLimit, credentials.getAddress(), convertStringTOBigInteger(amountWei));
             // sign & send our transaction
-            byte[] signedMessage = TransactionEncoder.signMessage(rawTransaction, credentials);
+         //   byte[] signedMessage = TransactionEncoder.signMessage(rawTransaction, credentials);
+           /* context.getLogger().debug("Signed message :"+ signedMessage.toString());
 
             String hexValue = Numeric.toHexString(signedMessage);
-            EthSendTransaction ethSendTransaction = web3J.ethSendRawTransaction(hexValue).send();
-            // ...
+            context.getLogger().debug("hex Signed message :"+hexValue);
 
+*/
+            EthSendTransaction ethSendTransaction = web3J.ethSendTransaction(transaction).send();
+            // ...
 
             String transactionHash = ethSendTransaction.getTransactionHash();
 

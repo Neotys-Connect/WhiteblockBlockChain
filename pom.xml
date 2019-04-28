@@ -157,6 +157,7 @@
                                     <exclude>*:neotys-custom-action-api</exclude>
                                     <exclude>*:neotys-custom-action-util</exclude>
                                     <exclude>*:javax.ws.rs-api</exclude>
+                                    <exclude>*:slf4j-api</exclude>
                                 </excludes>
                             </artifactSet>
                         </configuration>

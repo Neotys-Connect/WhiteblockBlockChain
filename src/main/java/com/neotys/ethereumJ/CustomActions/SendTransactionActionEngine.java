@@ -40,17 +40,20 @@ public final class SendTransactionActionEngine implements ActionEngine {
 			logger.debug("Executing " + this.getClass().getName() + " with parameters: "
 					+ getArgumentLogString(parsedArgs, GetMonitoringDataOption.values()));
 		}
-		final String whiteBlocMasterHost = parsedArgs.get(SendTransactionOption.WhiteBlocMasterHost.getName()).get();
+		final String whiteBlocMasterHost = parsedArgs.get(SendTransactionOption.ipOfTheWhiteblockNode.getName()).get();
 
 		final String from = parsedArgs.get(SendTransactionOption.from.getName()).get();
 		final String to=parsedArgs.get(SendTransactionOption.to.getName()).get();
 		final String keystore=parsedArgs.get(SendTransactionOption.keystore.getName()).get();
 		final String amount=parsedArgs.get(SendTransactionOption.amount.getName()).get();
 
+		if(!isaDouble(amount))
+			return ResultFactory.newErrorResult(context, STATUS_CODE_INVALID_PARAMETER, "Amout needs to be double  :"+amount, null);
+
 		sampleResult.sampleStart();
 		try
 		{
-			Web3UtilsWhiteblock whiteblock=new Web3UtilsWhiteblock(whiteBlocMasterHost,from,keystore);
+			Web3UtilsWhiteblock whiteblock=new Web3UtilsWhiteblock(whiteBlocMasterHost,from,keystore,context);
 			String hash=whiteblock.createEtherTransaction(to,amount);
 
 			appendLineToStringBuilder(responseBuilder, "Transaction sent : hash of the transaction "+hash);
@@ -86,6 +89,20 @@ public final class SendTransactionActionEngine implements ActionEngine {
 			context.getLogger().error(errorMessage);
 		}
 		return result;
+	}
+
+	private boolean isaDouble(String amount)
+	{
+		try{
+			double d= Double.parseDouble(amount);
+			return true;
+
+		}
+		catch (NumberFormatException e)
+		{
+			return false;
+		}
+
 	}
 
 	@Override

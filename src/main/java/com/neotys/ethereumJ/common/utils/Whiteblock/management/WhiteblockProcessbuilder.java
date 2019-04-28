@@ -21,6 +21,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class WhiteblockProcessbuilder {
     private static ProcessBuilder processBuilder;
     private static String USER="master";
+    private static String PASSWORD ="neotyswhiteblock";
     private static String JOINSEPERATOR=" ";
 
     private static String getPrivateKeyFromNode(String host,int node) throws WhiteblockConnectionException
@@ -36,6 +37,7 @@ public class WhiteblockProcessbuilder {
 
             Session session = jsch.getSession(USER, host, 22);
             session.setConfig(config);
+            session.setPassword(PASSWORD);
             // Establish the connection
             session.connect();
 
@@ -112,6 +114,7 @@ public class WhiteblockProcessbuilder {
         {
 
             Session session = jsch.getSession(USER, host, 22);
+            session.setPassword(PASSWORD);
             session.setConfig(config);
             // Establish the connection
             session.connect();
@@ -168,6 +171,7 @@ public class WhiteblockProcessbuilder {
         String jsonCustomer;
         Gson gson=new Gson();
         jsonCustomer=sshCommand(masternode,Arrays.asList("wb", "get", "account", "info"));
+        jsonCustomer="{ accountList:"+jsonCustomer+"}";
         WhiteblockAccountList whiteblockAccountList= gson.fromJson(jsonCustomer, WhiteblockAccountList.class);
         AtomicInteger counter= new AtomicInteger();
         whiteblockAccountList.getAccountList().stream().forEach(whiteblockAccount -> {
@@ -190,6 +194,8 @@ public class WhiteblockProcessbuilder {
         String jsonCustomer;
         Gson gson=new Gson();
         jsonCustomer=sshCommand(masternode,Arrays.asList("wb", "get", "nodes", "info"));
+        jsonCustomer="{ whiteblockNodeList:"+jsonCustomer+"}";
+
         return gson.fromJson(jsonCustomer, WhiteblockNodeList.class);
 
     }
