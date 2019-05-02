@@ -6,6 +6,7 @@ import com.neotys.extensions.action.ActionParameter;
 
 import java.util.Optional;
 
+import static com.neotys.action.argument.DefaultArgumentValidator.BOOLEAN_VALIDATOR;
 import static com.neotys.action.argument.DefaultArgumentValidator.INTEGER_VALIDATOR;
 import static com.neotys.action.argument.DefaultArgumentValidator.NON_EMPTY;
 import static com.neotys.action.argument.Option.AppearsByDefault.True;
@@ -33,7 +34,11 @@ enum  ApplyNetworkConstraintsOption  implements Option {
     ConstraintsUnit("ConstraintsUnit",Optional, True, TEXT,
             "unit of the bandwidth limitation , default value :mbps",
                     "Value only required for bandwidth limitation. Value possible : kbps,mbps,gbps",
-                    NON_EMPTY);
+                    NON_EMPTY),
+    TraceMode("TraceMode", Optional, True, TEXT,
+            "enable logging ",
+            "enable loggin details  : true: enable ; false : Disable",
+            BOOLEAN_VALIDATOR);
     private final String name;
     private final Option.OptionalRequired optionalRequired;
     private final Option.AppearsByDefault appearsByDefault;

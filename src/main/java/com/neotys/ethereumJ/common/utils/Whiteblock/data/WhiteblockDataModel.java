@@ -8,8 +8,9 @@ public class WhiteblockDataModel {
 
     public String generateOutPut() throws JsonProcessingException {
         XmlMapper xmlMapper = new XmlMapper();
-        xmlMapper.enable(SerializationFeature.INDENT_OUTPUT);
+      //  xmlMapper.enable(SerializationFeature.INDENT_OUTPUT);
         String xml = xmlMapper.writeValueAsString(this);
         return xml;
     }
+
 }

@@ -4,6 +4,8 @@ import com.google.common.base.Optional;
 import com.google.common.base.Splitter;
 import com.neotys.action.result.ResultFactory;
 import com.neotys.ethereumJ.common.utils.Whiteblock.Constants;
+import com.neotys.ethereumJ.common.utils.Whiteblock.management.WhiteBlockConstants;
+import com.neotys.ethereumJ.common.utils.Whiteblock.management.WhiteBlockContext;
 import com.neotys.ethereumJ.common.utils.Whiteblock.management.WhiteblockConnectionException;
 import com.neotys.ethereumJ.common.utils.Whiteblock.monitoring.WhiteblockDataToNeoLoad;
 import com.neotys.extensions.action.ActionParameter;
@@ -57,8 +59,9 @@ public class GetMonitoringDataActionEngine implements ActionEngine {
 
         final String whiteBlocMasterHost = parsedArgs.get(GetMonitoringDataOption.WhiteBlocMasterHost.getName()).get();
         final Optional<String> dataExchangeApiKey = parsedArgs.get(GetMonitoringDataOption.NeoLoadDataExchangeApiKey.getName());
-         final String dataExchangeApiUrl = Optional.fromNullable(emptyToNull(parsedArgs.get(GetMonitoringDataOption.NeoLoadDataExchangeApiUrl.getName()).orNull()))
+        final String dataExchangeApiUrl = Optional.fromNullable(emptyToNull(parsedArgs.get(GetMonitoringDataOption.NeoLoadDataExchangeApiUrl.getName()).orNull()))
                 .or(() -> getDefaultDataExchangeApiUrl(context));
+        final Optional<String> tracemode=parsedArgs.get((GetMonitoringDataOption.TraceMode.getName()));
 
         if (context.getLogger().isDebugEnabled()) {
             context.getLogger().debug("Data Exchange API URL used: " + dataExchangeApiUrl);
@@ -83,7 +86,9 @@ public class GetMonitoringDataActionEngine implements ActionEngine {
             DataExchangeAPIClient dataExchangeAPIClient = getDataExchangeAPIClient(context, requestBuilder, dataExchangeApiUrl, dataExchangeApiKey);
 
 
-            WhiteblockDataToNeoLoad whiteblockDataToNeoLoad=new WhiteblockDataToNeoLoad(whiteBlocMasterHost,(long)whiteblockLastExecutionTime,(long)whiteblockCurrentExecution,dataExchangeAPIClient);
+            WhiteBlockContext whiteBlockContext=new WhiteBlockContext(whiteBlocMasterHost, WhiteBlockConstants.PASSWORD,tracemode,context);
+
+            WhiteblockDataToNeoLoad whiteblockDataToNeoLoad=new WhiteblockDataToNeoLoad(whiteBlockContext,(long)whiteblockLastExecutionTime,(long)whiteblockCurrentExecution,dataExchangeAPIClient);
             whiteblockDataToNeoLoad.getMonitoringData();
             context.getCurrentVirtualUser().put(Constants.WHITEBLOCK_LAST_EXECUTION_TIME, whiteblockCurrentExecution);
 

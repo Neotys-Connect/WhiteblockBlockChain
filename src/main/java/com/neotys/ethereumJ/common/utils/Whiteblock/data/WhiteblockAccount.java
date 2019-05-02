@@ -4,14 +4,16 @@ public class WhiteblockAccount {
     String account;
     String balance;
     String txcount;
-    String keystore=null;
+    String privateKey;
+    String publicKey;
 
 
-
-    public WhiteblockAccount(String account, String balance, String txcount) {
+    public WhiteblockAccount(String account, String balance, String txcount,String privateKey,String publickey) {
         this.account = account;
         this.balance = balance;
         this.txcount = txcount;
+        this.privateKey=privateKey;
+        this.publicKey=publickey;
     }
 
     public String getAccount() {
@@ -38,11 +40,20 @@ public class WhiteblockAccount {
         this.txcount = txcount;
     }
 
-    public String getKeystore() {
-        return keystore;
+
+    public String getPrivateKey() {
+        return privateKey;
     }
 
-    public void setKeystore(String keystore) {
-        this.keystore = keystore;
+    public void setPrivateKey(String privateKey) {
+        this.privateKey = privateKey;
+    }
+
+    public String getPublicKey() {
+        return publicKey;
+    }
+
+    public void setPublicKey(String publicKey) {
+        this.publicKey = publicKey;
     }
 }

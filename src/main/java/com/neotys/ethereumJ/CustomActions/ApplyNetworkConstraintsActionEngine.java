@@ -3,6 +3,8 @@ package com.neotys.ethereumJ.CustomActions;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 import com.neotys.action.result.ResultFactory;
+import com.neotys.ethereumJ.common.utils.Whiteblock.management.WhiteBlockConstants;
+import com.neotys.ethereumJ.common.utils.Whiteblock.management.WhiteBlockContext;
 import com.neotys.ethereumJ.common.utils.Whiteblock.management.WhiteblockProcessbuilder;
 import com.neotys.extensions.action.ActionParameter;
 import com.neotys.extensions.action.engine.ActionEngine;
@@ -51,6 +53,7 @@ public class ApplyNetworkConstraintsActionEngine implements ActionEngine {
         final String valueofConstraint =parsedArgs.get(ApplyNetworkConstraintsOption.ConstraintsValue.getName()).get();
         final Optional<String> nodenumber = parsedArgs.get(ApplyNetworkConstraintsOption.NodeNumber);
         final Optional<String> unit = parsedArgs.get(ApplyNetworkConstraintsOption.ConstraintsUnit);
+        final Optional<String> tracemode=parsedArgs.get((ApplyNetworkConstraintsOption.TraceMode.getName()));
 
 
         if (!validateNetworkMode(typeofconstraints))
@@ -71,16 +74,18 @@ public class ApplyNetworkConstraintsActionEngine implements ActionEngine {
         try
         {
             String output = null;
+            WhiteBlockContext whiteBlockContext=new WhiteBlockContext(whiteBlocMasterHost, WhiteBlockConstants.PASSWORD,tracemode,context);
+
             switch(typeofconstraints)
             {
                 case BANDWIDTH:
-                    output= WhiteblockProcessbuilder.defineBwOnNodes(whiteBlocMasterHost,convert2OptionalInteger(nodenumber),Integer.parseInt(valueofConstraint),unit);
+                    output= WhiteblockProcessbuilder.defineBwOnNodes(whiteBlockContext,convert2OptionalInteger(nodenumber),Integer.parseInt(valueofConstraint),unit);
                     break;
                 case LOSS:
-                    output=WhiteblockProcessbuilder.defineLossOnNodes(whiteBlocMasterHost,convert2OptionalInteger(nodenumber),Double.parseDouble(valueofConstraint));
+                    output=WhiteblockProcessbuilder.defineLossOnNodes(whiteBlockContext,convert2OptionalInteger(nodenumber),Double.parseDouble(valueofConstraint));
                     break;
                 case DELAY:
-                    output=WhiteblockProcessbuilder.defineDelayOnNodes(whiteBlocMasterHost,convert2OptionalInteger(nodenumber),Integer.parseInt(valueofConstraint));
+                    output=WhiteblockProcessbuilder.defineDelayOnNodes(whiteBlockContext,convert2OptionalInteger(nodenumber),Integer.parseInt(valueofConstraint));
                     break;
             }
  

@@ -2,6 +2,7 @@ package com.neotys.ethereumJ.common.utils.Whiteblock.monitoring;
 
 import com.neotys.ethereumJ.common.utils.Whiteblock.Constants;
 import com.neotys.ethereumJ.common.utils.Whiteblock.data.WhiteblockMonitoringData;
+import com.neotys.ethereumJ.common.utils.Whiteblock.management.WhiteBlockContext;
 import com.neotys.ethereumJ.common.utils.Whiteblock.management.WhiteblockConnectionException;
 import com.neotys.ethereumJ.common.utils.Whiteblock.management.WhiteblockProcessbuilder;
 import com.neotys.rest.dataexchange.client.DataExchangeAPIClient;
@@ -19,7 +20,7 @@ import java.util.stream.Collectors;
 public class WhiteblockDataToNeoLoad {
 
     DataExchangeAPIClient dataExchangeAPIClient;
-    String masternode;
+    WhiteBlockContext context;
     long startime;
     long endtime;
 
@@ -36,10 +37,10 @@ public class WhiteblockDataToNeoLoad {
     }
 
 
-    public WhiteblockDataToNeoLoad(String mastnode, long start, long end, DataExchangeAPIClient apiclient)
+    public WhiteblockDataToNeoLoad(WhiteBlockContext context, long start, long end, DataExchangeAPIClient apiclient)
     {
         dataExchangeAPIClient=apiclient;
-        masternode=mastnode;
+        this.context=context;
         startime=start;
         endtime=end;
 
@@ -47,7 +48,7 @@ public class WhiteblockDataToNeoLoad {
     }
 
     public void getMonitoringData() throws URISyntaxException, GeneralSecurityException, NeotysAPIException, IOException, WhiteblockConnectionException, InterruptedException {
-        WhiteblockMonitoringData monitoringData=WhiteblockProcessbuilder.getMonitoringData(masternode,startime,endtime);
+        WhiteblockMonitoringData monitoringData=WhiteblockProcessbuilder.getMonitoringData(context,startime,endtime);
         dataExchangeAPIClient.addEntries(toEntries(monitoringData));
     }
 

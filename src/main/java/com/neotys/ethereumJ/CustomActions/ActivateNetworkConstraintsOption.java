@@ -5,8 +5,10 @@ import com.neotys.action.argument.Option;
 import com.neotys.extensions.action.ActionParameter;
 
 
+import static com.neotys.action.argument.DefaultArgumentValidator.BOOLEAN_VALIDATOR;
 import static com.neotys.action.argument.DefaultArgumentValidator.NON_EMPTY;
 import static com.neotys.action.argument.Option.AppearsByDefault.True;
+import static com.neotys.action.argument.Option.OptionalRequired.Optional;
 import static com.neotys.action.argument.Option.OptionalRequired.Required;
 import static com.neotys.extensions.action.ActionParameter.Type.TEXT;
 
@@ -18,7 +20,11 @@ enum  ActivateNetworkConstraintsOption implements Option {
     NetworkMode("NetworkMode", Required, True, TEXT,
             "Mode of the network emulation",
                     "Mode of the network emulation : ON: enable ; OFF : Disable",
-               NON_EMPTY);
+               NON_EMPTY),
+    TraceMode("TraceMode", Optional, True, TEXT,
+            "enable logging ",
+            "enable loggin details  : true: enable ; false : Disable",
+            BOOLEAN_VALIDATOR);
 
     private final String name;
     private final Option.OptionalRequired optionalRequired;

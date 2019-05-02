@@ -3,6 +3,8 @@ package com.neotys.ethereumJ.CustomActions;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 import com.neotys.action.result.ResultFactory;
+import com.neotys.ethereumJ.common.utils.Whiteblock.management.WhiteBlockConstants;
+import com.neotys.ethereumJ.common.utils.Whiteblock.management.WhiteBlockContext;
 import com.neotys.ethereumJ.common.utils.Whiteblock.management.WhiteblockProcessbuilder;
 import com.neotys.extensions.action.ActionParameter;
 import com.neotys.extensions.action.engine.ActionEngine;
@@ -46,6 +48,8 @@ public class BuildWhiteblockNetworkActionEngine implements ActionEngine {
         final String whiteBlocMasterHost = parsedArgs.get(BuildWhiteblockNetworkOption.WhiteBlocMasterHost.getName()).get();
         final String numberofnodes = parsedArgs.get(BuildWhiteblockNetworkOption.NumberOfNodes.getName()).get();
         final String typeofBlochacin = parsedArgs.get(BuildWhiteblockNetworkOption.TypeofBlochacin.getName()).get();
+        final Optional<String> tracemode=parsedArgs.get((BuildWhiteblockNetworkOption.TraceMode.getName()));
+
 
         if(!validatetypeofBlockChain(typeofBlochacin))
             return ResultFactory.newErrorResult(context, STATUS_CODE_INVALID_PARAMETER, "INVALID parameter : "+ typeofBlochacin,null);
@@ -53,7 +57,9 @@ public class BuildWhiteblockNetworkActionEngine implements ActionEngine {
 
         try
         {
-            String output= WhiteblockProcessbuilder.buildEnvironment(whiteBlocMasterHost,typeofBlochacin,Integer.parseInt(numberofnodes));
+            WhiteBlockContext whiteBlockContext=new WhiteBlockContext(whiteBlocMasterHost, WhiteBlockConstants.PASSWORD,tracemode,context);
+
+            String output= WhiteblockProcessbuilder.buildEnvironment(whiteBlockContext,typeofBlochacin,Integer.parseInt(numberofnodes));
             if(output.toLowerCase().contains(VALIDATION.toLowerCase()))
             {
                 responseBuilder.append("Network  created");

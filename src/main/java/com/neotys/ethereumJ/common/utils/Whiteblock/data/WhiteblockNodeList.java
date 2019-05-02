@@ -13,5 +13,7 @@ public class WhiteblockNodeList extends WhiteblockDataModel{
         return whiteblockNodeList;
     }
 
-
+    public void setWhiteblockNodeList(List<WhiteblockNode> whiteblockNodeList) {
+        this.whiteblockNodeList = whiteblockNodeList;
+    }
 }

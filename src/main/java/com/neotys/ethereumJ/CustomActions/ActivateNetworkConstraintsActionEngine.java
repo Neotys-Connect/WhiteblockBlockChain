@@ -3,6 +3,8 @@ package com.neotys.ethereumJ.CustomActions;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 import com.neotys.action.result.ResultFactory;
+import com.neotys.ethereumJ.common.utils.Whiteblock.management.WhiteBlockConstants;
+import com.neotys.ethereumJ.common.utils.Whiteblock.management.WhiteBlockContext;
 import com.neotys.ethereumJ.common.utils.Whiteblock.management.WhiteblockProcessbuilder;
 import com.neotys.extensions.action.ActionParameter;
 import com.neotys.extensions.action.engine.ActionEngine;
@@ -44,17 +46,19 @@ public class ActivateNetworkConstraintsActionEngine implements ActionEngine {
 
         final String whiteBlocMasterHost = parsedArgs.get(ActivateNetworkConstraintsOption.WhiteBlocMasterHost.getName()).get();
         final String networkMode=parsedArgs.get(ActivateNetworkConstraintsOption.NetworkMode.getName()).get();
+        final Optional<String> tracemode=parsedArgs.get((ActivateNetworkConstraintsOption.TraceMode.getName()));
 
         if (!validateNetworkMode(networkMode))
             return ResultFactory.newErrorResult(context, STATUS_CODE_INVALID_PARAMETER, "the mode can have the following values : ON or OFF ");
 
         try
         {
+            WhiteBlockContext whiteBlockContext=new WhiteBlockContext(whiteBlocMasterHost, WhiteBlockConstants.PASSWORD,tracemode,context);
             String output;
             if(networkMode.toUpperCase().equals("ON"))
-                output= WhiteblockProcessbuilder.enableNetConfigModule(whiteBlocMasterHost);
+                output= WhiteblockProcessbuilder.enableNetConfigModule(whiteBlockContext);
             else
-                output=WhiteblockProcessbuilder.disableNetConfigModule(whiteBlocMasterHost);
+                output=WhiteblockProcessbuilder.disableNetConfigModule(whiteBlockContext);
 
             responseBuilder.append(output);
         }

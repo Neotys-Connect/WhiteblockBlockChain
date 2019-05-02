@@ -11,11 +11,32 @@ import static com.neotys.action.argument.Option.OptionalRequired.Optional;
 import static com.neotys.action.argument.Option.OptionalRequired.Required;
 import static com.neotys.extensions.action.ActionParameter.Type.TEXT;
 
-enum  GetNodesListOption implements Option {
-    WhiteBlocMasterHost("WhiteBlocMasterHost", Required, True, TEXT,
-            "Host of the master Node ",
-                    "Master Node of your Whiteblock Network",
-                        NON_EMPTY),
+enum  SendFundsOption implements Option {
+
+    ipOfTheWhiteblockNode("ipOfTheWhiteblockNode", Required, True, TEXT,
+            "Ip of one of the Whiteblock Node ",
+            "Ip of one of the Whiteblock Node",
+            NON_EMPTY),
+    from("from", Required, True, TEXT,
+            "Address of the account that will send the transaction",
+            "Address of the account that will send the transaction",
+            NON_EMPTY),
+    to("to", Required, True, TEXT,
+            "Address of the account that will receive the transaction",
+            "Address of the account that will receive the transaction",
+            NON_EMPTY),
+    privatekey("privatekey", Required, True, TEXT,
+            "Keystore of the from account ",
+            "Keystore of the from account ",
+            NON_EMPTY),
+    publickey("publickey", Required, True, TEXT,
+            "Keystore of the from account ",
+            "Keystore of the from account ",
+            NON_EMPTY),
+    amount("amount", Required, True, TEXT,
+            "Amount to send",
+            "Amount to send",
+            NON_EMPTY),
     TraceMode("TraceMode", Optional, True, TEXT,
             "enable logging ",
             "enable loggin details  : true: enable ; false : Disable",
@@ -29,10 +50,10 @@ enum  GetNodesListOption implements Option {
     private final String description;
     private final ArgumentValidator argumentValidator;
 
-    GetNodesListOption(final String name, final Option.OptionalRequired optionalRequired,
-                         final Option.AppearsByDefault appearsByDefault,
-                         final ActionParameter.Type type, final String defaultValue, final String description,
-                         final ArgumentValidator argumentValidator) {
+    SendFundsOption(final String name, final Option.OptionalRequired optionalRequired,
+                                final Option.AppearsByDefault appearsByDefault,
+                                final ActionParameter.Type type, final String defaultValue, final String description,
+                                final ArgumentValidator argumentValidator) {
         this.name = name;
         this.optionalRequired = optionalRequired;
         this.appearsByDefault = appearsByDefault;
@@ -77,3 +98,4 @@ enum  GetNodesListOption implements Option {
     }
 
 }
+

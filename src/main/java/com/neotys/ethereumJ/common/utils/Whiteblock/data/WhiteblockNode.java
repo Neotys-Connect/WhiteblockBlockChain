@@ -43,11 +43,19 @@ public class WhiteblockNode {
     boolean up;
     String ip;
 
-    public WhiteblockNode(RessouceUse resourceUse, String name, String server, boolean up) {
+    public WhiteblockNode(RessouceUse resourceUse, String name, String server, boolean up,String ip) {
         this.resourceUse = resourceUse;
         this.name = name;
         this.server = server;
         this.up = up;
+    }
+
+    public String getIp() {
+        return ip;
+    }
+
+    public void setIp(String ip) {
+        this.ip = ip;
     }
 
     public RessouceUse getResourceUse() {

@@ -3,6 +3,8 @@ package com.neotys.ethereumJ.CustomActions;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 import com.neotys.action.result.ResultFactory;
+import com.neotys.ethereumJ.common.utils.Whiteblock.management.WhiteBlockConstants;
+import com.neotys.ethereumJ.common.utils.Whiteblock.management.WhiteBlockContext;
 import com.neotys.ethereumJ.common.utils.Whiteblock.management.WhiteblockProcessbuilder;
 import com.neotys.extensions.action.ActionParameter;
 import com.neotys.extensions.action.engine.ActionEngine;
@@ -44,6 +46,7 @@ public class MinerActionEngine implements ActionEngine {
 
         final String whiteBlocMasterHost = parsedArgs.get(MinerStartOption.WhiteBlocMasterHost.getName()).get();
         final String minerMode=parsedArgs.get(MinerStartOption.MinerMode.getName()).get();
+        final Optional<String> tracemode=parsedArgs.get((MinerStartOption.TraceMode.getName()));
 
         if (!validateMinerMode(minerMode))
             return ResultFactory.newErrorResult(context, STATUS_CODE_INVALID_PARAMETER, "AggregationType needs to be define or equal to\"MIN\",\"MAX\",\"SUM\",\"AVG\",\"MEDIAN\",\"COUNT\",\"PERCENTILE\" ");
@@ -51,10 +54,12 @@ public class MinerActionEngine implements ActionEngine {
         try
         {
             String output;
+            WhiteBlockContext whiteBlockContext=new WhiteBlockContext(whiteBlocMasterHost, WhiteBlockConstants.PASSWORD,tracemode,context);
+
             if(minerMode.toUpperCase().equals("ON"))
-                output= WhiteblockProcessbuilder.minterStart(whiteBlocMasterHost);
+                output= WhiteblockProcessbuilder.minterStart(whiteBlockContext);
             else
-                output=WhiteblockProcessbuilder.minterStop(whiteBlocMasterHost);
+                output=WhiteblockProcessbuilder.minterStop(whiteBlockContext);
 
             responseBuilder.append(output);
         }

@@ -4,9 +4,7 @@ import com.neotys.action.argument.ArgumentValidator;
 import com.neotys.action.argument.Option;
 import com.neotys.extensions.action.ActionParameter;
 
-import static com.neotys.action.argument.DefaultArgumentValidator.ALWAYS_VALID;
-import static com.neotys.action.argument.DefaultArgumentValidator.INTEGER_VALIDATOR;
-import static com.neotys.action.argument.DefaultArgumentValidator.NON_EMPTY;
+import static com.neotys.action.argument.DefaultArgumentValidator.*;
 import static com.neotys.action.argument.Option.AppearsByDefault.False;
 import static com.neotys.action.argument.Option.AppearsByDefault.True;
 import static com.neotys.action.argument.Option.OptionalRequired.Optional;
@@ -26,7 +24,11 @@ enum BuildWhiteblockNetworkOption implements Option {
     NumberOfNodes("NumberOfNodes", Required, True, TEXT,
             "Number of Nodes",
                     "Number of nodes to generate in the network",
-                    INTEGER_VALIDATOR);
+                    INTEGER_VALIDATOR),
+    TraceMode("TraceMode", Optional, True, TEXT,
+            "enable logging ",
+            "enable loggin details  : true: enable ; false : Disable",
+            BOOLEAN_VALIDATOR);
 
     private final String name;
     private final Option.OptionalRequired optionalRequired;

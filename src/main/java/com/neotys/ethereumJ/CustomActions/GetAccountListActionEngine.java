@@ -2,6 +2,8 @@ package com.neotys.ethereumJ.CustomActions;
 
 import com.google.common.base.Optional;
 import com.neotys.action.result.ResultFactory;
+import com.neotys.ethereumJ.common.utils.Whiteblock.management.WhiteBlockConstants;
+import com.neotys.ethereumJ.common.utils.Whiteblock.management.WhiteBlockContext;
 import com.neotys.ethereumJ.common.utils.Whiteblock.management.WhiteblockProcessbuilder;
 import com.neotys.extensions.action.ActionParameter;
 import com.neotys.extensions.action.engine.ActionEngine;
@@ -41,9 +43,13 @@ public class GetAccountListActionEngine implements ActionEngine {
         }
 
         final String whiteBlocMasterHost = parsedArgs.get(GetAccountListOption.WhiteBlocMasterHost.getName()).get();
+        final Optional<String> tracemode=parsedArgs.get((GetAccountListOption.TraceMode.getName()));
+
         try
         {
-            String output= WhiteblockProcessbuilder.getAccountLis(whiteBlocMasterHost).generateOutPut();
+            WhiteBlockContext whiteBlockContext=new WhiteBlockContext(whiteBlocMasterHost, WhiteBlockConstants.PASSWORD,tracemode,context);
+
+            String output= WhiteblockProcessbuilder.getAccountLis(whiteBlockContext).generateOutPut();
             responseBuilder.append(output);
         }
         catch (Exception e)

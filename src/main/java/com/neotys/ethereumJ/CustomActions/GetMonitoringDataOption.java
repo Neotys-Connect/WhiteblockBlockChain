@@ -5,6 +5,7 @@ import com.neotys.action.argument.Option;
 import com.neotys.extensions.action.ActionParameter;
 
 import static com.neotys.action.argument.DefaultArgumentValidator.ALWAYS_VALID;
+import static com.neotys.action.argument.DefaultArgumentValidator.BOOLEAN_VALIDATOR;
 import static com.neotys.action.argument.DefaultArgumentValidator.NON_EMPTY;
 import static com.neotys.action.argument.Option.AppearsByDefault.False;
 import static com.neotys.action.argument.Option.AppearsByDefault.True;
@@ -25,7 +26,11 @@ enum  GetMonitoringDataOption implements Option {
     NeoLoadDataExchangeApiKey("dataExchangeApiKey", Optional, False, TEXT,
             "",
             "Identification key specified in NeoLoad.",
-            ALWAYS_VALID);
+            ALWAYS_VALID),
+    TraceMode("TraceMode", Optional, True, TEXT,
+            "enable logging ",
+            "enable loggin details  : true: enable ; false : Disable",
+            BOOLEAN_VALIDATOR);
 
     private final String name;
     private final Option.OptionalRequired optionalRequired;

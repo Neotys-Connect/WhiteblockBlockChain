@@ -11,15 +11,15 @@ import static com.neotys.action.argument.Option.OptionalRequired.Optional;
 import static com.neotys.action.argument.Option.OptionalRequired.Required;
 import static com.neotys.extensions.action.ActionParameter.Type.TEXT;
 
-enum  GetNodesListOption implements Option {
+enum GetContractsListOption implements Option {
     WhiteBlocMasterHost("WhiteBlocMasterHost", Required, True, TEXT,
             "Host of the master Node ",
                     "Master Node of your Whiteblock Network",
                         NON_EMPTY),
     TraceMode("TraceMode", Optional, True, TEXT,
             "enable logging ",
-            "enable loggin details  : true: enable ; false : Disable",
-            BOOLEAN_VALIDATOR);
+                    "enable loggin details  : true: enable ; false : Disable",
+              BOOLEAN_VALIDATOR);
 
     private final String name;
     private final Option.OptionalRequired optionalRequired;
@@ -29,7 +29,7 @@ enum  GetNodesListOption implements Option {
     private final String description;
     private final ArgumentValidator argumentValidator;
 
-    GetNodesListOption(final String name, final Option.OptionalRequired optionalRequired,
+    GetContractsListOption(final String name, final Option.OptionalRequired optionalRequired,
                          final Option.AppearsByDefault appearsByDefault,
                          final ActionParameter.Type type, final String defaultValue, final String description,
                          final ArgumentValidator argumentValidator) {
@@ -77,3 +77,5 @@ enum  GetNodesListOption implements Option {
     }
 
 }
+
+
