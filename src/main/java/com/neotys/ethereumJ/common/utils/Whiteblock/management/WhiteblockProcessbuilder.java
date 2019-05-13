@@ -21,6 +21,8 @@ import com.neotys.extensions.action.engine.Context;
 import java.util.Properties;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import static com.neotys.ethereumJ.common.utils.Whiteblock.Constants.ERROR;
+
 public class WhiteblockProcessbuilder {
     private static ProcessBuilder processBuilder;
     private static String JOINSEPERATOR=" ";
@@ -154,19 +156,23 @@ public class WhiteblockProcessbuilder {
     public static WhiteblockMonitoringData getMonitoringData(WhiteBlockContext context,long timestampstart,long timestartend) throws IOException, InterruptedException, WhiteblockConnectionException {
         String jsonCustomer;
         Gson gson=new Gson();
-        jsonCustomer=sshCommand(context,Arrays.asList("wb", "get", "stats", "time",String.valueOf(timestartend),String.valueOf(timestartend)));
+        //jsonCustomer=sshCommand(context,Arrays.asList("wb", "get", "stats", "time",String.valueOf(timestartend),String.valueOf(timestartend)));
+        jsonCustomer=sshCommand(context,Arrays.asList("wb", "get", "stats", "all"));
+        if(jsonCustomer.contains(ERROR))
+            throw new WhiteblockConnectionException("MONITORING error :" +jsonCustomer);
+
         return gson.fromJson(jsonCustomer, WhiteblockMonitoringData.class);
 
     }
 
     public static String enableNetConfigModule(WhiteBlockContext context) throws IOException, InterruptedException, WhiteblockConnectionException {
         String output;
-        output=sshCommand(context,Arrays.asList("wb", "netconfig", "on"));
+        output=sshCommand(context,Arrays.asList("wb", "netconfig",  "all"));
         return output;
     }
     public  static String disableNetConfigModule(WhiteBlockContext context) throws IOException, InterruptedException, WhiteblockConnectionException {
         String output;
-        output=sshCommand(context,Arrays.asList("wb", "netconfig", "off"));
+        output=sshCommand(context,Arrays.asList("wb", "netconfig", "clear"));
         return output;
     }
     public static String defineLossOnNodes(WhiteBlockContext context, Optional<Integer> nodeid, double loss) throws IOException, InterruptedException, WhiteblockConnectionException {

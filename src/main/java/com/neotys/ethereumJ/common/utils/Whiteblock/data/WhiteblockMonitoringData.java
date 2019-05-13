@@ -79,7 +79,7 @@ public class WhiteblockMonitoringData extends  WhiteblockDataModel{
         List<WhiteblockData> data=new ArrayList<>();
         Field[] listofField=this.getClass().getDeclaredFields();
         Arrays.stream(listofField).forEach(f->{
-            if(f.getDeclaringClass().equals(WhiteblockStat.class))
+            if(f.getType().equals(WhiteblockStat.class))
             {
                 try {
                     WhiteblockStat stat= (WhiteblockStat) f.get(this);

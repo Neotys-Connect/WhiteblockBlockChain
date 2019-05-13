@@ -3,6 +3,7 @@ package com.neotys.ethereumJ.CustomActions;
 import com.google.common.base.Optional;
 import com.google.common.base.Splitter;
 import com.neotys.action.result.ResultFactory;
+import com.neotys.ascode.swagger.client.ApiException;
 import com.neotys.ethereumJ.common.utils.Whiteblock.Constants;
 import com.neotys.ethereumJ.common.utils.Whiteblock.management.WhiteBlockConstants;
 import com.neotys.ethereumJ.common.utils.Whiteblock.management.WhiteBlockContext;
@@ -30,6 +31,7 @@ import java.util.Map;
 import static com.google.common.base.Strings.emptyToNull;
 import static com.neotys.action.argument.Arguments.getArgumentLogString;
 import static com.neotys.action.argument.Arguments.parseArguments;
+import static com.neotys.ethereumJ.common.utils.Whiteblock.Constants.WHITEBLOCK_MONITORING_PACE;
 
 public class GetMonitoringDataActionEngine implements ActionEngine {
     private static final String STATUS_CODE_INVALID_PARAMETER = "NL-WB_MONITORING_ACTION-01";
@@ -70,9 +72,13 @@ public class GetMonitoringDataActionEngine implements ActionEngine {
 
         try {
 
+            sampleResult.sampleStart();
             // Check last execution time (and fail if called less than 45 seconds ago).
-            final Object whiteblockLastExecutionTime = context.getCurrentVirtualUser().get(Constants.WHITEBLOCK_LAST_EXECUTION_TIME);
+            Object whiteblockLastExecutionTime = context.getCurrentVirtualUser().get(Constants.WHITEBLOCK_LAST_EXECUTION_TIME);
             final Long whiteblockCurrentExecution = System.currentTimeMillis();
+
+            if(whiteblockLastExecutionTime==null)
+                whiteblockLastExecutionTime=Long.valueOf(0);
 
             if(!(whiteblockLastExecutionTime instanceof Long)){
                 requestBuilder.append("(first execution).\n");
@@ -82,19 +88,23 @@ public class GetMonitoringDataActionEngine implements ActionEngine {
                 requestBuilder.append("(last execution was " + ((whiteblockCurrentExecution - (Long)whiteblockLastExecutionTime)/1000) + " seconds ago)\n");
             }
 
-            // Retrieve DataExchangeAPIClient from Context, or instantiate new one
-            DataExchangeAPIClient dataExchangeAPIClient = getDataExchangeAPIClient(context, requestBuilder, dataExchangeApiUrl, dataExchangeApiKey);
+            if((Long)whiteblockLastExecutionTime==0)
+                whiteblockLastExecutionTime=whiteblockCurrentExecution- Constants.WHITEBLOCK_MAX_DELAY*1000;
 
-
+            
             WhiteBlockContext whiteBlockContext=new WhiteBlockContext(whiteBlocMasterHost, WhiteBlockConstants.PASSWORD,tracemode,context);
+            WhiteblockDataToNeoLoad whiteblockDataToNeoLoad=new WhiteblockDataToNeoLoad(whiteBlockContext,(long)whiteblockLastExecutionTime,(long)whiteblockCurrentExecution,Optional.absent());
+            whiteblockDataToNeoLoad.sendToNeoLoadWeb();
 
-            WhiteblockDataToNeoLoad whiteblockDataToNeoLoad=new WhiteblockDataToNeoLoad(whiteBlockContext,(long)whiteblockLastExecutionTime,(long)whiteblockCurrentExecution,dataExchangeAPIClient);
-            whiteblockDataToNeoLoad.getMonitoringData();
             context.getCurrentVirtualUser().put(Constants.WHITEBLOCK_LAST_EXECUTION_TIME, whiteblockCurrentExecution);
 
 
             sampleResult.sampleEnd();
-        } catch (Exception e) {
+        } catch (ApiException e) {
+            return ResultFactory.newErrorResult(context, STATUS_CODE_TECHNICAL_ERROR, "API ERROR  : "+e.getCode() + " body : "+ e.getResponseBody(), e);
+        }
+
+        catch (Exception e) {
             return ResultFactory.newErrorResult(context, STATUS_CODE_TECHNICAL_ERROR, "Error encountered :", e);
         }
 

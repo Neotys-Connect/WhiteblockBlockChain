@@ -25,7 +25,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.concurrent.ExecutionException;
 
-import static org.web3j.protocol.admin.Admin.build;
+
 
 public class Web3JUtils {
 
@@ -33,64 +33,10 @@ public class Web3JUtils {
     private Web3JContext context;
 
 
-    //static final String PRIVATE_KEY = "0xa392604efc2fad9c0b3da43b5f698a2e3f270f170d859912be0d54742275c5f6";
-    //	static final String PUBLIC_KEY =  "0x506bc1dc099358e5137292f4efdd57e400f29ba5132aa5d12b18dac1c1f6aab" +
-    //					                  "a645c0b7b58158babbfa6c6cd5a48aa7340a8749176b120e8516216787a13dc76";
-    //	static final ECKeyPair KEY_PAIR = new ECKeyPair(Numeric.toBigInt(PRIVATE_KEY), Numeric.toBigInt(PUBLIC_KEY));
-//BigDecimal amountEther = BigDecimal.valueOf(0.123);
-//		BigInteger amountWei = Convert.toWei(amountEther, Convert.Unit.ETHER).toBigInteger();
-//
-//		ensureFunds(Alice.ADDRESS, amountWei);
-//
-//		BigInteger fromBalanceBefore = getBalanceWei(Alice.ADDRESS);
-//		BigInteger toBalanceBefore = getBalanceWei(Bob.ADDRESS);
-//
-//		// this is the method to test here
-//		TransactionReceipt txReceipt = Transfer.sendFunds(
-//				web3j, Alice.CREDENTIALS, Bob.ADDRESS, amountEther, Convert.Unit.ETHER);
-//
-//		BigInteger txFees = txReceipt.getGasUsed().multiply(Web3jConstants.GAS_PRICE);
-//
-//
-
-    //String from = Alice.ADDRESS;
-    //		Credentials credentials = Alice.CREDENTIALS;
-    //		BigInteger nonce = getNonce(from);
-    //		String to = Bob.ADDRESS;
-    //		BigInteger amountWei = Convert.toWei("0.789", Convert.Unit.ETHER).toBigInteger();
-    //
-    //		// create raw transaction
-    //		RawTransaction txRaw = RawTransaction
-    //				.createEtherTransaction(
-    //						nonce,
-    //						Web3jConstants.GAS_PRICE,
-    //						Web3jConstants.GAS_LIMIT_ETHER_TX,
-    //						to,
-    //						amountWei);
-    //
-    //		// sign raw transaction using the sender's credentials
-    //		byte[] txSignedBytes = TransactionEncoder.signMessage(txRaw, credentials);
-    //		String txSigned = Numeric.toHexString(txSignedBytes);
-    //
-    //		BigInteger txFeeEstimate = Web3jConstants.GAS_LIMIT_ETHER_TX.multiply(Web3jConstants.GAS_PRICE);
-    //
-    //		// make sure sender has sufficient funds
-    //		ensureFunds(Alice.ADDRESS, amountWei.add(txFeeEstimate));
-    //
-    //		// record balanances before the ether transfer
-    //		BigInteger fromBalanceBefore = getBalanceWei(Alice.ADDRESS);
-    //		BigInteger toBalanceBefore = getBalanceWei(Bob.ADDRESS);
-    //
-    //		// send the signed transaction to the ethereum client
-    //		EthSendTransaction ethSendTx = web3j
-    //				.ethSendRawTransaction(txSigned)
-    //				.sendAsync()
-    //				.get();
-
     public Web3JUtils(Web3JContext context) {
 
-        web3J   = build(new HttpService("http://"+context.getIpOftheNode()+":"+ context.getPort()));
-
+        this.web3J   = Admin.build(new HttpService("http://"+context.getIpOftheNode()+":"+ context.getPort()));
+        this.context=context;
     }
 
     /**
@@ -195,20 +141,19 @@ public class Web3JUtils {
         return amountWei;
     }
     public String transfertFunds(String to,String amoutwei) throws Exception {
-        Credentials credentials= Credentials.create(new ECKeyPair(Numeric.toBigInt(this.context.getPrivateKey().get()),Numeric.toBigInt(this.context.getPublicKey().get())));
+        Credentials credentials = Credentials.create(this.context.getPrivateKey().get());
         TransactionReceipt txReceipt = Transfer.sendFunds(web3J,credentials,to,convertWeiStringTOBigInteger(amoutwei), Convert.Unit.ETHER).send();
         logInfo("transfertfunds receipt :" + txReceipt);
         return txReceipt.getTransactionHash();
     }
 
     public String createEtherSignedTransaction(String to, String amoutwei) throws ExecutionException, InterruptedException, IOException {
-        PersonalUnlockAccount personalUnlockAccount = web3J.personalUnlockAccount(this.context.getAccountAdress(), this.context.getWalletpassord()).send();
-        if (personalUnlockAccount.accountUnlocked()) {
+        if (unlockAccount()){
 
             // get the next available nonce
             BigInteger nonce = getNonce(web3J, this.context.getAccountAdress());
             logInfo("nonce :" + nonce.toString());
-            Credentials credentials = Credentials.create(new ECKeyPair(Numeric.toBigInt(this.context.getPrivateKey().get()), Numeric.toBigInt(this.context.getPublicKey().get())));
+            Credentials credentials = Credentials.create(this.context.getPrivateKey().get());
             //--get gas price
             BigInteger gasprice = web3J.ethGasPrice().send().getGasPrice();
             logInfo("Gas Price :" + gasprice.toString());
@@ -234,13 +179,12 @@ public class Web3JUtils {
         } else return null;
     }
     public String createSignedContractTransaction(String contradtadress, String amoutwei) throws ExecutionException, InterruptedException, IOException {
-        PersonalUnlockAccount personalUnlockAccount = web3J.personalUnlockAccount(this.context.getAccountAdress(), this.context.getWalletpassord()).send();
-        if (personalUnlockAccount.accountUnlocked()) {
+        if (unlockAccount()){
 
             // get the next available nonce
             BigInteger nonce = getNonce(web3J, this.context.getAccountAdress());
             logInfo("nonce :" + nonce.toString());
-            Credentials credentials = Credentials.create(new ECKeyPair(Numeric.toBigInt(this.context.getPrivateKey().get()), Numeric.toBigInt(this.context.getPublicKey().get())));
+            Credentials credentials = Credentials.create(this.context.getPrivateKey().get());
             //--get gas price
             BigInteger gasprice = web3J.ethGasPrice().send().getGasPrice();
             logInfo("Gas Price :" + gasprice.toString());
@@ -267,8 +211,7 @@ public class Web3JUtils {
     }
 
     public String createContractTransaction(String contractadress, String amountWei) throws ExecutionException, InterruptedException, IOException {
-        PersonalUnlockAccount personalUnlockAccount = web3J.personalUnlockAccount(context.getAccountAdress(), context.getWalletpassord()).send();
-        if (personalUnlockAccount.accountUnlocked()) {
+         if (unlockAccount()) {
 
             // get the next available nonce
             BigInteger nonce = getNonce(web3J, context.getAccountAdress());
@@ -297,9 +240,16 @@ public class Web3JUtils {
             return null;
     }
 
-    public String createEtherTransaction( String to, String amountWei) throws IOException, ExecutionException, InterruptedException {
+    public Boolean unlockAccount() throws IOException {
         PersonalUnlockAccount personalUnlockAccount = web3J.personalUnlockAccount(context.getAccountAdress(), context.getWalletpassord()).send();
-        if (personalUnlockAccount.accountUnlocked()) {
+        if(personalUnlockAccount.accountUnlocked()==null)
+            logInfo(personalUnlockAccount.getError().getMessage());
+        return personalUnlockAccount.accountUnlocked() != null && personalUnlockAccount.accountUnlocked();
+    }
+
+    public String createEtherTransaction( String to, String amountWei) throws IOException, ExecutionException, InterruptedException {
+        logInfo("adress :"+context.getAccountAdress()+" pawsd:"+ context.getWalletpassord() + " ip "+context.getIpOftheNode()+ " publickey " + context.getPublicKey()+ " private "+context.getPrivateKey());
+        if (unlockAccount()) {
 
             // get the next available nonce
             BigInteger nonce = getNonce(web3J, context.getAccountAdress());

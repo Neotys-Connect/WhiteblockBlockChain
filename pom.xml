@@ -37,6 +37,13 @@
                </exclusion>
            </exclusions>
     </dependency>
+        <!-- https://mvnrepository.com/artifact/com.neotys.ascode/swagger-java-client -->
+        <dependency>
+            <groupId>com.neotys.ascode</groupId>
+            <artifactId>swagger-java-client</artifactId>
+            <version>1.0.5</version>
+        </dependency>
+
         <dependency>
             <groupId>com.fasterxml.jackson.dataformat</groupId>
             <artifactId>jackson-dataformat-xml</artifactId>
@@ -61,6 +68,12 @@
             <groupId>org.web3j</groupId>
             <artifactId>core</artifactId>
             <version>4.2.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.25</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
@@ -168,6 +181,7 @@
                                     <exclude>*:neotys-custom-action-util</exclude>
                                     <exclude>*:javax.ws.rs-api</exclude>
                                     <exclude>*:slf4j-api</exclude>
+                                    <exclide>*:guava</exclide>
                                 </excludes>
                             </artifactSet>
                         </configuration>

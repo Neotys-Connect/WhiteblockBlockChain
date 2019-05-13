@@ -1,7 +1,9 @@
 package com.neotys.ethereumJ.CustomActions;
 
+import com.google.common.base.Function;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
+import com.google.common.primitives.Ints;
 import com.neotys.action.result.ResultFactory;
 import com.neotys.ethereumJ.common.utils.Whiteblock.management.WhiteBlockConstants;
 import com.neotys.ethereumJ.common.utils.Whiteblock.management.WhiteBlockContext;
@@ -40,19 +42,20 @@ public class ApplyNetworkConstraintsActionEngine implements ActionEngine {
             return ResultFactory.newErrorResult(context, STATUS_CODE_INVALID_PARAMETER, "Could not parse arguments: ", iae);
         }
 
+        context.getLogger().debug("parseargs "+ parsedArgs.toString());
 
 
         final Logger logger = context.getLogger();
         if (logger.isDebugEnabled()) {
             logger.debug("Executing " + this.getClass().getName() + " with parameters: "
-                    + getArgumentLogString(parsedArgs, GetMonitoringDataOption.values()));
+                    + getArgumentLogString(parsedArgs, ApplyNetworkConstraintsOption.values()));
         }
 
         final String whiteBlocMasterHost = parsedArgs.get(ApplyNetworkConstraintsOption.WhiteBlocMasterHost.getName()).get();
         final String typeofconstraints=parsedArgs.get(ApplyNetworkConstraintsOption.TypeOfConstraint.getName()).get();
         final String valueofConstraint =parsedArgs.get(ApplyNetworkConstraintsOption.ConstraintsValue.getName()).get();
-        final Optional<String> nodenumber = parsedArgs.get(ApplyNetworkConstraintsOption.NodeNumber);
-        final Optional<String> unit = parsedArgs.get(ApplyNetworkConstraintsOption.ConstraintsUnit);
+        final Optional<String> nodenumber = parsedArgs.get(ApplyNetworkConstraintsOption.NodeNumber.getName());
+        final Optional<String> unit = parsedArgs.get(ApplyNetworkConstraintsOption.ConstraintsUnit.getName());
         final Optional<String> tracemode=parsedArgs.get((ApplyNetworkConstraintsOption.TraceMode.getName()));
 
 
@@ -126,8 +129,16 @@ public class ApplyNetworkConstraintsActionEngine implements ActionEngine {
     }
     private Optional<Integer> convert2OptionalInteger(Optional<String> mode)
     {
-        return mode.transform(Integer::parseInt);
+
+        return mode.transform(STR_TO_INT_FUNCTION).or(Optional.<Integer>absent());
      }
+    private static final Function<String, Optional<Integer>> STR_TO_INT_FUNCTION =
+            new Function<String, Optional<Integer>>() {
+                @Override
+                public Optional<Integer> apply(final String input) {
+                    return Optional.fromNullable(Ints.tryParse(input));
+                }
+            };
     @Override
     public void stopExecute() {
 

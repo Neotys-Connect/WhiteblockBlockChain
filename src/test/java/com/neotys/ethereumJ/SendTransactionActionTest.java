@@ -1,12 +1,23 @@
 package com.neotys.ethereumJ;
 
+import static com.neotys.ethereumJ.common.utils.Whiteblock.Constants.ERROR;
 import static org.junit.Assert.assertEquals;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.google.common.base.Function;
+import com.google.common.base.Optional;
+import com.google.common.primitives.Ints;
 import com.google.gson.Gson;
 import com.neotys.ethereumJ.CustomActions.SendTransactionAction;
 import com.neotys.ethereumJ.common.utils.Whiteblock.data.WhiteblockAccountList;
+import com.neotys.ethereumJ.common.utils.Whiteblock.data.WhiteblockMonitoringData;
+import com.neotys.ethereumJ.common.utils.Whiteblock.management.WhiteblockConnectionException;
+import com.neotys.ethereumJ.common.utils.Whiteblock.monitoring.WhiteblockData;
 import org.junit.Test;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class SendTransactionActionTest {
 	@Test
@@ -15,7 +26,51 @@ public class SendTransactionActionTest {
 		assertEquals("SendTransaction", action.getType());
 	}
 
-	String payload="[\n" +
+	String monitoringpayload = "{\n" +
+			"  \"blockTime\": {\n" +
+			"    \"max\": 0,\n" +
+			"    \"mean\": 0,\n" +
+			"    \"standardDeviation\": 0\n" +
+			"  },\n" +
+			"  \"blocks\": 1,\n" +
+			"  \"difficulty\": {\n" +
+			"    \"max\": 131072,\n" +
+			"    \"mean\": 131072,\n" +
+			"    \"standardDeviation\": 0\n" +
+			"  },\n" +
+			"  \"gasLimit\": {\n" +
+			"    \"max\": 4003905,\n" +
+			"    \"mean\": 4003905,\n" +
+			"    \"standardDeviation\": 0\n" +
+			"  },\n" +
+			"  \"gasUsed\": {\n" +
+			"    \"max\": 0,\n" +
+			"    \"mean\": 0,\n" +
+			"    \"standardDeviation\": 0\n" +
+			"  },\n" +
+			"  \"totalDifficulty\": {\n" +
+			"    \"max\": 231072,\n" +
+			"    \"mean\": 231072,\n" +
+			"    \"standardDeviation\": 0\n" +
+			"  },\n" +
+			"  \"tps\": {\n" +
+			"    \"max\": 0,\n" +
+			"    \"mean\": 0,\n" +
+			"    \"standardDeviation\": 0\n" +
+			"  },\n" +
+			"  \"transactionPerBlock\": {\n" +
+			"    \"max\": 0,\n" +
+			"    \"mean\": 0,\n" +
+			"    \"standardDeviation\": 0\n" +
+			"  },\n" +
+			"  \"uncleCount\": {\n" +
+			"    \"max\": 0,\n" +
+			"    \"mean\": 0,\n" +
+			"    \"standardDeviation\": 0\n" +
+			"  }\n" +
+			"}";
+
+	String payload = "[\n" +
 			"  {\n" +
 			"    \"account\": \"0x059be7a77fa9bd2d6f38c3c2bc19eb7a163eeb4e\",\n" +
 			"    \"balance\": \"100000000000000000000\",\n" +
@@ -41,10 +96,54 @@ public class SendTransactionActionTest {
 
 	@Test
 	public void testobjectconversion() throws JsonProcessingException {
-		Gson gson=new Gson();
-		String jsonCustomer="{ \"accountList\":"+payload+"}";
-		WhiteblockAccountList whiteblockAccountList= gson.fromJson(jsonCustomer, WhiteblockAccountList.class);
+		Gson gson = new Gson();
+		String jsonCustomer = "{ \"accountList\":" + payload + "}";
+		WhiteblockAccountList whiteblockAccountList = gson.fromJson(jsonCustomer, WhiteblockAccountList.class);
 
 		System.out.println(whiteblockAccountList.generateOutPut());
 	}
+
+	@Test
+	public void testoptionnal() {
+		final Optional<Integer> valid = convert2OptionalInteger(Optional.of("42"));
+		System.out.println(valid); // Optional.of(42)
+
+		final Optional<Integer> invalid = convert2OptionalInteger(Optional.of("Toto"));
+		System.out.println(invalid); // Optional.absent()
+		final Optional<Integer> absent = convert2OptionalInteger(Optional.<String>absent());
+		System.out.println(absent); // Optional.absent()
+
+	}
+
+	@Test
+	public void testmonitoringdata()
+	{
+		String jsonCustomer;
+		Gson gson=new Gson();
+		//jsonCustomer=sshCommand(context,Arrays.asList("wb", "get", "stats", "time",String.valueOf(timestartend),String.valueOf(timestartend)));
+
+		WhiteblockMonitoringData data= gson.fromJson(monitoringpayload, WhiteblockMonitoringData.class);
+		List<WhiteblockData> listdata=data.getWhiteblockDataTONL();
+		System.out.println(listdata.stream().map(d->{
+			StringBuilder str =new StringBuilder();
+			str.append("metric :"+ d.getMetricName());
+			str.append("time :"+d.getTime());
+			//  str.append("unit :"+d.getUnit());
+			return str.toString();
+		}).collect(Collectors.joining("\t")));
+
+	}
+
+	private Optional<Integer> convert2OptionalInteger(Optional<String> mode)
+	{
+
+		return mode.transform(STR_TO_INT_FUNCTION).or(Optional.<Integer>absent());
+	}
+	private static final Function<String, Optional<Integer>> STR_TO_INT_FUNCTION =
+			new Function<String, Optional<Integer>>() {
+				@Override
+				public Optional<Integer> apply(final String input) {
+					return Optional.fromNullable(Ints.tryParse(input));
+				}
+			};
 }

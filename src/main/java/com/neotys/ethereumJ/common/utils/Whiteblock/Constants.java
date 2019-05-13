@@ -13,9 +13,10 @@ public class Constants {
     /*** NeoLoad Current Virtual user context (Keep object in cache cross iterations) ***/
     public static final String NL_DATA_EXCHANGE_API_CLIENT = "NLDataExchangeAPIClient";
 	public static final String WHITEBLOCK_LAST_EXECUTION_TIME = "WhiteblockLastExecutionTime";
-
+    public static final long WHITEBLOCK_MONITORING_PACE=5000;
 	public static final int WHITEBLOCK_MAX_DELAY=2;
-	public static final String WHITEBLOCK_DEFAULT_PASSWORD="second";
+	public static final String WHITEBLOCK_DEFAULT_PASSWORD="password";
 	public static final String WHITEBLOCK_RPC_PORT="8545";
-
+    public static final String NLWEB_VERSION="v1";
+    public static final String ERROR="Error:";
 }
