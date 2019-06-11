@@ -157,7 +157,7 @@ public class WhiteblockProcessbuilder {
         String jsonCustomer;
         Gson gson=new Gson();
         //jsonCustomer=sshCommand(context,Arrays.asList("wb", "get", "stats", "time",String.valueOf(timestartend),String.valueOf(timestartend)));
-        jsonCustomer=sshCommand(context,Arrays.asList("wb", "get", "stats", "all"));
+        jsonCustomer=sshCommand(context,Arrays.asList("wb", "get", "stats", "past","5"));
         if(jsonCustomer.contains(ERROR))
             throw new WhiteblockConnectionException("MONITORING error :" +jsonCustomer);
 

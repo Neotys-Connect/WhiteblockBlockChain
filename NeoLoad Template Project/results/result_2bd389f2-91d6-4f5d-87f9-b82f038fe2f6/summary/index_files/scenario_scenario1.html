@@ -1,0 +1,245 @@
+<html xmlns:fo="http://www.w3.org/1999/XSL/Format">
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Rapport de test de performance</title>
+<link href="style.css" rel="stylesheet" type="text/css">
+</head>
+<body class="scenario_details_template">
+<div id="leftnavigation">
+<div class="divHeader">Rapport de Test NeoLoad</div>
+<div class="menu_wrapper">
+<div class="item">
+<a href="./summary.html">Synth&egrave;se</a>
+</div>
+<div class="subitem">
+<a href="./summary.html#report.resultssummary">Synth&egrave;se des R&eacute;sultats</a>
+</div>
+<div class="subitem">
+<a href="./summary.html#report.statisticssummary">Synth&egrave;se des Statistiques</a>
+</div>
+<div class="subitem">
+<a href="./summary.html#report.hotspots">Points chauds</a>
+</div>
+<div class="subitem">
+<a href="./summary.html#report.errors">Erreurs</a>
+</div>
+<div class="subitem">
+<a href="./summary.html#report.alerts">Alertes</a>
+</div>
+<div class="subitem">
+<a href="./summary.html#report.summary.all">Statistiques g&eacute;n&eacute;rales</a>
+</div>
+<div class="subitem">
+<a href="./summary.html#report.summary.transactions">Statistiques des transactions</a>
+</div>
+<div class="item">
+<a href="./settings.html">Contexte d'ex&eacute;cution</a>
+</div>
+<div class="item">
+<a href="./populations.html">Populations</a>
+</div>
+<div class="item">
+<a href="./virtual-users.html">Parcours Utilisateur</a>
+</div>
+<div class="item">
+<a href="./transactions.html">Transactions</a>
+</div>
+<div class="item">
+<a href="./pages.html">Pages</a>
+</div>
+<div class="item">
+<a href="./medias.html">Contenus M&eacute;dias</a>
+</div>
+<div class="item">
+<a href="./pushmessages.html">Messages push</a>
+</div>
+<div class="item">
+<a href="./monitors.html">Moniteurs</a>
+</div>
+<div class="item">
+<a href="./alerts.html">Alertes</a>
+</div>
+<div class="item">
+<a href="./scenario_scenario1.html">Sc&eacute;nario</a>
+</div>
+<div class="title">Graphes principaux</div>
+<div class="item">
+<a href="./Graphes principaux_pages.average.html">Temps de r&eacute;ponse moyen (pages)</a>
+</div>
+<div class="item">
+<a href="./Graphes principaux_requests.average.html">Temps de r&eacute;ponse moyen (requ&ecirc;tes)</a>
+</div>
+<div class="item">
+<a href="./Graphes principaux_transactions.average.html">Temps de r&eacute;ponse moyen (Transactions)</a>
+</div>
+<div class="item">
+<a href="./Graphes principaux_hits.html">Requ&ecirc;tes par seconde</a>
+</div>
+<div class="item">
+<a href="./Graphes principaux_errors.html">Erreurs</a>
+</div>
+<div class="item">
+<a href="./Graphes principaux_throughput.html">D&eacute;bit</a>
+</div>
+<div class="item">
+<a href="./Graphes principaux_pages.average.vu.html">Temps de r&eacute;ponse moyen en fonction de la charge</a>
+</div>
+<div class="item">
+<a href="./Graphes principaux_alerts.html">Top 10 des premi&egrave;res alertes</a>
+</div>
+</div>
+<div style="float: right;">
+<img style="margin-top: 10px; margin-bottom: 0px; margin-right: 4px" src="./images/logo_neotys.png"></div>
+</div>
+<div id="content">
+<div class="divHeader">Sc&eacute;nario</div>
+<div style="width: 100%; height: 20px;" id="report.scenario.summary">
+<div style="float:left" class="h1" id="statistics_summary_title">Synth&egrave;se</div>
+</div>
+<div class="wrapper" align="center">
+<div align="center">
+<table class="simpleResultSummary_template">
+<tr>
+<td class="titleCell line2">Nom</td><td class="line2">16:36 - 10 mai 2019</td><td class="titleCell line2">Projet</td><td class="line2" width="35%">testwb</td>
+</tr>
+<tr>
+<td class="titleCell line2" nowrap rowspan="2">Description</td><td class="line2" rowspan="2" valign="top"></td><td class="titleCell line2">Sc&eacute;nario</td><td class="line2">scenario1</td>
+</tr>
+<tr>
+<td class="titleCell line2" rowspan="3">Variation de charge</td><td class="line2" rowspan="3" valign="top" width="55%">
+<ul class="valuesList" style="padding-left:0px">
+<li class="listItem">La population&nbsp;<strong>Management</strong>&nbsp;est constante&nbsp;
+            avec&nbsp;<strong>1</strong>&nbsp;utilisateurs
+                &nbsp;pour&nbsp;<strong>1</strong>&nbsp;iteration(s).
+        </li>
+<li class="listItem">La population&nbsp;<strong>SendTransactions</strong>&nbsp;est constante&nbsp;
+            avec&nbsp;<strong>3</strong>&nbsp;utilisateurs.
+        </li>
+<li class="listItem">La population&nbsp;<strong>Monitoring</strong>&nbsp;est constante&nbsp;
+            avec&nbsp;<strong>1</strong>&nbsp;utilisateurs.
+        </li>
+</ul>
+</td>
+</tr>
+<tr>
+<td class="titleCell line2">Status</td><td class="line2"><img src="images/status_PASS.png" alt="images/status_PASS.png" style="vertical-align: middle;">  Succ&egrave;s</td>
+</tr>
+<tr>
+<td class="titleCell line2">Date de d&eacute;but</td><td class="line2">10 mai 2019 16:40:01</td>
+</tr>
+<tr>
+<td class="titleCell line2">Date de fin</td><td class="line2">10 mai 2019 16:52:02</td><td class="titleCell line2" rowspan="2">Politique d'arr&ecirc;t</td><td class="line2" rowspan="2" valign="top" width="55%">
+<ul class="valuesList" style="padding-left:0px">
+<li class="listItem">Population&nbsp;<strong>Management</strong>: imm&eacute;diate.
+        </li>
+<li class="listItem">Population&nbsp;<strong>SendTransactions</strong>: imm&eacute;diate.
+        </li>
+<li class="listItem">Population&nbsp;<strong>Monitoring</strong>: imm&eacute;diate.
+        </li>
+</ul>
+</td>
+</tr>
+<tr>
+<td class="titleCell line2">Dur&eacute;e</td><td class="line2">00:12:01</td>
+</tr>
+<tr>
+<td class="titleCell line2">Cause de l'arr&ecirc;t</td><td class="line2">Politique d'ex&eacute;cution</td><td class="titleCell line2">Filtres</td><td class="line2">
+<div>Aucun</div>
+</td>
+</tr>
+<tr>
+<td class="titleCell line2">Injecteurs</td><td class="line2">wb-neotys.boxes.whiteblock.io:7100</td><td class="titleCell line2" nowrap>Debug</td><td class="line2">D&eacute;sactiv&eacute;</td>
+</tr>
+</table>
+</div>
+</div>
+<div style="width: 100%; height: 20px;" id="report.scenario.populations">
+<div style="float:left" class="h1" id="statistics_summary_title">Populations</div>
+</div>
+<div class="wrapper" align="center">
+<p class="smalltitle" id="population_Management">Management</p>
+<div>
+<div align="center">
+<table class="population_splits_table_template">
+<tr>
+<th>Parcours Utilisateur</th><th>Facteur</th><th>Emulation WAN</th><th>Qualit&eacute; du signal</th><th>Bande passante &uarr;</th><th>Latence &uarr;</th><th>% Paquets perdus &uarr;</th><th>Bande passante &darr;</th><th>Latence &darr;</th><th>% Paquets perdus &darr;</th><th>Navigateur</th><th>Gestion des cookies</th><th>Connexions</th><th>Gestion du cache</th>
+</tr>
+<tr>
+<td class="line2">management</td><td class="line2">100.0%
+            </td><td class="line2">Illimit&eacute;e</td><td class="line2"></td><td class="line2">Illimit&eacute;e</td><td class="line2">0ms</td><td class="line2">0%</td><td class="line2">Illimit&eacute;e</td><td class="line2">0ms</td><td class="line2">0%</td><td class="line2">Navigateur enregistr&eacute;</td><td class="line2">Oui</td><td class="line2">6</td><td class="line2">Comme &agrave; l'enregistrement</td>
+</tr>
+</table>
+</div>
+</div>
+<p class="smalltitle" id="population_SendTransactions">SendTransactions</p>
+<div>
+<div align="center">
+<table class="population_splits_table_template">
+<tr>
+<th>Parcours Utilisateur</th><th>Facteur</th><th>Emulation WAN</th><th>Qualit&eacute; du signal</th><th>Bande passante &uarr;</th><th>Latence &uarr;</th><th>% Paquets perdus &uarr;</th><th>Bande passante &darr;</th><th>Latence &darr;</th><th>% Paquets perdus &darr;</th><th>Navigateur</th><th>Gestion des cookies</th><th>Connexions</th><th>Gestion du cache</th>
+</tr>
+<tr>
+<td class="line2">sendtransaction</td><td class="line2">100.0%
+            </td><td class="line2">Illimit&eacute;e</td><td class="line2"></td><td class="line2">Illimit&eacute;e</td><td class="line2">0ms</td><td class="line2">0%</td><td class="line2">Illimit&eacute;e</td><td class="line2">0ms</td><td class="line2">0%</td><td class="line2">Navigateur enregistr&eacute;</td><td class="line2">Oui</td><td class="line2">6</td><td class="line2">Comme &agrave; l'enregistrement</td>
+</tr>
+</table>
+</div>
+</div>
+<p class="smalltitle" id="population_Monitoring">Monitoring</p>
+<div>
+<div align="center">
+<table class="population_splits_table_template">
+<tr>
+<th>Parcours Utilisateur</th><th>Facteur</th><th>Emulation WAN</th><th>Qualit&eacute; du signal</th><th>Bande passante &uarr;</th><th>Latence &uarr;</th><th>% Paquets perdus &uarr;</th><th>Bande passante &darr;</th><th>Latence &darr;</th><th>% Paquets perdus &darr;</th><th>Navigateur</th><th>Gestion des cookies</th><th>Connexions</th><th>Gestion du cache</th>
+</tr>
+<tr>
+<td class="line2">Monitoring</td><td class="line2">100.0%
+            </td><td class="line2">Illimit&eacute;e</td><td class="line2"></td><td class="line2">Illimit&eacute;e</td><td class="line2">0ms</td><td class="line2">0%</td><td class="line2">Illimit&eacute;e</td><td class="line2">0ms</td><td class="line2">0%</td><td class="line2">Navigateur enregistr&eacute;</td><td class="line2">Oui</td><td class="line2">6</td><td class="line2">Comme &agrave; l'enregistrement</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div style="width: 100%; height: 20px;" id="report.scenario.virtual.user.profiles">
+<div style="float:left" class="h1" id="statistics_summary_title">Parcours Utilisateur</div>
+</div>
+<div class="wrapper" align="center">
+<table class="scenario_details_template1">
+<tr>
+<th nowrap width="15%">Nom</th><th nowrap width="45%">Description</th><th width="10%">En cas d'assertion &eacute;chou&eacute;e</th><th width="10%">En cas d'erreurs</th><th width="10%">Temps d'attente</th><th width="10%">Variation</th>
+</tr>
+<tr>
+<td class="line2">management</td><td class="line2"></td><td class="line2">Ne rien faire</td><td class="line2">Ne rien faire</td><td class="line2">D&eacute;fini par les pages</td><td class="line2">
+                        0%
+                    </td>
+</tr>
+<tr>
+<td class="line1">sendtransaction</td><td class="line1"></td><td class="line1">Ne rien faire</td><td class="line1">Ne rien faire</td><td class="line1">D&eacute;fini par les pages</td><td class="line1">
+                        0%
+                    </td>
+</tr>
+<tr>
+<td class="line2">Monitoring</td><td class="line2"></td><td class="line2">Ne rien faire</td><td class="line2">Ne rien faire</td><td class="line2">D&eacute;fini par les pages</td><td class="line2">
+                        0%
+                    </td>
+</tr>
+</table>
+</div>
+<div style="width: 100%; height: 20px;" id="report.scenario.rendezvous">
+<div style="float:left" class="h1" id="statistics_summary_title">Rendez-vous</div>
+</div>
+<div class="wrapper" align="center">
+<div align="center">
+<table class="rendezvous_policies_table_template">
+<tr>
+<th>Activ&eacute;</th><th>Nom</th><th>Politique</th><th>Valeur</th><th>Timeout</th>
+</tr>
+<tr>
+<td colspan="5" class="line1">Liste vide</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</body>
+</html>

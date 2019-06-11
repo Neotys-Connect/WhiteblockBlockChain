@@ -44,8 +44,6 @@ public class SendContractTransactionActionEngine implements ActionEngine {
         final String from = parsedArgs.get(SendContractTransactionOption.from.getName()).get();
         final String contractadress=parsedArgs.get(SendContractTransactionOption.contractadress.getName()).get();
         final String amount=parsedArgs.get(SendContractTransactionOption.amount.getName()).get();
-        final Optional<String> publickey=parsedArgs.get(SendContractTransactionOption.publickey.getName());
-        final Optional<String> privatekey=parsedArgs.get(SendContractTransactionOption.privatekey.getName());
         final Optional<String> traceMode=parsedArgs.get(SendContractTransactionOption.TraceMode.getName());
 
         if(!isaDouble(amount))
@@ -54,7 +52,7 @@ public class SendContractTransactionActionEngine implements ActionEngine {
         sampleResult.sampleStart();
         try
         {
-            Web3UtilsWhiteblock whiteblock=new Web3UtilsWhiteblock(whiteBlocMasterHost,from,privatekey,publickey,traceMode,context);
+            Web3UtilsWhiteblock whiteblock=new Web3UtilsWhiteblock(whiteBlocMasterHost,from,Optional.absent(),Optional.absent(),traceMode,context);
             String hash=whiteblock.createContractTransaction(contractadress,amount);
 
             appendLineToStringBuilder(responseBuilder, "Transaction sent : hash of the transaction "+hash);

@@ -10,3 +10,6 @@ com.neotys.ethereumJ.CustomActions.GetContractsListAction
 com.neotys.ethereumJ.CustomActions.SendSignedTransactionAction
 com.neotys.ethereumJ.CustomActions.SendFundsAction
 com.neotys.ethereumJ.CustomActions.SendContractTransactionAction
+com.neotys.ethereumJ.CustomActions.GetBalanceAction
+com.neotys.ethereumJ.CustomActions.TransferERC20TokenAction
+com.neotys.ethereumJ.CustomActions.SafeTransfertERC721TokenAction
