@@ -24,7 +24,7 @@ pipeline {
             sh "sed -i 's/VERSION_TO_REPLACE/${VERSION}/'  $WORKSPACE/docker/Dockerfile"
 
             withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'TOKEN', usernameVariable: 'USER')]) {
-                sh "docker build -t ${DOCKERHUB}:${VERSION} $WORKSPACEE/docker//"
+                sh "docker build -t ${DOCKERHUB}:${VERSION} $WORKSPACE/docker/"
                 sh "docker push ${DOCKERHUB}:${VERSION}"
             }
         }
