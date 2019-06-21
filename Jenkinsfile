@@ -9,8 +9,6 @@ pipeline {
     GROUP = "NeotysLab"
     APP_NAME="WhiteblockBlockChain"
     DOCKERHUB="hrexed/whitebloclg"
-    GIT=
-
   }
 
   stages {
