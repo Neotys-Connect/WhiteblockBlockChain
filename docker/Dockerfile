@@ -26,4 +26,4 @@ RUN export PATH=$PATH:/neoload/wb
 EXPOSE 7100
 
 
-ENTRYPOINT ["/neoload/bin/bin/LoadGeneratorAgent -d"]
+ENTRYPOINT ["/neoload/bin/LoadGeneratorAgent -d"]
