@@ -101,30 +101,31 @@ public class WhiteblockProcessbuilder {
             throw new WhiteblockConnectionException("SSH issue to master "+ host+" Exeption :"+e.getMessage());
          }
     }
-    public static String sendCommand(List<String> wbcommand) throws IOException, InterruptedException {
+    public static String sendCommand(WhiteBlockContext context,List<String> wbcommand) throws IOException, InterruptedException {
         processBuilder=new ProcessBuilder();
         StringBuilder output=new StringBuilder();
 
         processBuilder.command(wbcommand);
-
+        traceInfo(context,"sendcommand - send  : "+wbcommand);
         Process process=processBuilder.start();
         BufferedReader reader =
                 new BufferedReader(new InputStreamReader(process.getInputStream()));
 
         String line;
         while ((line = reader.readLine()) != null) {
+            traceInfo(context,"sendcommand - received : "+line);
             output.append(line);
         }
 
         int exitCode = process.waitFor();
-        System.out.println("\nExited with error code : " + exitCode);
+        traceInfo(context,"Exited with error code : " + exitCode);
 
         return output.toString();
     }
     public static WhiteblockAccountList getAccountLis( WhiteBlockContext context) throws IOException, InterruptedException, WhiteblockConnectionException {
         String jsonCustomer;
         Gson gson=new Gson();
-        jsonCustomer=sshCommand(context,Arrays.asList("wb", "get", "account", "info"));
+        jsonCustomer=sendCommand(context,Arrays.asList("wb", "get", "account", "info"));
         jsonCustomer="{ \"accountList\":"+jsonCustomer+"}";
         WhiteblockAccountList whiteblockAccountList= gson.fromJson(jsonCustomer, WhiteblockAccountList.class);
 
@@ -134,7 +135,7 @@ public class WhiteblockProcessbuilder {
     public static WhiteblockContractList getContractList(WhiteBlockContext context) throws IOException, InterruptedException, WhiteblockConnectionException {
         String jsonCustomer;
         Gson gson=new Gson();
-        jsonCustomer=sshCommand(context,Arrays.asList("wb", "get", "contracts"));
+        jsonCustomer=sendCommand(context,Arrays.asList("wb", "get", "contracts"));
         jsonCustomer="{ \"whiteblockContractList\":"+jsonCustomer+"}";
 
         return gson.fromJson(jsonCustomer, WhiteblockContractList.class);
@@ -145,7 +146,7 @@ public class WhiteblockProcessbuilder {
     public static WhiteblockNodeList getNodeLis(WhiteBlockContext context) throws IOException, InterruptedException, WhiteblockConnectionException {
         String jsonCustomer;
         Gson gson=new Gson();
-        jsonCustomer=sshCommand(context,Arrays.asList("wb", "get", "nodes", "info"));
+        jsonCustomer=sendCommand(context,Arrays.asList("wb", "get", "nodes", "info"));
         jsonCustomer="{ \"whiteblockNodeList\":"+jsonCustomer+"}";
 
         return gson.fromJson(jsonCustomer, WhiteblockNodeList.class);
@@ -157,7 +158,7 @@ public class WhiteblockProcessbuilder {
         String jsonCustomer;
         Gson gson=new Gson();
         //jsonCustomer=sshCommand(context,Arrays.asList("wb", "get", "stats", "time",String.valueOf(timestartend),String.valueOf(timestartend)));
-        jsonCustomer=sshCommand(context,Arrays.asList("wb", "get", "stats", "past","5"));
+        jsonCustomer=sendCommand(context,Arrays.asList("wb", "get", "stats", "past","5"));
         if(jsonCustomer.contains(ERROR))
             throw new WhiteblockConnectionException("MONITORING error :" +jsonCustomer);
 
@@ -167,53 +168,53 @@ public class WhiteblockProcessbuilder {
 
     public static String enableNetConfigModule(WhiteBlockContext context) throws IOException, InterruptedException, WhiteblockConnectionException {
         String output;
-        output=sshCommand(context,Arrays.asList("wb", "netconfig",  "all"));
+        output=sendCommand(context,Arrays.asList("wb", "netconfig",  "all"));
         return output;
     }
     public  static String disableNetConfigModule(WhiteBlockContext context) throws IOException, InterruptedException, WhiteblockConnectionException {
         String output;
-        output=sshCommand(context,Arrays.asList("wb", "netconfig", "clear"));
+        output=sendCommand(context,Arrays.asList("wb", "netconfig", "clear"));
         return output;
     }
     public static String defineLossOnNodes(WhiteBlockContext context, Optional<Integer> nodeid, double loss) throws IOException, InterruptedException, WhiteblockConnectionException {
         String output;
         if(nodeid.isPresent())
-            output=sshCommand(context,Arrays.asList("wb", "netconfig", "set", String.valueOf(nodeid.get()),"loss",String.valueOf(loss)));
+            output=sendCommand(context,Arrays.asList("wb", "netconfig", "set", String.valueOf(nodeid.get()),"loss",String.valueOf(loss)));
         else
-            output=sshCommand(context,Arrays.asList("wb", "netconfig","loss",String.valueOf(loss)));
+            output=sendCommand(context,Arrays.asList("wb", "netconfig","loss",String.valueOf(loss)));
         return output;
     }
 
     public static String defineDelayOnNodes(WhiteBlockContext context,Optional<Integer> nodeid,int delay) throws IOException, InterruptedException, WhiteblockConnectionException {
         String output;
         if(nodeid.isPresent())
-            output=sshCommand(context,Arrays.asList("wb", "netconfig", "set", String.valueOf(nodeid.get()),"-d",String.valueOf(delay)));
+            output=sendCommand(context,Arrays.asList("wb", "netconfig", "set", String.valueOf(nodeid.get()),"-d",String.valueOf(delay)));
         else
-            output=sshCommand(context,Arrays.asList("wb", "netconfig", "-d",String.valueOf(delay)));
+            output=sendCommand(context,Arrays.asList("wb", "netconfig", "-d",String.valueOf(delay)));
         return output;
     }
     public static String defineBwOnNodes(WhiteBlockContext context,Optional<Integer> nodeid,int bw,Optional<String> unit) throws IOException, InterruptedException, WhiteblockConnectionException {
         String output;
         if(nodeid.isPresent())
-            output=sshCommand(context,Arrays.asList("wb", "netconfig", "set", String.valueOf(nodeid.get()),"bw",String.valueOf(bw),unit.get()));
+            output=sendCommand(context,Arrays.asList("wb", "netconfig", "set", String.valueOf(nodeid.get()),"bw",String.valueOf(bw),unit.get()));
         else
-            output=sshCommand(context,Arrays.asList("wb", "netconfig", "bw",String.valueOf(bw),unit.get()));
+            output=sendCommand(context,Arrays.asList("wb", "netconfig", "bw",String.valueOf(bw),unit.get()));
         return output;
     }
 
     public static String minterStart(WhiteBlockContext context) throws IOException, InterruptedException, WhiteblockConnectionException {
         String output;
-        output=sshCommand(context,Arrays.asList("wb", "miner", "start"));
+        output=sendCommand(context,Arrays.asList("wb", "miner", "start"));
         return output;
     }
     public static String minterStop(WhiteBlockContext contextt) throws IOException, InterruptedException, WhiteblockConnectionException {
         String output;
-        output=sshCommand(contextt,Arrays.asList("wb", "miner", "stop"));
+        output=sendCommand(contextt,Arrays.asList("wb", "miner", "stop"));
         return output;
     }
     public static String buildEnvironment(WhiteBlockContext context,String blockchain , int numberofnodes) throws IOException, InterruptedException, WhiteblockConnectionException {
         String output;
-        output=sshCommand(context,Arrays.asList("wb", "build", "-b", blockchain,"-n",String.valueOf(numberofnodes),"-c","0","-m","0","-y"));
+        output=sendCommand(context,Arrays.asList("wb", "build", "-b", blockchain,"-n",String.valueOf(numberofnodes),"-c","0","-m","0","-y"));
         return output;
     }
 
