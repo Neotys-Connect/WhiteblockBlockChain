@@ -2,7 +2,7 @@ FROM anapsix/alpine-java as builder
 
 
 
-ARG BUILD_NL_VERSION=6.9.0
+ARG BUILD_NL_VERSION=VERSION_TO_REPLACE
 
 ADD https://www.neotys.com/redirect/redirect.php?product=neoload&target=direct-download&os=linux&archi=x64&version=$BUILD_NL_VERSION neoload.sh
 
