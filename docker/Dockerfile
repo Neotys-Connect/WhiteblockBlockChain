@@ -13,13 +13,13 @@ FROM alpine:3.7
 
 WORKDIR /neoload
 
-ENV user=neoload
-ENV group=neoload
+ENV user=root
+ENV group=root
 VOLUME /etc/secrets
 
 ADD https://storage.cloud.google.com/genesis-public/cli/qa/bin/linux/amd64/whiteblock wb
 
-RUN chown neoload:neoload /neoload/wb
+RUN chown root:root /neoload/wb
 RUN chmod 755 /neoload/wb
 RUN export PATH=$PATH:/neoload/wb
 
