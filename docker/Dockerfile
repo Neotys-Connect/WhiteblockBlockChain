@@ -6,12 +6,15 @@ ARG BUILD_NL_VERSION=VERSION_TO_REPLACE
 
 ADD https://www.neotys.com/redirect/redirect.php?product=neoload&target=direct-download&os=linux&archi=x64&version=$BUILD_NL_VERSION neoload.sh
 
+RUN ls -l
 RUN sh /neoload.sh -q -dir /neoload -Vsys.installationTypeId=Load Generator -Vsys.component.Common\$Boolean=true -Vsys.component.Load\ Generator$Boolean=true -Vsys.component.Monitor\ Agent$Boolean=false -Vsys.languageId=en -Vsys.programGroupDisabled$Boolean=true -Vsys.executeLauncherAction$Boolean=false -Vsys.installService$Boolean=true -Vsys.startOnBootUp$Boolean=true -Vsys.adminRights$Boolean=false
 
 
 FROM alpine:3.7
 
 WORKDIR /neoload
+
+RUN ls -l
 
 ENV user=root
 ENV group=root
