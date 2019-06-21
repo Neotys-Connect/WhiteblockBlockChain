@@ -11,7 +11,7 @@ RUN sh /neoload.sh -q -dir /neoload -Vsys.installationTypeId=Load Generator -Vsy
 
 FROM alpine:3.7
 
-WORDIR /neoload
+WORKDIR /neoload
 
 ENV user=neoload
 ENV group=neoload
