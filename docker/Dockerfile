@@ -18,7 +18,7 @@ ADD https://storage.cloud.google.com/genesis-public/cli/qa/bin/linux/amd64/white
 RUN ls -l /neoload
 RUN chown neoload /neoload/wb
 RUN chmod 755 /neoload/wb
-ENV  PATH="/neoload/wb:${PATH}"
+ENV  PATH "$PATH:/neoload/wb"
 
 USER neoload
 
