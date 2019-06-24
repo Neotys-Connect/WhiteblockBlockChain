@@ -19,6 +19,7 @@ RUN ls -l
 RUN chown neoload /neoload/wb
 RUN chmod 755 /neoload/wb
 RUN export PATH=$PATH:/neoload/wb
+RUN wb --help
 USER neoload
 
 
