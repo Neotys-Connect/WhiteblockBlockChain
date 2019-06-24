@@ -13,13 +13,14 @@ ENV group=0
 VOLUME /etc/secrets
 USER root
 
-ADD https://storage.cloud.google.com/genesis-public/cli/qa/bin/linux/amd64/whiteblock wb
+RUN mkdir bin
+ADD https://storage.cloud.google.com/genesis-public/cli/qa/bin/linux/amd64/whiteblock bin/wb
 
-RUN ls -l /neoload
-RUN chown neoload /neoload/wb
-RUN chmod 755 /neoload/wb
+RUN ls -l /neoload/bin
+RUN chown neoload /neoload/bin/wb
+RUN chmod 755 /neoload/bin/wb
 
 
 USER neoload
 
-ENV  PATH="$PATH:/neoload/wb"
+ENV  PATH="$PATH:/neoload/bin"
