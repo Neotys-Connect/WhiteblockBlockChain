@@ -14,7 +14,7 @@ VOLUME /etc/secrets
 USER root
 
 RUN mkdir bin
-ADD https://storage.cloud.google.com/genesis-public/cli/qa/bin/linux/amd64/whiteblock bin/wb
+ADD https://storage.googleapis.com/genesis-public/cli/qa/bin/linux/amd64/whiteblock bin/wb
 
 RUN ls -l /neoload/bin
 RUN chown neoload /neoload/bin/wb
