@@ -11,6 +11,8 @@ RUN ls -l
 ENV user=neoload
 ENV group=0
 VOLUME /etc/secrets
+VOLUME /home/master-secrets
+VOLUME /home/neoload/smart-contracts
 USER root
 
 RUN mkdir bin
