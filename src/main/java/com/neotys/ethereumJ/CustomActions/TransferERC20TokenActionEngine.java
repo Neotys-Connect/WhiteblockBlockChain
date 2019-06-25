@@ -46,13 +46,15 @@ public class TransferERC20TokenActionEngine implements ActionEngine {
         final String contractadress=parsedArgs.get(TransferERC20TokenOption.contractadress.getName()).get();
         final String amount=parsedArgs.get(SendContractTransactionOption.amount.getName()).get();
         final Optional<String> traceMode=parsedArgs.get(TransferERC20TokenOption.TraceMode.getName());
+        final Optional<String> publickey=parsedArgs.get(TransferERC20TokenOption.publickey.getName());
+        final Optional<String> privatekey=parsedArgs.get(TransferERC20TokenOption.privatekey.getName());
 
         if(!isaDouble(amount))
             return ResultFactory.newErrorResult(context, STATUS_CODE_INVALID_PARAMETER, "Amout needs to be double  :"+amount, null);
         sampleResult.sampleStart();
         try
         {
-            Web3UtilsWhiteblock whiteblock=new Web3UtilsWhiteblock(whiteBlocMasterHost,from,Optional.absent(),Optional.absent(),traceMode,context);
+            Web3UtilsWhiteblock whiteblock=new Web3UtilsWhiteblock(whiteBlocMasterHost,from,privatekey,publickey,traceMode,context);
             String hash=whiteblock.createERC20Transaction(contractadress,amount,to);
 
             appendLineToStringBuilder(responseBuilder, "Transaction sent : hash of the transaction "+hash);

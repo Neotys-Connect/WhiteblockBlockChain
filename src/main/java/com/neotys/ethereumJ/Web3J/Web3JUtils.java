@@ -274,6 +274,7 @@ public class Web3JUtils {
             ERC721 token = ERC721.load(contractadress, this.web3J, txManager,gasprice, blockGasLimit);
 
 
+
             TransactionReceipt receipt=token.safeTransferFrom(this.context.getAccountAdress(),to,BigInteger.valueOf((long)Long.parseLong(tokenid)),convertEtherStringTOBigInteger(value)).send();
              String transactionHash = receipt.getTransactionHash();
             if(transactionHash==null)

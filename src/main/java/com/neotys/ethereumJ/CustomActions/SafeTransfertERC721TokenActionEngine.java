@@ -47,6 +47,8 @@ public class SafeTransfertERC721TokenActionEngine implements ActionEngine {
         final String contractadress=parsedArgs.get(SafeTransfertERC721TokenOption.contractadress.getName()).get();
         final String amount=parsedArgs.get(SafeTransfertERC721TokenOption.amount.getName()).get();
         final String tokenid=parsedArgs.get(SafeTransfertERC721TokenOption.tokenid.getName()).get();
+        final Optional<String> publickey=parsedArgs.get(SafeTransfertERC721TokenOption.publickey.getName());
+        final Optional<String> privatekey=parsedArgs.get(SafeTransfertERC721TokenOption.privatekey.getName());
 
         final Optional<String> traceMode=parsedArgs.get(SafeTransfertERC721TokenOption.TraceMode.getName());
 
@@ -55,7 +57,7 @@ public class SafeTransfertERC721TokenActionEngine implements ActionEngine {
         sampleResult.sampleStart();
         try
         {
-            Web3UtilsWhiteblock whiteblock=new Web3UtilsWhiteblock(whiteBlocMasterHost,from,Optional.absent(),Optional.absent(),traceMode,context);
+            Web3UtilsWhiteblock whiteblock=new Web3UtilsWhiteblock(whiteBlocMasterHost,from,privatekey,publickey,traceMode,context);
             String hash=whiteblock.createERC721Transaction(tokenid,contractadress,amount,to);
 
             appendLineToStringBuilder(responseBuilder, "Transaction sent : hash of the transaction "+hash);

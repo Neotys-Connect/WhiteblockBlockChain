@@ -135,7 +135,7 @@ public class WhiteblockProcessbuilder {
     public static WhiteblockContractList getContractList(WhiteBlockContext context) throws IOException, InterruptedException, WhiteblockConnectionException {
         String jsonCustomer;
         Gson gson=new Gson();
-        jsonCustomer=sendCommand(context,Arrays.asList("wb", "get", "contracts"));
+        jsonCustomer=sendCommand(context,Arrays.asList("wb", "get", "contracts","list"));
         jsonCustomer="{ \"whiteblockContractList\":"+jsonCustomer+"}";
 
         return gson.fromJson(jsonCustomer, WhiteblockContractList.class);
