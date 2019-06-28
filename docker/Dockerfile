@@ -26,3 +26,5 @@ RUN chmod 755 /neoload/bin/wb
 USER neoload
 
 ENV  PATH="$PATH:/neoload/bin"
+
+CMD ["wb","sync"]
