@@ -5,7 +5,7 @@ pipeline {
         jdk 'jdk8'
     }
   environment {
-    VERSION="6.9.0"
+    VERSION="6.10.0"
     GROUP = "NeotysLab"
     APP_NAME="WhiteblockBlockChain"
     DOCKERHUB="hrexed/whitebloclg"
