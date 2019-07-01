@@ -181,7 +181,7 @@ public class WhiteblockProcessbuilder {
         if(nodeid.isPresent())
             output=sendCommand(context,Arrays.asList("wb", "netconfig", "set", String.valueOf(nodeid.get()),"loss",String.valueOf(loss)));
         else
-            output=sendCommand(context,Arrays.asList("wb", "netconfig","loss",String.valueOf(loss)));
+            output=sendCommand(context,Arrays.asList("wb", "netconfig","-l",String.valueOf(loss)));
         return output;
     }
 
@@ -198,7 +198,7 @@ public class WhiteblockProcessbuilder {
         if(nodeid.isPresent())
             output=sendCommand(context,Arrays.asList("wb", "netconfig", "set", String.valueOf(nodeid.get()),"bw",String.valueOf(bw),unit.get()));
         else
-            output=sendCommand(context,Arrays.asList("wb", "netconfig", "bw",String.valueOf(bw),unit.get()));
+            output=sendCommand(context,Arrays.asList("wb", "netconfig", "-b",String.valueOf(bw),unit.get()));
         return output;
     }
 
