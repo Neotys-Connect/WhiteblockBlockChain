@@ -1,5 +1,7 @@
 package com.neotys.ethereumJ.common.utils.Whiteblock.data;
 
+import java.util.HashMap;
+
 public class WhiteblockNode {
     // [
     //  {
@@ -39,15 +41,56 @@ public class WhiteblockNode {
 
     RessouceUse resourceUse;
     String name;
+    String image;
+    String protocol;
     String server;
     boolean up;
     String ip;
+    String id;
+    HashMap<String,String> portMappings;
 
-    public WhiteblockNode(RessouceUse resourceUse, String name, String server, boolean up,String ip) {
+    public WhiteblockNode(RessouceUse resourceUse, String name, String image, String protocol, String server, boolean up, String ip, String id, HashMap<String, String> portMappings) {
         this.resourceUse = resourceUse;
         this.name = name;
+        this.image = image;
+        this.protocol = protocol;
         this.server = server;
         this.up = up;
+        this.ip = ip;
+        this.id = id;
+        this.portMappings = portMappings;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getProtocol() {
+        return protocol;
+    }
+
+    public void setProtocol(String protocol) {
+        this.protocol = protocol;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public HashMap<String, String> getPortMappings() {
+        return portMappings;
+    }
+
+    public void setPortMappings(HashMap<String, String> portMappings) {
+        this.portMappings = portMappings;
     }
 
     public String getIp() {

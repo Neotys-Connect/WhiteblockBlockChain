@@ -39,7 +39,8 @@ public class SendSignedTransactionActionEngine implements ActionEngine {
             logger.debug("Executing " + this.getClass().getName() + " with parameters: "
                     + getArgumentLogString(parsedArgs, SendSignedTransactionOption.values()));
         }
-        final String whiteBlocMasterHost = parsedArgs.get(SendSignedTransactionOption.ipOfTheWhiteblockNode.getName()).get();
+        final String whiteBlocMasterHost = parsedArgs.get(SendSignedTransactionOption.WhiteBlocMasterHost.getName()).get();
+        final String whiteBlocMasterRpcPort = parsedArgs.get(SendSignedTransactionOption.WhiteBlocRpcPortofNode.getName()).get();
 
         final String from = parsedArgs.get(SendSignedTransactionOption.from.getName()).get();
         final String to=parsedArgs.get(SendSignedTransactionOption.to.getName()).get();
@@ -54,7 +55,7 @@ public class SendSignedTransactionActionEngine implements ActionEngine {
         sampleResult.sampleStart();
         try
         {
-            Web3UtilsWhiteblock whiteblock=new Web3UtilsWhiteblock(whiteBlocMasterHost,from,privatekey,publickey,traceMode,context);
+            Web3UtilsWhiteblock whiteblock=new Web3UtilsWhiteblock(whiteBlocMasterHost,whiteBlocMasterRpcPort,Optional.absent(),Optional.of(from),privatekey,publickey,traceMode,context);
             String hash=whiteblock.createEtherSignedTransaction(to,amount);
 
             appendLineToStringBuilder(responseBuilder, "Transaction sent : hash of the transaction "+hash);

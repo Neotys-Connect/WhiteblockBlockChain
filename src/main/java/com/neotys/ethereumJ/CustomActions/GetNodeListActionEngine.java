@@ -5,6 +5,7 @@ import com.neotys.action.result.ResultFactory;
 import com.neotys.ethereumJ.common.utils.Whiteblock.management.WhiteBlockConstants;
 import com.neotys.ethereumJ.common.utils.Whiteblock.management.WhiteBlockContext;
 import com.neotys.ethereumJ.common.utils.Whiteblock.management.WhiteblockProcessbuilder;
+import com.neotys.ethereumJ.common.utils.Whiteblock.rpc.WhiteblockHttpContext;
 import com.neotys.extensions.action.ActionParameter;
 import com.neotys.extensions.action.engine.ActionEngine;
 import com.neotys.extensions.action.engine.Context;
@@ -41,15 +42,18 @@ public class GetNodeListActionEngine implements ActionEngine {
             logger.debug("Executing " + this.getClass().getName() + " with parameters: "
                     + getArgumentLogString(parsedArgs, GetMonitoringDataOption.values()));
         }
-
         final String whiteBlocMasterHost = parsedArgs.get(GetNodesListOption.WhiteBlocMasterHost.getName()).get();
+        final String whiteBlockRpcPort=parsedArgs.get(GetNodesListOption.WhiteBlocRpcPort.getName()).get();
+        final String whiteBlockRpctoken=parsedArgs.get(GetNodesListOption.WhiteBlocRpctoken.getName()).get();
+        final Optional<String> proxyName=parsedArgs.get(GetNodesListOption.ProxyName.getName());
+
         final Optional<String> tracemode=parsedArgs.get((GetNodesListOption.TraceMode.getName()));
 
         try
         {
-            WhiteBlockContext whiteBlockContext=new WhiteBlockContext(whiteBlocMasterHost, WhiteBlockConstants.PASSWORD,tracemode,context);
-
-            String output= WhiteblockProcessbuilder.getNodeLis(whiteBlockContext).generateOutPut();
+            WhiteblockHttpContext whiteBlockContext=new WhiteblockHttpContext(whiteBlocMasterHost, whiteBlockRpctoken,tracemode,context,whiteBlockRpcPort,proxyName);
+            String testnetid=WhiteblockProcessbuilder.getNetID(whiteBlockContext);
+            String output= WhiteblockProcessbuilder.getNodeLis(whiteBlockContext,testnetid).generateOutPut();
             responseBuilder.append(output);
         }
         catch (Exception e)

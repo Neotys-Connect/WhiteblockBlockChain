@@ -6,6 +6,7 @@ import com.neotys.action.result.ResultFactory;
 import com.neotys.ethereumJ.common.utils.Whiteblock.management.WhiteBlockConstants;
 import com.neotys.ethereumJ.common.utils.Whiteblock.management.WhiteBlockContext;
 import com.neotys.ethereumJ.common.utils.Whiteblock.management.WhiteblockProcessbuilder;
+import com.neotys.ethereumJ.common.utils.Whiteblock.rpc.WhiteblockHttpContext;
 import com.neotys.extensions.action.ActionParameter;
 import com.neotys.extensions.action.engine.ActionEngine;
 import com.neotys.extensions.action.engine.Context;
@@ -46,6 +47,11 @@ public class BuildWhiteblockNetworkActionEngine implements ActionEngine {
         }
 
         final String whiteBlocMasterHost = parsedArgs.get(BuildWhiteblockNetworkOption.WhiteBlocMasterHost.getName()).get();
+        final String whiteBlockRpcPort=parsedArgs.get(BuildWhiteblockNetworkOption.WhiteBlocRpcPort.getName()).get();
+        final String whiteBlockRpctoken=parsedArgs.get(BuildWhiteblockNetworkOption.WhiteBlocRpctoken.getName()).get();
+        final Optional<String> proxyName=parsedArgs.get(BuildWhiteblockNetworkOption.ProxyName.getName());
+        final String dockerimage=parsedArgs.get(BuildWhiteblockNetworkOption.DockerImage.getName()).get();
+
         final String numberofnodes = parsedArgs.get(BuildWhiteblockNetworkOption.NumberOfNodes.getName()).get();
         final String typeofBlochacin = parsedArgs.get(BuildWhiteblockNetworkOption.TypeofBlochacin.getName()).get();
         final Optional<String> tracemode=parsedArgs.get((BuildWhiteblockNetworkOption.TraceMode.getName()));
@@ -57,11 +63,21 @@ public class BuildWhiteblockNetworkActionEngine implements ActionEngine {
 
         try
         {
-            WhiteBlockContext whiteBlockContext=new WhiteBlockContext(whiteBlocMasterHost, WhiteBlockConstants.PASSWORD,tracemode,context);
+            WhiteblockHttpContext whiteBlockContext=new WhiteblockHttpContext(whiteBlocMasterHost,whiteBlockRpctoken, tracemode,context,whiteBlockRpcPort,proxyName);
 
-            String output= WhiteblockProcessbuilder.buildEnvironment(whiteBlockContext,typeofBlochacin,Integer.parseInt(numberofnodes));
-            if(output.toLowerCase().contains(VALIDATION.toLowerCase()))
+            String output= WhiteblockProcessbuilder.buildEnvironment(whiteBlockContext,typeofBlochacin,dockerimage,Integer.parseInt(numberofnodes));
+            if(output!=null)
             {
+                double status;
+                WhiteblockProcessbuilder.setTestID(whiteBlockContext,output);
+                do{
+                    Thread.sleep(500);
+                    status=WhiteblockProcessbuilder.getBuildStatus(whiteBlockContext,output);
+                    if(tracemode.isPresent())
+                        context.getLogger().debug("current status "+String.valueOf(status));
+
+                }while(status<100);
+
                 responseBuilder.append("Network  created");
             }
             else

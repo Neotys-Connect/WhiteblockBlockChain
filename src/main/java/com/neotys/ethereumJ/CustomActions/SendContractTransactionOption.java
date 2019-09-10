@@ -5,6 +5,7 @@ import com.neotys.action.argument.Option;
 import com.neotys.extensions.action.ActionParameter;
 
 import static com.neotys.action.argument.DefaultArgumentValidator.BOOLEAN_VALIDATOR;
+import static com.neotys.action.argument.DefaultArgumentValidator.INTEGER_VALIDATOR;
 import static com.neotys.action.argument.DefaultArgumentValidator.NON_EMPTY;
 import static com.neotys.action.argument.Option.AppearsByDefault.True;
 import static com.neotys.action.argument.Option.OptionalRequired.Optional;
@@ -13,10 +14,14 @@ import static com.neotys.extensions.action.ActionParameter.Type.TEXT;
 
 enum SendContractTransactionOption implements Option {
 
-    ipOfTheWhiteblockNode("ipOfTheWhiteblockNode", Required, True, TEXT,
-                "Ip of one of the Whiteblock Node ",
-                        "Ip of one of the Whiteblock Node",
-                          NON_EMPTY),
+    WhiteBlocMasterHost("WhiteBlocMasterHost", Required, True, TEXT,
+            "Host of the master Node ",
+            "Master Node of your Whiteblock Network",
+            NON_EMPTY),
+    WhiteBlocRpcPortofNode("WhiteBlocRpcPortofNode", Required, True, TEXT,
+            "RPC port of the  node",
+            "RPC port of the  node",
+            INTEGER_VALIDATOR),
     from("from", Required, True, TEXT,
             "Address of the account that will send the transaction",
                     "Address of the account that will send the transaction",

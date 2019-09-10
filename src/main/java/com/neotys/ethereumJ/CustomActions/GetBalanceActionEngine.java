@@ -38,7 +38,8 @@ public class GetBalanceActionEngine implements ActionEngine {
             logger.debug("Executing " + this.getClass().getName() + " with parameters: "
                     + getArgumentLogString(parsedArgs, GetBalanceOption.values()));
         }
-        final String whiteBlocMasterHost = parsedArgs.get(GetBalanceOption.ipOfTheWhiteblockNode.getName()).get();
+        final String whiteBlocMasterHost = parsedArgs.get(GetBalanceOption.WhiteBlocMasterHost.getName()).get();
+        final String whiteBlocMasterRpcPort = parsedArgs.get(GetBalanceOption.WhiteBlocRpcPortofNode.getName()).get();
 
         final String from = parsedArgs.get(GetBalanceOption.from.getName()).get();
         final Optional<String> publickey = parsedArgs.get(GetBalanceOption.publickey.getName());
@@ -47,7 +48,7 @@ public class GetBalanceActionEngine implements ActionEngine {
 
         sampleResult.sampleStart();
         try {
-            Web3UtilsWhiteblock whiteblock = new Web3UtilsWhiteblock(whiteBlocMasterHost, from, privatekey, publickey, traceMode, context);
+            Web3UtilsWhiteblock whiteblock = new Web3UtilsWhiteblock(whiteBlocMasterHost,whiteBlocMasterRpcPort, Optional.absent(),Optional.of(from), privatekey, publickey, traceMode, context);
             String hash = whiteblock.getBalance();
 
             appendLineToStringBuilder(responseBuilder, "Balanace of the account in Ether  : " + hash);

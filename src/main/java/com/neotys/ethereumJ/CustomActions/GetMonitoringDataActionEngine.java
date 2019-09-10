@@ -9,6 +9,7 @@ import com.neotys.ethereumJ.common.utils.Whiteblock.management.WhiteBlockConstan
 import com.neotys.ethereumJ.common.utils.Whiteblock.management.WhiteBlockContext;
 import com.neotys.ethereumJ.common.utils.Whiteblock.management.WhiteblockConnectionException;
 import com.neotys.ethereumJ.common.utils.Whiteblock.monitoring.WhiteblockDataToNeoLoad;
+import com.neotys.ethereumJ.common.utils.Whiteblock.rpc.WhiteblockHttpContext;
 import com.neotys.extensions.action.ActionParameter;
 import com.neotys.extensions.action.engine.ActionEngine;
 import com.neotys.extensions.action.engine.Context;
@@ -60,6 +61,10 @@ public class GetMonitoringDataActionEngine implements ActionEngine {
         }
 
         final String whiteBlocMasterHost = parsedArgs.get(GetMonitoringDataOption.WhiteBlocMasterHost.getName()).get();
+        final String whiteBlockRpcPort=parsedArgs.get(GetMonitoringDataOption.WhiteBlocRpcPort.getName()).get();
+        final String whiteBlockRpctoken=parsedArgs.get(GetMonitoringDataOption.WhiteBlocRpctoken.getName()).get();
+        final Optional<String> proxyName=parsedArgs.get(GetMonitoringDataOption.ProxyName.getName());
+
         final Optional<String> dataExchangeApiKey = parsedArgs.get(GetMonitoringDataOption.NeoLoadDataExchangeApiKey.getName());
         final String dataExchangeApiUrl = Optional.fromNullable(emptyToNull(parsedArgs.get(GetMonitoringDataOption.NeoLoadDataExchangeApiUrl.getName()).orNull()))
                 .or(() -> getDefaultDataExchangeApiUrl(context));
@@ -92,7 +97,7 @@ public class GetMonitoringDataActionEngine implements ActionEngine {
                 whiteblockLastExecutionTime=whiteblockCurrentExecution- Constants.WHITEBLOCK_MAX_DELAY*1000;
 
             
-            WhiteBlockContext whiteBlockContext=new WhiteBlockContext(whiteBlocMasterHost, WhiteBlockConstants.PASSWORD,tracemode,context);
+            WhiteblockHttpContext whiteBlockContext=new WhiteblockHttpContext(whiteBlocMasterHost, whiteBlockRpctoken,tracemode,context,whiteBlockRpcPort,proxyName);
             WhiteblockDataToNeoLoad whiteblockDataToNeoLoad=new WhiteblockDataToNeoLoad(whiteBlockContext,(long)whiteblockLastExecutionTime,(long)whiteblockCurrentExecution,Optional.absent());
             whiteblockDataToNeoLoad.sendToNeoLoadWeb();
 

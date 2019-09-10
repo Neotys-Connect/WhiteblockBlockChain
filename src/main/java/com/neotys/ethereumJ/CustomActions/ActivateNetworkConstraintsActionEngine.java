@@ -6,6 +6,7 @@ import com.neotys.action.result.ResultFactory;
 import com.neotys.ethereumJ.common.utils.Whiteblock.management.WhiteBlockConstants;
 import com.neotys.ethereumJ.common.utils.Whiteblock.management.WhiteBlockContext;
 import com.neotys.ethereumJ.common.utils.Whiteblock.management.WhiteblockProcessbuilder;
+import com.neotys.ethereumJ.common.utils.Whiteblock.rpc.WhiteblockHttpContext;
 import com.neotys.extensions.action.ActionParameter;
 import com.neotys.extensions.action.engine.ActionEngine;
 import com.neotys.extensions.action.engine.Context;
@@ -45,6 +46,10 @@ public class ActivateNetworkConstraintsActionEngine implements ActionEngine {
         }
 
         final String whiteBlocMasterHost = parsedArgs.get(ActivateNetworkConstraintsOption.WhiteBlocMasterHost.getName()).get();
+        final String whiteBlockRpcPort=parsedArgs.get(ActivateNetworkConstraintsOption.WhiteBlocRpcPort.getName()).get();
+        final String whiteBlockRpctoken=parsedArgs.get(ActivateNetworkConstraintsOption.WhiteBlocRpctoken.getName()).get();
+        final Optional<String> proxyName=parsedArgs.get(ActivateNetworkConstraintsOption.ProxyName.getName());
+
         final String networkMode=parsedArgs.get(ActivateNetworkConstraintsOption.NetworkMode.getName()).get();
         final Optional<String> tracemode=parsedArgs.get((ActivateNetworkConstraintsOption.TraceMode.getName()));
 
@@ -53,12 +58,13 @@ public class ActivateNetworkConstraintsActionEngine implements ActionEngine {
 
         try
         {
-            WhiteBlockContext whiteBlockContext=new WhiteBlockContext(whiteBlocMasterHost, WhiteBlockConstants.PASSWORD,tracemode,context);
+            WhiteblockHttpContext whiteBlockContext=new WhiteblockHttpContext(whiteBlocMasterHost,whiteBlockRpctoken,tracemode,context,whiteBlockRpcPort,proxyName);
             String output;
+            String testnetid=WhiteblockProcessbuilder.getNetID(whiteBlockContext);
             if(networkMode.toUpperCase().equals("ON"))
-                output= WhiteblockProcessbuilder.enableNetConfigModule(whiteBlockContext);
+                output= WhiteblockProcessbuilder.enableNetConfigModule(whiteBlockContext,testnetid);
             else
-                output=WhiteblockProcessbuilder.disableNetConfigModule(whiteBlockContext);
+                output=WhiteblockProcessbuilder.disableNetConfigModule(whiteBlockContext,testnetid);
 
             responseBuilder.append(output);
         }

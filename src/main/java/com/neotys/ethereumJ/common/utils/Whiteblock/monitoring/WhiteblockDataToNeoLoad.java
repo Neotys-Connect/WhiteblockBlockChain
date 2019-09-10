@@ -11,9 +11,10 @@ import com.neotys.ascode.swagger.client.model.MonitorPostRequest;
 import com.neotys.ethereumJ.common.utils.Whiteblock.Constants;
 import com.neotys.ethereumJ.common.utils.Whiteblock.data.WhiteblockMonitoringData;
 import com.neotys.ethereumJ.common.utils.Whiteblock.management.WhiteBlockConstants;
-import com.neotys.ethereumJ.common.utils.Whiteblock.management.WhiteBlockContext;
+
 import com.neotys.ethereumJ.common.utils.Whiteblock.management.WhiteblockConnectionException;
 import com.neotys.ethereumJ.common.utils.Whiteblock.management.WhiteblockProcessbuilder;
+import com.neotys.ethereumJ.common.utils.Whiteblock.rpc.WhiteblockHttpContext;
 import com.neotys.extensions.action.engine.Context;
 import com.neotys.rest.dataexchange.client.DataExchangeAPIClient;
 import com.neotys.rest.dataexchange.model.EntryBuilder;
@@ -34,7 +35,7 @@ import static com.neotys.ethereumJ.common.utils.Whiteblock.Constants.NLWEB_VERSI
 public class WhiteblockDataToNeoLoad {
 
     Optional<DataExchangeAPIClient> dataExchangeAPIClient;
-    WhiteBlockContext context;
+    WhiteblockHttpContext context;
     long startime;
     long endtime;
 
@@ -77,7 +78,7 @@ public class WhiteblockDataToNeoLoad {
         return monitor;
     }
 
-    public WhiteblockDataToNeoLoad(WhiteBlockContext context, long start, long end, Optional<DataExchangeAPIClient> apiclient)
+    public WhiteblockDataToNeoLoad(WhiteblockHttpContext context, long start, long end, Optional<DataExchangeAPIClient> apiclient)
     {
         dataExchangeAPIClient=apiclient;
         this.context=context;
@@ -87,7 +88,7 @@ public class WhiteblockDataToNeoLoad {
 
     }
 
-    public void getMonitoringData() throws URISyntaxException, GeneralSecurityException, NeotysAPIException, IOException, WhiteblockConnectionException, InterruptedException {
+    public void getMonitoringData() throws Exception {
         WhiteblockMonitoringData monitoringData=WhiteblockProcessbuilder.getMonitoringData(context,startime,endtime);
        if(dataExchangeAPIClient.isPresent())
             dataExchangeAPIClient.get().addEntries(toEntries(monitoringData));
@@ -102,7 +103,7 @@ public class WhiteblockDataToNeoLoad {
                 .collect(Collectors.toList());
     }
 
-    private static void traceInfo(WhiteBlockContext context,String log)
+    private static void traceInfo(WhiteblockHttpContext context,String log)
     {
         if(context.getTracemode().isPresent())
         {
@@ -114,7 +115,7 @@ public class WhiteblockDataToNeoLoad {
     }
 
 
-    private String getBasePath(final WhiteBlockContext context) {
+    private String getBasePath(final WhiteblockHttpContext context) {
         final String webPlatformApiUrl = context.getContext().getWebPlatformApiUrl();
         final StringBuilder basePathBuilder = new StringBuilder(webPlatformApiUrl);
         if(!webPlatformApiUrl.endsWith("/")) {
@@ -123,7 +124,7 @@ public class WhiteblockDataToNeoLoad {
         basePathBuilder.append(NLWEB_VERSION + "/");
         return basePathBuilder.toString();
     }
-    public void sendToNeoLoadWeb() throws InterruptedException, WhiteblockConnectionException, IOException, ApiException {
+    public void sendToNeoLoadWeb() throws Exception {
         String testid=context.getContext().getTestId();
 
         ApiClient neoLoadWebApiClient = new ApiClient();

@@ -8,6 +8,7 @@ import com.neotys.action.result.ResultFactory;
 import com.neotys.ethereumJ.common.utils.Whiteblock.management.WhiteBlockConstants;
 import com.neotys.ethereumJ.common.utils.Whiteblock.management.WhiteBlockContext;
 import com.neotys.ethereumJ.common.utils.Whiteblock.management.WhiteblockProcessbuilder;
+import com.neotys.ethereumJ.common.utils.Whiteblock.rpc.WhiteblockHttpContext;
 import com.neotys.extensions.action.ActionParameter;
 import com.neotys.extensions.action.engine.ActionEngine;
 import com.neotys.extensions.action.engine.Context;
@@ -27,7 +28,7 @@ public class ApplyNetworkConstraintsActionEngine implements ActionEngine {
     private static final String BANDWIDTH="bandwidth";
     private static final String DELAY="delay";
     private static final String LOSS ="loss";
-
+    private static final String LIMIT ="limit";
     @Override
     public SampleResult execute(Context context, List<ActionParameter> list) {
         final SampleResult sampleResult = new SampleResult();
@@ -52,6 +53,9 @@ public class ApplyNetworkConstraintsActionEngine implements ActionEngine {
         }
 
         final String whiteBlocMasterHost = parsedArgs.get(ApplyNetworkConstraintsOption.WhiteBlocMasterHost.getName()).get();
+        final String whiteBlockRpcPort=parsedArgs.get(ApplyNetworkConstraintsOption.WhiteBlocRpcPort.getName()).get();
+        final String whiteBlockRpctoken=parsedArgs.get(ApplyNetworkConstraintsOption.WhiteBlocRpctoken.getName()).get();
+
         final String typeofconstraints=parsedArgs.get(ApplyNetworkConstraintsOption.TypeOfConstraint.getName()).get();
         final String valueofConstraint =parsedArgs.get(ApplyNetworkConstraintsOption.ConstraintsValue.getName()).get();
         final Optional<String> nodenumber = parsedArgs.get(ApplyNetworkConstraintsOption.NodeNumber.getName());
@@ -77,18 +81,21 @@ public class ApplyNetworkConstraintsActionEngine implements ActionEngine {
         try
         {
             String output = null;
-            WhiteBlockContext whiteBlockContext=new WhiteBlockContext(whiteBlocMasterHost, WhiteBlockConstants.PASSWORD,tracemode,context);
+            WhiteblockHttpContext whiteBlockContext=new WhiteblockHttpContext(whiteBlocMasterHost,whiteBlockRpctoken, tracemode,context,whiteBlockRpcPort,Optional.absent());
 
             switch(typeofconstraints)
             {
                 case BANDWIDTH:
-                    output= WhiteblockProcessbuilder.defineBwOnNodes(whiteBlockContext,convert2OptionalInteger(nodenumber),Integer.parseInt(valueofConstraint),unit);
+                    WhiteblockProcessbuilder.defineBwOnNodes(whiteBlockContext,convert2OptionalInteger(nodenumber),Integer.parseInt(valueofConstraint),unit);
                     break;
                 case LOSS:
-                    output=WhiteblockProcessbuilder.defineLossOnNodes(whiteBlockContext,convert2OptionalInteger(nodenumber),Double.parseDouble(valueofConstraint));
+                    WhiteblockProcessbuilder.defineLossOnNodes(whiteBlockContext,convert2OptionalInteger(nodenumber),Double.parseDouble(valueofConstraint));
                     break;
                 case DELAY:
-                    output=WhiteblockProcessbuilder.defineDelayOnNodes(whiteBlockContext,convert2OptionalInteger(nodenumber),Integer.parseInt(valueofConstraint));
+                    WhiteblockProcessbuilder.defineDelayOnNodes(whiteBlockContext,convert2OptionalInteger(nodenumber),Integer.parseInt(valueofConstraint));
+                    break;
+                case LIMIT:
+                    WhiteblockProcessbuilder.defineLimitOnNodes(whiteBlockContext,convert2OptionalInteger(nodenumber),Integer.parseInt(valueofConstraint));
                     break;
             }
  
@@ -107,7 +114,7 @@ public class ApplyNetworkConstraintsActionEngine implements ActionEngine {
 
     private boolean validateNetworkMode(String mode)
     {
-        ImmutableList<String> minerMode=ImmutableList.of(DELAY,LOSS,BANDWIDTH);
+        ImmutableList<String> minerMode=ImmutableList.of(DELAY,LOSS,BANDWIDTH,LIMIT);
         if(minerMode.contains(mode.toLowerCase()))
             return true;
         else

@@ -1,37 +1,37 @@
 package com.neotys.ethereumJ.common.utils.Whiteblock.data;
 
 public class WhiteblockContract {
-    String ContractAddress;
-    String ContractName;
-    String DeployedNodeAddress;
+    String contractAddress;
+    String contractName;
+    String deployedNodeAddress;
 
     public WhiteblockContract(String contractAddress, String contractName, String deployedNodeAddress) {
-        ContractAddress = contractAddress;
-        ContractName = contractName;
-        DeployedNodeAddress = deployedNodeAddress;
+        contractAddress = contractAddress;
+        contractName = contractName;
+        deployedNodeAddress = deployedNodeAddress;
     }
 
     public String getContractAddress() {
-        return ContractAddress;
+        return contractAddress;
     }
 
     public void setContractAddress(String contractAddress) {
-        ContractAddress = contractAddress;
+        this.contractAddress = contractAddress;
     }
 
     public String getContractName() {
-        return ContractName;
+        return contractName;
     }
 
     public void setContractName(String contractName) {
-        ContractName = contractName;
+        this.contractName = contractName;
     }
 
     public String getDeployedNodeAddress() {
-        return DeployedNodeAddress;
+        return deployedNodeAddress;
     }
 
     public void setDeployedNodeAddress(String deployedNodeAddress) {
-        DeployedNodeAddress = deployedNodeAddress;
+        this.deployedNodeAddress = deployedNodeAddress;
     }
 }

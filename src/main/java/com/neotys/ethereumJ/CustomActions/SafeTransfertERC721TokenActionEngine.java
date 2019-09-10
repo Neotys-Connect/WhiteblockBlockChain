@@ -40,7 +40,9 @@ public class SafeTransfertERC721TokenActionEngine implements ActionEngine {
             logger.debug("Executing " + this.getClass().getName() + " with parameters: "
                     + getArgumentLogString(parsedArgs, SafeTransfertERC721TokenOption.values()));
         }
-        final String whiteBlocMasterHost = parsedArgs.get(SafeTransfertERC721TokenOption.ipOfTheWhiteblockNode.getName()).get();
+        final String whiteBlocMasterHost = parsedArgs.get(SafeTransfertERC721TokenOption.WhiteBlocMasterHost.getName()).get();
+        final String whiteBlocMasterrpcport = parsedArgs.get(SafeTransfertERC721TokenOption.WhiteBlocRpcPortofNode.getName()).get();
+
         final String to = parsedArgs.get(SafeTransfertERC721TokenOption.to.getName()).get();
 
         final String from = parsedArgs.get(SafeTransfertERC721TokenOption.from.getName()).get();
@@ -57,7 +59,7 @@ public class SafeTransfertERC721TokenActionEngine implements ActionEngine {
         sampleResult.sampleStart();
         try
         {
-            Web3UtilsWhiteblock whiteblock=new Web3UtilsWhiteblock(whiteBlocMasterHost,from,privatekey,publickey,traceMode,context);
+            Web3UtilsWhiteblock whiteblock=new Web3UtilsWhiteblock(whiteBlocMasterHost,whiteBlocMasterrpcport,Optional.absent(),Optional.of(from),privatekey,publickey,traceMode,context);
             String hash=whiteblock.createERC721Transaction(tokenid,contractadress,amount,to);
 
             appendLineToStringBuilder(responseBuilder, "Transaction sent : hash of the transaction "+hash);

@@ -15,6 +15,25 @@
     </properties>
 
     <dependencies>
+        <!-- https://mvnrepository.com/artifact/com.google.api.client/google-api-client-json-rpc2 -->
+
+
+
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.3.1</version>
+            <!-- already in NeoLoad: can cause conflicts -->
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20131018</version>
+            <!-- already in NeoLoad: can cause conflicts -->
+            <scope>provided</scope>
+        </dependency>
+
         <dependency>
             <groupId>com.neotys.actions</groupId>
             <artifactId>neotys-custom-action-api</artifactId>
@@ -188,7 +207,7 @@
                                     <exclude>*:neotys-custom-action-util</exclude>
                                     <exclude>*:javax.ws.rs-api</exclude>
                                     <exclude>*:slf4j-api</exclude>
-                                    <exclide>*:guava</exclide>
+                                    <exclude>*:guava</exclude>
                                 </excludes>
                             </artifactSet>
                         </configuration>

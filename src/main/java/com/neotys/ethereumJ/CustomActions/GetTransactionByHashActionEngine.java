@@ -1,6 +1,7 @@
 package com.neotys.ethereumJ.CustomActions;
 
 import com.google.common.base.Optional;
+import com.neotys.action.argument.Option;
 import com.neotys.action.result.ResultFactory;
 import com.neotys.ethereumJ.Web3J.Web3UtilsWhiteblock;
 import com.neotys.extensions.action.ActionParameter;
@@ -38,17 +39,18 @@ public class GetTransactionByHashActionEngine implements ActionEngine {
             logger.debug("Executing " + this.getClass().getName() + " with parameters: "
                     + getArgumentLogString(parsedArgs, GetBalanceOption.values()));
         }
-        final String whiteBlocMasterHost = parsedArgs.get(GetTransactionByHashOption.ipOfTheWhiteblockNode.getName()).get();
+        final String whiteBlocMasterHost = parsedArgs.get(GetTransactionByHashOption.WhiteBlocMasterHost.getName()).get();
+        final String whiteblocrpcPort = parsedArgs.get(GetTransactionByHashOption.WhiteBlocRpcPortofNode.getName()).get();
 
         final String hash = parsedArgs.get(GetTransactionByHashOption.transactionHash.getName()).get();
         final Optional<String> traceMode = parsedArgs.get(GetTransactionByHashOption.TraceMode.getName());
 
         sampleResult.sampleStart();
         try {
-          //  Web3UtilsWhiteblock whiteblock = new Web3UtilsWhiteblock(whiteBlocMasterHost, from, privatekey, publickey, traceMode, context);
-            //String hash = whiteblock.getBalance();
+            Web3UtilsWhiteblock whiteblock = new Web3UtilsWhiteblock(whiteBlocMasterHost,whiteblocrpcPort ,Optional.absent(),Optional.absent(),  Optional.absent(),  Optional.absent(), traceMode, context);
+            String balance = whiteblock.getBalance();
 
-            appendLineToStringBuilder(responseBuilder, "Balanace of the account in Ether  : " + hash);
+            appendLineToStringBuilder(responseBuilder, "Balanace of the account in Ether  : " + balance);
         } catch (Exception e) {
             return ResultFactory.newErrorResult(context, STATUS_CODE_BAD_CONTEXT, "Error encountered :", e);
 

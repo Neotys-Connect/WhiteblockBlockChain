@@ -14,8 +14,8 @@ if (acountdetail==null) {
 var data=acountdetail.split("<");
 
 var accountadress=data[0];
-var publickey=data[3];
-var privatekey=data[2];
+var publickey=data[4];
+var privatekey=data[3];
 
 
 // Inject the computed value in a runtime variable

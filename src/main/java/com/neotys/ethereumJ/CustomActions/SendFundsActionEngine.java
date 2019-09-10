@@ -38,7 +38,8 @@ public class SendFundsActionEngine implements ActionEngine {
             logger.debug("Executing " + this.getClass().getName() + " with parameters: "
                     + getArgumentLogString(parsedArgs, SendFundsOption.values()));
         }
-        final String whiteBlocMasterHost = parsedArgs.get(SendFundsOption.ipOfTheWhiteblockNode.getName()).get();
+        final String whiteBlocMasterHost = parsedArgs.get(SendFundsOption.WhiteBlocMasterHost.getName()).get();
+        final String whiteBlocMasterrpcport = parsedArgs.get(SendFundsOption.WhiteBlocMasterHost.getName()).get();
 
         final String from = parsedArgs.get(SendFundsOption.from.getName()).get();
         final String to = parsedArgs.get(SendFundsOption.to.getName()).get();
@@ -52,7 +53,7 @@ public class SendFundsActionEngine implements ActionEngine {
 
         sampleResult.sampleStart();
         try {
-            Web3UtilsWhiteblock whiteblock = new Web3UtilsWhiteblock(whiteBlocMasterHost, from, privatekey, publickey, traceMode, context);
+            Web3UtilsWhiteblock whiteblock = new Web3UtilsWhiteblock(whiteBlocMasterHost,whiteBlocMasterrpcport,Optional.absent(), Optional.of(from), privatekey, publickey, traceMode, context);
             String hash = whiteblock.transfertFunds(to, amount);
 
             appendLineToStringBuilder(responseBuilder, "Transaction sent : hash of the transaction " + hash);

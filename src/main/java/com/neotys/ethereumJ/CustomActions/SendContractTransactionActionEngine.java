@@ -39,7 +39,8 @@ public class SendContractTransactionActionEngine implements ActionEngine {
             logger.debug("Executing " + this.getClass().getName() + " with parameters: "
                     + getArgumentLogString(parsedArgs, SendContractTransactionOption.values()));
         }
-        final String whiteBlocMasterHost = parsedArgs.get(SendContractTransactionOption.ipOfTheWhiteblockNode.getName()).get();
+        final String whiteBlocMasterHost = parsedArgs.get(SendContractTransactionOption.WhiteBlocMasterHost.getName()).get();
+        final String whiteBlocMasterrpcport = parsedArgs.get(SendContractTransactionOption.WhiteBlocRpcPortofNode.getName()).get();
 
         final String from = parsedArgs.get(SendContractTransactionOption.from.getName()).get();
         final String contractadress=parsedArgs.get(SendContractTransactionOption.contractadress.getName()).get();
@@ -52,7 +53,7 @@ public class SendContractTransactionActionEngine implements ActionEngine {
         sampleResult.sampleStart();
         try
         {
-            Web3UtilsWhiteblock whiteblock=new Web3UtilsWhiteblock(whiteBlocMasterHost,from,Optional.absent(),Optional.absent(),traceMode,context);
+            Web3UtilsWhiteblock whiteblock=new Web3UtilsWhiteblock(whiteBlocMasterHost,whiteBlocMasterrpcport,Optional.absent(),Optional.of(from),Optional.absent(),Optional.absent(),traceMode,context);
             String hash=whiteblock.createContractTransaction(contractadress,amount);
 
             appendLineToStringBuilder(responseBuilder, "Transaction sent : hash of the transaction "+hash);

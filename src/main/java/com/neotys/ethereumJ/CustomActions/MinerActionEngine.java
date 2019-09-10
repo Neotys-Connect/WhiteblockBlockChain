@@ -6,6 +6,7 @@ import com.neotys.action.result.ResultFactory;
 import com.neotys.ethereumJ.common.utils.Whiteblock.management.WhiteBlockConstants;
 import com.neotys.ethereumJ.common.utils.Whiteblock.management.WhiteBlockContext;
 import com.neotys.ethereumJ.common.utils.Whiteblock.management.WhiteblockProcessbuilder;
+import com.neotys.ethereumJ.common.utils.Whiteblock.rpc.WhiteblockHttpContext;
 import com.neotys.extensions.action.ActionParameter;
 import com.neotys.extensions.action.engine.ActionEngine;
 import com.neotys.extensions.action.engine.Context;
@@ -43,6 +44,9 @@ public class MinerActionEngine implements ActionEngine {
             logger.debug("Executing " + this.getClass().getName() + " with parameters: "
                     + getArgumentLogString(parsedArgs, GetMonitoringDataOption.values()));
         }
+        final String whiteBlockRpcPort=parsedArgs.get(MinerStartOption.WhiteBlocRpcPort.getName()).get();
+        final String whiteBlockRpctoken=parsedArgs.get(MinerStartOption.WhiteBlocRpctoken.getName()).get();
+        final Optional<String> proxyName=parsedArgs.get(MinerStartOption.ProxyName.getName());
 
         final String whiteBlocMasterHost = parsedArgs.get(MinerStartOption.WhiteBlocMasterHost.getName()).get();
         final String minerMode=parsedArgs.get(MinerStartOption.MinerMode.getName()).get();
@@ -54,7 +58,7 @@ public class MinerActionEngine implements ActionEngine {
         try
         {
             String output;
-            WhiteBlockContext whiteBlockContext=new WhiteBlockContext(whiteBlocMasterHost, WhiteBlockConstants.PASSWORD,tracemode,context);
+            WhiteblockHttpContext whiteBlockContext=new WhiteblockHttpContext(whiteBlocMasterHost, whiteBlockRpctoken,tracemode,context,whiteBlockRpcPort,proxyName);
 
             if(minerMode.toUpperCase().equals("ON"))
                 output= WhiteblockProcessbuilder.minterStart(whiteBlockContext);

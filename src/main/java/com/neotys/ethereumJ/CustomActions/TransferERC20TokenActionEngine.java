@@ -39,7 +39,9 @@ public class TransferERC20TokenActionEngine implements ActionEngine {
             logger.debug("Executing " + this.getClass().getName() + " with parameters: "
                     + getArgumentLogString(parsedArgs, TransferERC20TokenOption.values()));
         }
-        final String whiteBlocMasterHost = parsedArgs.get(TransferERC20TokenOption.ipOfTheWhiteblockNode.getName()).get();
+        final String whiteBlocMasterHost = parsedArgs.get(TransferERC20TokenOption.WhiteBlocMasterHost.getName()).get();
+
+        final String whiteBlocMasterRpcPort = parsedArgs.get(TransferERC20TokenOption.WhiteBlocRpcPortofNode.getName()).get();
         final String to = parsedArgs.get(TransferERC20TokenOption.to.getName()).get();
 
         final String from = parsedArgs.get(TransferERC20TokenOption.from.getName()).get();
@@ -54,7 +56,7 @@ public class TransferERC20TokenActionEngine implements ActionEngine {
         sampleResult.sampleStart();
         try
         {
-            Web3UtilsWhiteblock whiteblock=new Web3UtilsWhiteblock(whiteBlocMasterHost,from,privatekey,publickey,traceMode,context);
+            Web3UtilsWhiteblock whiteblock=new Web3UtilsWhiteblock(whiteBlocMasterHost,whiteBlocMasterRpcPort,Optional.absent(),Optional.of(from),privatekey,publickey,traceMode,context);
             String hash=whiteblock.createERC20Transaction(contractadress,amount,to);
 
             appendLineToStringBuilder(responseBuilder, "Transaction sent : hash of the transaction "+hash);

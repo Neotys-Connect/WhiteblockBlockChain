@@ -5,6 +5,7 @@ import com.neotys.action.result.ResultFactory;
 import com.neotys.ethereumJ.common.utils.Whiteblock.management.WhiteBlockConstants;
 import com.neotys.ethereumJ.common.utils.Whiteblock.management.WhiteBlockContext;
 import com.neotys.ethereumJ.common.utils.Whiteblock.management.WhiteblockProcessbuilder;
+import com.neotys.ethereumJ.common.utils.Whiteblock.rpc.WhiteblockHttpContext;
 import com.neotys.extensions.action.ActionParameter;
 import com.neotys.extensions.action.engine.ActionEngine;
 import com.neotys.extensions.action.engine.Context;
@@ -44,15 +45,18 @@ public class GetContractsListActionEngine implements ActionEngine
                 logger.debug("Executing " + this.getClass().getName() + " with parameters: "
                         + getArgumentLogString(parsedArgs, GetMonitoringDataOption.values()));
             }
+            final String whiteBlocMasterHost = parsedArgs.get(GetContractsListOption.WhiteBlocMasterHost.getName()).get();
+            final String whiteBlockRpcPort=parsedArgs.get(GetContractsListOption.WhiteBlocRpcPort.getName()).get();
+            final String whiteBlockRpctoken=parsedArgs.get(GetContractsListOption.WhiteBlocRpctoken.getName()).get();
+            final Optional<String> proxyName=parsedArgs.get(GetContractsListOption.ProxyName.getName());
 
-            final String whiteBlocMasterHost = parsedArgs.get(GetAccountListOption.WhiteBlocMasterHost.getName()).get();
-            final Optional<String> tracemode=parsedArgs.get((GetAccountListOption.TraceMode.getName()));
+            final Optional<String> tracemode=parsedArgs.get((GetContractsListOption.TraceMode.getName()));
 
             try
             {
-                WhiteBlockContext whiteBlockContext=new WhiteBlockContext(whiteBlocMasterHost, WhiteBlockConstants.PASSWORD,tracemode,context);
-
-                String output= WhiteblockProcessbuilder.getContractList(whiteBlockContext).generateOutPut();
+                WhiteblockHttpContext whiteBlockContext=new WhiteblockHttpContext(whiteBlocMasterHost, whiteBlockRpctoken,tracemode,context,whiteBlockRpcPort,proxyName);
+                String testnetid=WhiteblockProcessbuilder.getNetID(whiteBlockContext);
+                String output= WhiteblockProcessbuilder.getContractList(whiteBlockContext,testnetid).generateOutPut();
                 responseBuilder.append(output);
             }
             catch (Exception e)

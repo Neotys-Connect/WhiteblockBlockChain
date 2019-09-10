@@ -2,18 +2,19 @@ package com.neotys.ethereumJ.Web3J;
 
 import com.google.common.base.Optional;
 import com.neotys.extensions.action.engine.Context;
-import static com.neotys.ethereumJ.common.utils.Whiteblock.Constants.WHITEBLOCK_RPC_PORT;
+
 public class Web3JContext {
     private String ipOftheNode;
-    private String accountAdress;
+    private Optional<String> accountAdress;
     private Optional<String> tracemode;
     private Context context;
     private String port;
     private String walletpassord;
     private Optional<String> privateKey;
     private Optional<String> publicKey;
+    private Optional<String> rpctoken;
 
-    public Web3JContext(String ipOftheNode,String port, String accountAdress,String pwd, Optional<String> tracemode, Optional<String> privateKey, Optional<String> publicKey, Context context) {
+    public Web3JContext(String ipOftheNode, String port,Optional<String> token, Optional<String> accountAdress, String pwd, Optional<String> tracemode, Optional<String> privateKey, Optional<String> publicKey, Context context) {
         this.ipOftheNode = ipOftheNode;
         this.accountAdress = accountAdress;
         this.tracemode = tracemode;
@@ -22,6 +23,15 @@ public class Web3JContext {
         this.privateKey=privateKey;
         this.publicKey=publicKey;
         this.port=port;
+        this.rpctoken=token;
+    }
+
+    public Optional<String> getRpctoken() {
+        return rpctoken;
+    }
+
+    public void setRpctoken(Optional<String> rpctoken) {
+        this.rpctoken = rpctoken;
     }
 
     public Optional<String> getPrivateKey() {
@@ -56,11 +66,11 @@ public class Web3JContext {
         this.ipOftheNode = ipOftheNode;
     }
 
-    public String getAccountAdress() {
+    public Optional<String> getAccountAdress() {
         return accountAdress;
     }
 
-    public void setAccountAdress(String accountAdress) {
+    public void setAccountAdress( Optional<String> accountAdress) {
         this.accountAdress = accountAdress;
     }
 
