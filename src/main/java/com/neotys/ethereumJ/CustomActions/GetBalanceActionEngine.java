@@ -51,7 +51,7 @@ public class GetBalanceActionEngine implements ActionEngine {
             Web3UtilsWhiteblock whiteblock = new Web3UtilsWhiteblock(whiteBlocMasterHost,whiteBlocMasterRpcPort, Optional.absent(),Optional.of(from), privatekey, publickey, traceMode, context);
             String hash = whiteblock.getBalance();
 
-            appendLineToStringBuilder(responseBuilder, "Balanace of the account in Ether  : " + hash);
+            appendLineToStringBuilder(responseBuilder, "Balance of the account in Ether  : " + hash);
         } catch (Exception e) {
             return ResultFactory.newErrorResult(context, STATUS_CODE_BAD_CONTEXT, "Error encountered :", e);
 

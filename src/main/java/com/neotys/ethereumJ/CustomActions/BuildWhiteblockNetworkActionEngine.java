@@ -34,7 +34,7 @@ public class BuildWhiteblockNetworkActionEngine implements ActionEngine {
         // TODO: there is a race condition in this implementation, will need to also check if 
         // the phase has already passed to fix it. 
         WhiteblockStatus status = WhiteblockProcessbuilder.status(wbContext, testID);
-        return status.getPhase() == phase
+        return status.getPhase() == phase;
     }
     @Override
     public SampleResult execute(Context context, List<ActionParameter> list) {
@@ -82,11 +82,11 @@ public class BuildWhiteblockNetworkActionEngine implements ActionEngine {
             WhiteblockHttpContext wbContext = new WhiteblockHttpContext(accessToken, tracemode,context,proxyName);
 
             WhiteblockBuildMeta meta = new WhiteblockBuildMeta(rawDefinition);
-            List<String> testIDs  = WhiteblockProcessbuilder.build(wbContext, meta)
+            List<String> testIDs  = WhiteblockProcessbuilder.build(wbContext, meta);
             if (testIDs.size() != 1) {
                 // TODO: Establish whether we handle the case of multiple tests or just give an error
             }
-            String testID = testIDs.get(0)
+            String testID = testIDs.get(0);
             while(!isTestReady(wbContext, testID, startPhase)) {
                  Thread.sleep(500);
             }

@@ -22,12 +22,13 @@ public class WhiteblockBuildMeta {
 		this.definitionRaw = definitionRaw;
 	}
 
-	public marshalJSON() JSONObject {
+	public JSONObject marshalJSON()  {
 		JSONObject out = new JSONObject();
 		out.put("domains", domains);
 		out.put("cloudDetails", cloudDetails);
 		out.put("dockerAuth",dockerAuth);
 		out.put("definitionRaw", definitionRaw);
+		return out;
 	}
 
 	public String getDefinitionRaw() {

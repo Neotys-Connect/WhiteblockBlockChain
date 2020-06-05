@@ -2,8 +2,6 @@ package com.neotys.ethereumJ.CustomActions;
 
 import com.google.common.base.Optional;
 import com.neotys.action.result.ResultFactory;
-import com.neotys.ethereumJ.common.utils.Whiteblock.management.WhiteBlockConstants;
-import com.neotys.ethereumJ.common.utils.Whiteblock.management.WhiteBlockContext;
 import com.neotys.ethereumJ.common.utils.Whiteblock.management.WhiteblockProcessbuilder;
 import com.neotys.ethereumJ.common.utils.Whiteblock.rpc.WhiteblockHttpContext;
 import com.neotys.extensions.action.ActionParameter;

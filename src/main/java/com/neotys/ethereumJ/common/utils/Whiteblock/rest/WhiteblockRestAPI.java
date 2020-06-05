@@ -26,7 +26,7 @@ import static com.neotys.ethereumJ.common.utils.Whiteblock.http.HTTPGenerator.HT
 import static com.neotys.ethereumJ.common.utils.Whiteblock.http.HttpResponseUtils.isSuccessHttpCode;
 import static java.util.UUID.randomUUID;
 
-public class WhiteBlockRestAPI {
+public class WhiteblockRestAPI {
 
 	public static String MultipartRequest(String method, String path, filePaths String[]) throws Exception {
 		throw new Exception("nyi");
@@ -63,10 +63,10 @@ public class WhiteBlockRestAPI {
                 {
                     context.getContext().getLogger().info("Whiteblock API response, :\n" + response );
                 }
-                return response;
+                return response.toString();
             }
             else if(statusCode != HttpStatus.SC_BAD_REQUEST && statusCode != HttpStatus.SC_NOT_FOUND) {
-                throw new WhiteBlockHttpException(response.getStatusLine().getReasonPhrase() + " - " + url + " - " + payload] + " - " + response);
+                throw new WhiteBlockHttpException(response.getStatusLine().getReasonPhrase() + " - " + url + " - " + payload + " - " + response);
             }
             return null;
         }

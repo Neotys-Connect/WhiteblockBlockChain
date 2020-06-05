@@ -13,15 +13,10 @@ import static com.neotys.action.argument.Option.OptionalRequired.Required;
 import static com.neotys.extensions.action.ActionParameter.Type.TEXT;
 
 enum GetBalanceOption implements Option {
-
-    WhiteBlocMasterHost("WhiteBlocMasterHost", Required, True, TEXT,
-            "Host of the master Node ",
-            "Master Node of your Whiteblock Network",
+    Service("service", Required, True, TEXT,
+            "The service to target for the call",
+            "The service to target for the call",
             NON_EMPTY),
-    WhiteBlocRpcPortofNode("WhiteBlocRpcPortofNode", Required, True, TEXT,
-            "RPC port of the  node",
-            "RPC port of the  node",
-            INTEGER_VALIDATOR),
     from("from", Required, True, TEXT,
             "Address of the account that will send the transaction",
             "Address of the account that will send the transaction",

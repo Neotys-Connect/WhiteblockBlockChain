@@ -14,7 +14,6 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.apache.http.entity.mime.MultipartEntityBuilder;
 
 import java.io.IOException;
 import java.util.Map;

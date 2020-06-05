@@ -91,22 +91,12 @@ class HTTPGeneratorUtils {
 	}
 
 	static void addFileParameters(final HttpRequestBase request, final List<String> files) {
-		MultipartEntityBuilder reqEntityBuilder = MultipartEntityBuilder.create()
-		for (String entry : files) {
-		 	FileBody bin = new FileBody(new File(args[0]));
+		MultipartEntityBuilder reqEntityBuilder = MultipartEntityBuilder.create();
+		for (String file : files) {
+		 	FileBody bin = new FileBody(new File(file));
+			reqEntityBuilder.addPart(file,bin);
 		}
-		
-
-
-		StringBody comment = new StringBody("A binary file of some kind", ContentType.TEXT_PLAIN);
-
-
-        .addPart("bin", bin)
-        .addPart("comment", comment)
-        MultipartEntity reqEntity = reqEntityBuilder.build();
-
-
-httppost.setEntity(reqEntity);
+		((HttpPut) request).setEntity(reqEntityBuilder.build());
 	}
 
 	@SuppressWarnings("deprecation")
