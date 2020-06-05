@@ -60,6 +60,15 @@ public class HTTPGenerator {
 
 	}
 
+	public static HTTPGenerator newMultiPartRequest(final String url,
+													final Map<String, String> headers,
+													final Map<String, String> params,
+													final Optional<Proxy> proxy,
+													final List<String> filePaths)
+		throws Exception{
+		throw new Exception("nyi");
+	}
+
 	public static HTTPGenerator newJsonHttpGenerator(final String httpMethod,
 													 final String url,
 													 final Map<String, String> headers,
