@@ -14,6 +14,7 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.apache.http.entity.mime.MultipartEntityBuilder;
 
 import java.io.IOException;
 import java.util.Map;
@@ -66,7 +67,7 @@ public class HTTPGenerator {
 													final Optional<Proxy> proxy,
 													final List<String> filePaths)
 		throws Exception{
-		throw new Exception("nyi");
+		throw new Exception("nyi"); // TODO: implement the multipart request
 	}
 
 	public static HTTPGenerator newJsonHttpGenerator(final String httpMethod,
@@ -77,7 +78,7 @@ public class HTTPGenerator {
 													 final String bodyJson)
 			throws Exception {
 		final HTTPGenerator httpGenerator = new HTTPGenerator(httpMethod, url, headers, params, proxy);
-		final StringEntity requestEntity =new StringEntity(bodyJson, "application/json","utf8");
+		final StringEntity requestEntity = new StringEntity(bodyJson, "application/json","utf8");
 		addJsonParameters(httpGenerator.request, requestEntity, httpMethod);
 		return httpGenerator;
 	}

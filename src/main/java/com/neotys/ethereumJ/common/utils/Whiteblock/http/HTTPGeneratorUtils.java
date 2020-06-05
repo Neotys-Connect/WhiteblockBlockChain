@@ -19,6 +19,8 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpParams;
 import org.apache.http.protocol.HTTP;
+import org.apache.http.entity.mime.MultipartEntityBuilder;
+
 
 import javax.net.ssl.HttpsURLConnection;
 import java.io.BufferedReader;
@@ -32,6 +34,7 @@ import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.io.File;
 
 
 import static com.neotys.ethereumJ.common.utils.Whiteblock.http.HTTPGenerator.*;
@@ -85,6 +88,25 @@ class HTTPGeneratorUtils {
 			default:
 				throw new UnsupportedOperationException("Invalid http method");
 		}
+	}
+
+	static void addFileParameters(final HttpRequestBase request, final List<String> files) {
+		MultipartEntityBuilder reqEntityBuilder = MultipartEntityBuilder.create()
+		for (String entry : files) {
+		 	FileBody bin = new FileBody(new File(args[0]));
+		}
+		
+
+
+		StringBody comment = new StringBody("A binary file of some kind", ContentType.TEXT_PLAIN);
+
+
+        .addPart("bin", bin)
+        .addPart("comment", comment)
+        MultipartEntity reqEntity = reqEntityBuilder.build();
+
+
+httppost.setEntity(reqEntity);
 	}
 
 	@SuppressWarnings("deprecation")

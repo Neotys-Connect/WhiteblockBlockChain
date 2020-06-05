@@ -17,13 +17,12 @@ import java.util.*;
 import com.google.common.base.Optional;
 import com.neotys.ethereumJ.common.utils.Whiteblock.http.WhiteBlockHttpException;
 import com.neotys.ethereumJ.common.utils.Whiteblock.rest.WhiteBlockRestAPI;
-import com.neotys.ethereumJ.common.utils.Whiteblock.rest.WhiteblockHttpContext;
+import com.neotys.ethereumJ.common.utils.Whiteblock.rest.WhiteBlockHttpContext;
 import com.neotys.extensions.action.engine.Context;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Pattern;
 
 import static com.neotys.ethereumJ.common.utils.Whiteblock.Constants.ERROR;
