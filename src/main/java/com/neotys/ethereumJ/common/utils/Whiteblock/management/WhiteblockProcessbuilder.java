@@ -31,7 +31,7 @@ import static com.neotys.ethereumJ.common.utils.Whiteblock.Constants.ERROR;
 public class WhiteblockProcessbuilder {
     private static ProcessBuilder processBuilder;
 
-     private static void traceInfo(WhiteblockHttpContext context,String log)
+     private static void traceInfo(WhiteblockHttpContext context, String log)
     {
         if(context.getTracemode().isPresent())
         {
@@ -51,8 +51,8 @@ public class WhiteblockProcessbuilder {
      * @param definitionFile The path to the definition file
      * @return The ids of the tests which have been created
      */
-    public static List<String> build(WhiteblockHttpContext context, 
-        WhiteblockBuildMeta meta, String definitionFile) throws Exception {
+    public static List<String> build(WhiteblockHttpContext context, WhiteblockBuildMeta meta)
+            throws Exception {
 
         // TODO: Implement me
     }
@@ -65,7 +65,8 @@ public class WhiteblockProcessbuilder {
      * 
      * @return An object describing the status of the test
      */
-    public static WhiteblockStatus status(WhiteblockHttpContext context, String testID) {
+    public static WhiteblockStatus status(WhiteblockHttpContext context, String testID)
+            throws Exception {
         // TODO: Implement me
     }
     
@@ -76,7 +77,8 @@ public class WhiteblockProcessbuilder {
      * @param context WhiteblockHttpContext
      * @param String The id of the test
      */
-    public static void abortTest(WhiteblockHttpContext context, String testID) {
+    public static void abortTest(WhiteblockHttpContext context, String testID)
+            throws Exception {
         // TODO: Implement me
     }
 
@@ -89,7 +91,8 @@ public class WhiteblockProcessbuilder {
      * 
      * @return The endpoints in the form ip:port
      */
-    public static List<String> tcpEndpoints(WhiteblockHttpContext context, String testID) {
+    public static List<String> tcpEndpoints(WhiteblockHttpContext context, String testID)
+            throws Exception {
         // TODO: Implement me
     }
 
@@ -105,7 +108,7 @@ public class WhiteblockProcessbuilder {
      * @return The endpoints in the form ip:port
      */
     public static List<String> tcpEndpointsByService(WhiteblockHttpContext context, 
-        String testID, String service) {
+        String testID, String service) throws Exception {
         // TODO: Implement me
     }
 

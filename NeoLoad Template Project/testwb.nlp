@@ -1,11 +1,11 @@
 # Project description file
 
 project.name=testwb
-project.version=6.5
+project.version=8.0
 project.original.version=6.5
 product.name=NeoLoad
 product.original.name=NeoLoad
-product.version=6.9.0
+product.version=7.4.0
 product.original.version=6.8.1
 project.id=0f0c189a-6940-4be6-9a4c-16c889491cfe
 project.config.path=config.zip

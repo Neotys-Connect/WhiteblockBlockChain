@@ -16,6 +16,10 @@ import com.neotys.extensions.action.engine.SampleResult;
 import java.util.List;
 import java.util.Map;
 
+import java.io.File; //TODO: most likely want to use some neotys class instead
+import java.io.FileNotFoundException; 
+import java.util.Scanner;
+
 import static com.google.common.base.Strings.emptyToNull;
 import static com.neotys.action.argument.Arguments.getArgumentLogString;
 import static com.neotys.action.argument.Arguments.parseArguments;
@@ -25,6 +29,13 @@ public class BuildWhiteblockNetworkActionEngine implements ActionEngine {
     private static final String STATUS_CODE_TECHNICAL_ERROR = "NL-WB_BUILD_ACTION-02";
     private static final String STATUS_CODE_BAD_CONTEXT = "NL-WB_BUILD_ACTION-03";
     private static final String VALIDATION="completed";
+
+    private boolean isTestReady(WhiteblockHttpContext wbContext, String testID, String phase) {
+        // TODO: there is a race condition in this implementation, will need to also check if 
+        // the phase has already passed to fix it. 
+        WhiteblockStatus status = WhiteblockProcessbuilder.status(wbContext, testID);
+        return status.getPhase() == phase
+    }
     @Override
     public SampleResult execute(Context context, List<ActionParameter> list) {
         final SampleResult sampleResult = new SampleResult();
@@ -39,50 +50,46 @@ public class BuildWhiteblockNetworkActionEngine implements ActionEngine {
             return ResultFactory.newErrorResult(context, STATUS_CODE_INVALID_PARAMETER, "Could not parse arguments: ", iae);
         }
 
-
         final Logger logger = context.getLogger();
         if (logger.isDebugEnabled()) {
             logger.debug("Executing " + this.getClass().getName() + " with parameters: "
                     + getArgumentLogString(parsedArgs, GetMonitoringDataOption.values()));
         }
 
-        final String whiteBlocMasterHost = parsedArgs.get(BuildWhiteblockNetworkOption.WhiteBlocMasterHost.getName()).get();
-        final String whiteBlockRpcPort=parsedArgs.get(BuildWhiteblockNetworkOption.WhiteBlocRpcPort.getName()).get();
-        final String whiteBlockRpctoken=parsedArgs.get(BuildWhiteblockNetworkOption.WhiteBlocRpctoken.getName()).get();
-        final Optional<String> proxyName=parsedArgs.get(BuildWhiteblockNetworkOption.ProxyName.getName());
-        final String dockerimage=parsedArgs.get(BuildWhiteblockNetworkOption.DockerImage.getName()).get();
+        final String org = parsedArgs.get(BuildWhiteblockNetworkOption.
+            Organization.getName()).get();
+        final String defFilePath = parsedArgs.get(BuildWhiteblockNetworkOption.
+            TestDefinition.getName()).get();
+        final String accessToken = parsedArgs.get(BuildWhiteblockNetworkOption.
+            AccessToken.getName()).get();
+        final String startPhase = parsedArgs.get(BuildWhiteblockNetworkOption.
+            StartPhase.getName()).get();
+        final Optional<String> tracemode = parsedArgs.get((BuildWhiteblockNetworkOption.TraceMode.getName()));
 
-        final String numberofnodes = parsedArgs.get(BuildWhiteblockNetworkOption.NumberOfNodes.getName()).get();
-        final String typeofBlochacin = parsedArgs.get(BuildWhiteblockNetworkOption.TypeofBlochacin.getName()).get();
-        final Optional<String> tracemode=parsedArgs.get((BuildWhiteblockNetworkOption.TraceMode.getName()));
-
-
-        if(!validatetypeofBlockChain(typeofBlochacin))
-            return ResultFactory.newErrorResult(context, STATUS_CODE_INVALID_PARAMETER, "INVALID parameter : "+ typeofBlochacin,null);
-
-
+        String rawDefinition = "";
+        try {
+            File fd = new File(defFilePath);
+            Scanner fdScanner = new Scanner(fd);
+            while (fdScanner.hasNextLine()) {
+                rawDefinition += fdScanner.nextLine() + "\n";
+            }
+            fdScanner.close();
+        }catch(FileNotFoundException e) {
+            return ResultFactory.newErrorResult(context, STATUS_CODE_BAD_CONTEXT, "failed to find the provide test definition file: ", e);
+        }
         try
         {
-            WhiteblockHttpContext whiteBlockContext=new WhiteblockHttpContext(whiteBlocMasterHost,whiteBlockRpctoken, tracemode,context,whiteBlockRpcPort,proxyName);
+            WhiteblockHttpContext wbContext = new WhiteblockHttpContext(accessToken, tracemode,context,proxyName);
 
-            String output= WhiteblockProcessbuilder.buildEnvironment(whiteBlockContext,typeofBlochacin,dockerimage,Integer.parseInt(numberofnodes));
-            if(output!=null)
-            {
-                double status;
-                WhiteblockProcessbuilder.setTestID(whiteBlockContext,output);
-                do{
-                    Thread.sleep(500);
-                    status=WhiteblockProcessbuilder.getBuildStatus(whiteBlockContext,output);
-                    if(tracemode.isPresent())
-                        context.getLogger().debug("current status "+String.valueOf(status));
-
-                }while(status<100);
-
-                responseBuilder.append("Network  created");
+            WhiteblockBuildMeta meta = new WhiteblockBuildMeta(rawDefinition);
+            List<String> testIDs  = WhiteblockProcessbuilder.build(wbContext, meta)
+            if (testIDs.size() != 1) {
+                // TODO: Establish whether we handle the case of multiple tests or just give an error
             }
-            else
-                return ResultFactory.newErrorResult(context, STATUS_CODE_TECHNICAL_ERROR, "unable to create the network  :"+output, null);
-
+            String testID = testIDs.get(0)
+            while(!isTestReady(wbContext, testID, startPhase)) {
+                 Thread.sleep(500);
+            }
         }
         catch (Exception e)
         {
@@ -96,14 +103,7 @@ public class BuildWhiteblockNetworkActionEngine implements ActionEngine {
     }
 
 
-    private boolean validatetypeofBlockChain(String mode)
-    {
-        ImmutableList<String> minerMode=ImmutableList.of("ethereum", "parity","pantheon","syscoin", "rchain", "eos", "artemis", "beam", "cosmos");
-        if(minerMode.contains(mode.toLowerCase()))
-            return true;
-        else
-            return false;
-    }
+
     @Override
     public void stopExecute() {
 
