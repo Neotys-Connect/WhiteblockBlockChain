@@ -1,38 +1,24 @@
 package com.neotys.ethereumJ.CustomActions;
 
-import com.neotys.extensions.action.ActionParameter;
 import com.neotys.action.argument.ArgumentValidator;
 import com.neotys.action.argument.Option;
 import com.neotys.extensions.action.ActionParameter;
 
-import static com.neotys.action.argument.DefaultArgumentValidator.*;
-import static com.neotys.action.argument.Option.AppearsByDefault.False;
+import static com.neotys.action.argument.DefaultArgumentValidator.INTEGER_VALIDATOR;
+import static com.neotys.action.argument.DefaultArgumentValidator.NON_EMPTY;
 import static com.neotys.action.argument.Option.AppearsByDefault.True;
-import static com.neotys.action.argument.Option.OptionalRequired.Optional;
 import static com.neotys.action.argument.Option.OptionalRequired.Required;
 import static com.neotys.extensions.action.ActionParameter.Type.TEXT;
 
 enum GetAccountListOption implements Option {
-    WhiteBlocMasterHost("WhiteBlocMasterHost", Required, True, TEXT,
-            "Host of the master Node ",
-            "Master Node of your Whiteblock Network",
+    NodeIP("NodeIP", Required, True, TEXT,
+            "The Ethereum RPC node's IP address ",
+            "The Ethereum RPC node's IP address",
             NON_EMPTY),
-    WhiteBlocRpcPort("WhiteBlocRpcPort", Required, True, TEXT,
-            "RPC port of the whiteblock node",
-            "RPC port of the whiteblock node",
-            INTEGER_VALIDATOR),
-    WhiteBlocRpctoken("WhiteBlocRpctoken", Required, True, TEXT,
-            "RPC token of the whiteblock node",
-            "RPC token of the whiteblock node",
-            NON_EMPTY),
-    ProxyName("ProxyName", Optional, False, TEXT,
-            "name of the neoload proxy",
-            "name of the neoload proxy",
-            NON_EMPTY),
-    TraceMode("TraceMode", Optional, True, TEXT,
-            "enable logging ",
-            "enable loggin details  : true: enable ; false : Disable",
-            BOOLEAN_VALIDATOR);
+    NodePort("NodePort", Required, True, TEXT,
+            "RPC port of the node",
+            "RPC port of the node",
+            INTEGER_VALIDATOR);
 
     private final String name;
     private final Option.OptionalRequired optionalRequired;

@@ -3,7 +3,6 @@ package com.neotys.ethereumJ.common.utils.Whiteblock.rest;
 
 import com.google.common.base.Optional;
 import com.neotys.extensions.action.engine.Context;
-import com.neotys.extensions.action.engine.Proxy;
 
 public class WhiteblockHttpContext {
     private String bearertoken;
@@ -55,6 +54,11 @@ public class WhiteblockHttpContext {
 
     public void setContext(Context context) {
         this.context = context;
+    }
+
+
+    public boolean isTraceModeActive() {
+        return this.getTracemode().isPresent() && this.getTracemode().get().equalsIgnoreCase("TRUE");
     }
 }
 

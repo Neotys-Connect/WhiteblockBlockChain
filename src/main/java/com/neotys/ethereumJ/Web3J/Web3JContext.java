@@ -14,7 +14,8 @@ public class Web3JContext {
     private Optional<String> publicKey;
     private Optional<String> rpctoken;
 
-    public Web3JContext(String ipOftheNode, String port,Optional<String> token, Optional<String> accountAdress, String pwd, Optional<String> tracemode, Optional<String> privateKey, Optional<String> publicKey, Context context) {
+    public Web3JContext(String ipOftheNode, String port,Optional<String> token, Optional<String> accountAdress,
+                        String pwd, Optional<String> tracemode, Optional<String> privateKey, Optional<String> publicKey, Context context) {
         this.ipOftheNode = ipOftheNode;
         this.accountAdress = accountAdress;
         this.tracemode = tracemode;
@@ -24,6 +25,12 @@ public class Web3JContext {
         this.publicKey=publicKey;
         this.port=port;
         this.rpctoken=token;
+    }
+
+    public Web3JContext(String ip, String port, Context context) {
+        this.ipOftheNode = ip;
+        this.port=port;
+        this.context = context;
     }
 
     public Optional<String> getRpctoken() {

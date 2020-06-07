@@ -5,7 +5,6 @@ import com.neotys.action.argument.Option;
 import com.neotys.extensions.action.ActionParameter;
 
 import static com.neotys.action.argument.DefaultArgumentValidator.BOOLEAN_VALIDATOR;
-import static com.neotys.action.argument.DefaultArgumentValidator.INTEGER_VALIDATOR;
 import static com.neotys.action.argument.DefaultArgumentValidator.NON_EMPTY;
 import static com.neotys.action.argument.Option.AppearsByDefault.False;
 import static com.neotys.action.argument.Option.AppearsByDefault.True;
@@ -14,17 +13,17 @@ import static com.neotys.action.argument.Option.OptionalRequired.Required;
 import static com.neotys.extensions.action.ActionParameter.Type.TEXT;
 
 enum  GetNodesListOption implements Option {
-    WhiteBlocMasterHost("WhiteBlocMasterHost", Required, True, TEXT,
-            "Host of the master Node ",
-                    "Master Node of your Whiteblock Network",
-                        NON_EMPTY),
-    WhiteBlocRpcPort("WhiteBlocRpcPort", Required, True, TEXT,
-            "RPC port of the whiteblock node",
-            "RPC port of the whiteblock node",
-            INTEGER_VALIDATOR),
-    WhiteBlocRpctoken("WhiteBlocRpctoken", Required, True, TEXT,
-            "RPC token of the whiteblock node",
-            "RPC token of the whiteblock node",
+    TestID("TestID", Required, True, TEXT,
+            "The ID of the target test",
+            "Master Node of your Whiteblock Network",
+            NON_EMPTY),
+    Service("Service", Optional, True, TEXT,
+            "Only get nodes which are of a certain service type",
+            "Only get nodes which are of a certain service type",
+            NON_EMPTY),
+    AccessToken("AccessToken", Required, True, TEXT,
+            "A Whiteblock Genesis access token",
+            "You can get this by running the command genesis auth print-access-token",
             NON_EMPTY),
     ProxyName("ProxyName", Optional, False, TEXT,
             "name of the neoload proxy",

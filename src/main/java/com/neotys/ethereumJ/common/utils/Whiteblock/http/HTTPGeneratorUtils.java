@@ -13,29 +13,23 @@ import org.apache.http.conn.ssl.SSLSocketFactory;
 import org.apache.http.conn.ssl.TrustStrategy;
 import org.apache.http.conn.ssl.X509HostnameVerifier;
 import org.apache.http.entity.StringEntity;
+import org.apache.http.entity.mime.MultipartEntityBuilder;
+import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.conn.SingleClientConnManager;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpParams;
 import org.apache.http.protocol.HTTP;
-import org.apache.http.entity.mime.MultipartEntityBuilder;
-
 
 import javax.net.ssl.HttpsURLConnection;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.MalformedURLException;
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.io.File;
-
 
 import static com.neotys.ethereumJ.common.utils.Whiteblock.http.HTTPGenerator.*;
 import static java.util.stream.Collectors.toList;
@@ -90,13 +84,26 @@ class HTTPGeneratorUtils {
 		}
 	}
 
+	static void addPayload(final HttpRequestBase request, final StringEntity payload, final String httpMethod) {
+		switch (httpMethod) {
+			case HTTP_POST_METHOD:
+				((HttpPost) request).setEntity(payload);
+				break;
+			case HTTP_PUT_METHOD:
+				((HttpPut) request).setEntity(payload);
+				break;
+			default:
+				throw new UnsupportedOperationException("Invalid http method");
+		}
+	}
+
 	static void addFileParameters(final HttpRequestBase request, final List<String> files) {
 		MultipartEntityBuilder reqEntityBuilder = MultipartEntityBuilder.create();
 		for (String file : files) {
 		 	FileBody bin = new FileBody(new File(file));
 			reqEntityBuilder.addPart(file,bin);
 		}
-		((HttpPut) request).setEntity(reqEntityBuilder.build());
+		((HttpPost) request).setEntity(reqEntityBuilder.build());
 	}
 
 	@SuppressWarnings("deprecation")

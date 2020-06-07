@@ -2,7 +2,6 @@ package com.neotys.ethereumJ.common.utils.Whiteblock.rpc;
 
 import com.google.common.base.Optional;
 import com.neotys.extensions.action.engine.Context;
-import com.neotys.extensions.action.engine.Proxy;
 
 public class WhiteblockHttpContext {
     private String whiteblocMasterHost;
@@ -11,7 +10,8 @@ public class WhiteblockHttpContext {
     private Context context;
     private String rpcport;
     private Optional<String> proxy;
-    public WhiteblockHttpContext(String whiteblocMasterHost, String rpctoken, Optional<String> tracemode, Context context, String rpcport,Optional<String> proxy) {
+    public WhiteblockHttpContext(String whiteblocMasterHost, String rpctoken, Optional<String> tracemode,
+                                 Context context, String rpcport,Optional<String> proxy) {
         this.whiteblocMasterHost = whiteblocMasterHost;
         this.rpctoken = rpctoken;
         this.tracemode = tracemode;

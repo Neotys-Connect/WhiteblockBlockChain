@@ -2,8 +2,6 @@ package com.neotys.ethereumJ.common.utils.Whiteblock.monitoring;
 
 import com.google.common.base.Optional;
 import com.neotys.ascode.swagger.client.ApiClient;
-import com.neotys.ascode.swagger.client.ApiException;
-import com.neotys.ascode.swagger.client.api.ResultsApi;
 import com.neotys.ascode.swagger.client.model.CustomMonitor;
 import com.neotys.ascode.swagger.client.model.CustomMonitorValues;
 import com.neotys.ascode.swagger.client.model.CustomMonitorValuesInner;
@@ -11,19 +9,10 @@ import com.neotys.ascode.swagger.client.model.MonitorPostRequest;
 import com.neotys.ethereumJ.common.utils.Whiteblock.Constants;
 import com.neotys.ethereumJ.common.utils.Whiteblock.data.WhiteblockMonitoringData;
 import com.neotys.ethereumJ.common.utils.Whiteblock.management.WhiteBlockConstants;
-
-import com.neotys.ethereumJ.common.utils.Whiteblock.management.WhiteblockConnectionException;
-import com.neotys.ethereumJ.common.utils.Whiteblock.management.WhiteblockProcessbuilder;
 import com.neotys.ethereumJ.common.utils.Whiteblock.rpc.WhiteblockHttpContext;
-import com.neotys.extensions.action.engine.Context;
 import com.neotys.rest.dataexchange.client.DataExchangeAPIClient;
 import com.neotys.rest.dataexchange.model.EntryBuilder;
-import com.neotys.rest.error.NeotysAPIException;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.security.GeneralSecurityException;
-import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -88,13 +77,13 @@ public class WhiteblockDataToNeoLoad {
 
     }
 
-    public void getMonitoringData() throws Exception {
-        WhiteblockMonitoringData monitoringData=WhiteblockProcessbuilder.getMonitoringData(context,startime,endtime);
-       if(dataExchangeAPIClient.isPresent())
-            dataExchangeAPIClient.get().addEntries(toEntries(monitoringData));
-
-
-    }
+//    public void getMonitoringData() throws Exception {
+//        WhiteblockMonitoringData monitoringData= WhiteblockProcessBuilder.getMonitoringData(context,startime,endtime);
+//       if(dataExchangeAPIClient.isPresent())
+//            dataExchangeAPIClient.get().addEntries(toEntries(monitoringData));
+//
+//
+//    }
 
     private List<com.neotys.rest.dataexchange.model.Entry> toEntries(final WhiteblockMonitoringData whiteblockMetric) {
         List<WhiteblockData> data=whiteblockMetric.getWhiteblockDataTONL();
@@ -130,17 +119,18 @@ public class WhiteblockDataToNeoLoad {
         ApiClient neoLoadWebApiClient = new ApiClient();
         neoLoadWebApiClient.setApiKey(context.getContext().getAccountToken());
         neoLoadWebApiClient.setBasePath(getBasePath(context));
-        WhiteblockMonitoringData monitoringData=WhiteblockProcessbuilder.getMonitoringData(context,startime,endtime);
-       // traceInfo(context,String.valueOf(monitoringData.getBlockTime()));
-     //    traceInfo(context,monitoringData.generateOutPut());
-        if(testid!=null)
-        {
-            ResultsApi resultsApi=new ResultsApi(neoLoadWebApiClient);
-            MonitorPostRequest monitorPostRequest=new MonitorPostRequest();
-            monitorPostRequest.monitors(convertWhiteblockMonitoringToCustomMonitor(monitoringData));
-            traceInfo(context,generateLogfromMonitorRequest(monitorPostRequest));
-            resultsApi.postTestMonitors(monitorPostRequest,testid);
-        }
+        // TODO: Replace this dat asend
+//        WhiteblockMonitoringData monitoringData= WhiteblockProcessBuilder.getMonitoringData(context,startime,endtime);
+//       // traceInfo(context,String.valueOf(monitoringData.getBlockTime()));
+//     //    traceInfo(context,monitoringData.generateOutPut());
+//        if(testid!=null)
+//        {
+//            ResultsApi resultsApi=new ResultsApi(neoLoadWebApiClient);
+//            MonitorPostRequest monitorPostRequest=new MonitorPostRequest();
+//            monitorPostRequest.monitors(convertWhiteblockMonitoringToCustomMonitor(monitoringData));
+//            traceInfo(context,generateLogfromMonitorRequest(monitorPostRequest));
+//            resultsApi.postTestMonitors(monitorPostRequest,testid);
+//        }
     }
 
 

@@ -1,12 +1,10 @@
 package com.neotys.ethereumJ.common.utils.Whiteblock.management;
 
 import com.neotys.ethereumJ.common.utils.Whiteblock.data.*;
-
+import com.neotys.ethereumJ.common.utils.Whiteblock.rest.*;
 import java.util.*;
 
-import com.neotys.ethereumJ.common.utils.Whiteblock.rest.WhiteBlockHttpContext;
-
-public class WhiteblockProcessbuilder {
+public class WhiteblockProcessBuilder {
     private static ProcessBuilder processBuilder;
 
      private static void traceInfo(WhiteblockHttpContext context, String log)
@@ -26,12 +24,11 @@ public class WhiteblockProcessbuilder {
      * 
      * @param context WhiteblockHttpContext
      * @param meta The build meta data
-     * @param definitionFile The path to the definition file
      * @return The ids of the tests which have been created
      */
     public static List<String> build(WhiteblockHttpContext context, WhiteblockBuildMeta meta)
             throws Exception {
-
+        return null;
         // TODO: Implement me
     }
     /**
@@ -45,6 +42,7 @@ public class WhiteblockProcessbuilder {
      */
     public static WhiteblockStatus status(WhiteblockHttpContext context, String testID)
             throws Exception {
+        return null;
         // TODO: Implement me
     }
     
@@ -53,7 +51,7 @@ public class WhiteblockProcessbuilder {
      * @details Stop a test and cleanup resources
      * 
      * @param context WhiteblockHttpContext
-     * @param String The id of the test
+     * @param testID The id of the test
      */
     public static void abortTest(WhiteblockHttpContext context, String testID)
             throws Exception {
@@ -71,6 +69,7 @@ public class WhiteblockProcessbuilder {
      */
     public static List<String> tcpEndpoints(WhiteblockHttpContext context, String testID)
             throws Exception {
+        return null;
         // TODO: Implement me
     }
 
@@ -87,7 +86,20 @@ public class WhiteblockProcessbuilder {
      */
     public static List<String> tcpEndpointsByService(WhiteblockHttpContext context, 
         String testID, String service) throws Exception {
+        return null;
         // TODO: Implement me
+    }
+
+    public static WhiteblockNodeList listAllNodes(WhiteblockHttpContext context, String testID)
+        throws Exception {
+        // TODO: Implement me
+        return null;
+    }
+
+    public static WhiteblockNodeList listNodes(WhiteblockHttpContext context, String testID, String service)
+        throws Exception {
+        // TODO: Implement me
+        return null;
     }
 
 }

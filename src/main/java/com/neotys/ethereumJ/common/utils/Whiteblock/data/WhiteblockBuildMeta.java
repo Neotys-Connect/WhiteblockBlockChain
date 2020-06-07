@@ -2,6 +2,8 @@ package com.neotys.ethereumJ.common.utils.Whiteblock.data;
 
 import org.json.JSONObject;
 
+import java.util.List;
+
 public class WhiteblockBuildMeta {
 	List<String> domains;
 	JSONObject cloudDetails; // TODO: define these out so they can be used by our users

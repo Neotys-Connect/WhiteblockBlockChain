@@ -2,7 +2,6 @@ com.neotys.ethereumJ.CustomActions.SendTransactionAction
 com.neotys.ethereumJ.CustomActions.BuildWhiteblockNetworkAction
 com.neotys.ethereumJ.CustomActions.GetAccountListAction
 com.neotys.ethereumJ.CustomActions.GetNodesListAction
-com.neotys.ethereumJ.CustomActions.MinerAction
 com.neotys.ethereumJ.CustomActions.GetMonitoringDataAction
 com.neotys.ethereumJ.CustomActions.GetContractsListAction
 com.neotys.ethereumJ.CustomActions.SendSignedTransactionAction

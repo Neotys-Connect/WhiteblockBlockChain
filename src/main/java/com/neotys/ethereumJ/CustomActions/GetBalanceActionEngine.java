@@ -2,7 +2,8 @@ package com.neotys.ethereumJ.CustomActions;
 
 import com.google.common.base.Optional;
 import com.neotys.action.result.ResultFactory;
-import com.neotys.ethereumJ.Web3J.Web3UtilsWhiteblock;
+import com.neotys.ethereumJ.Web3J.Web3JContext;
+import com.neotys.ethereumJ.Web3J.Web3JUtils;
 import com.neotys.extensions.action.ActionParameter;
 import com.neotys.extensions.action.engine.ActionEngine;
 import com.neotys.extensions.action.engine.Context;
@@ -38,20 +39,19 @@ public class GetBalanceActionEngine implements ActionEngine {
             logger.debug("Executing " + this.getClass().getName() + " with parameters: "
                     + getArgumentLogString(parsedArgs, GetBalanceOption.values()));
         }
-        final String whiteBlocMasterHost = parsedArgs.get(GetBalanceOption.WhiteBlocMasterHost.getName()).get();
-        final String whiteBlocMasterRpcPort = parsedArgs.get(GetBalanceOption.WhiteBlocRpcPortofNode.getName()).get();
+        final String nodeIP = parsedArgs.get(GetBalanceOption.nodeIP.getName()).get();
+        final String nodePort = parsedArgs.get(GetBalanceOption.nodePort.getName()).get();
 
-        final String from = parsedArgs.get(GetBalanceOption.from.getName()).get();
-        final Optional<String> publickey = parsedArgs.get(GetBalanceOption.publickey.getName());
-        final Optional<String> privatekey = parsedArgs.get(GetBalanceOption.privatekey.getName());
-        final Optional<String> traceMode = parsedArgs.get(GetBalanceOption.TraceMode.getName());
+        final String address = parsedArgs.get(GetBalanceOption.address.getName()).get();
+        //final Optional<String> traceMode = parsedArgs.get(GetBalanceOption.TraceMode.getName());
 
         sampleResult.sampleStart();
         try {
-            Web3UtilsWhiteblock whiteblock = new Web3UtilsWhiteblock(whiteBlocMasterHost,whiteBlocMasterRpcPort, Optional.absent(),Optional.of(from), privatekey, publickey, traceMode, context);
-            String hash = whiteblock.getBalance();
+            Web3JContext ctx = new Web3JContext(nodeIP,nodePort,context);
+            Web3JUtils w3 = new Web3JUtils(ctx);
+            String balance = w3.getBalanceEther(address).toPlainString();
 
-            appendLineToStringBuilder(responseBuilder, "Balance of the account in Ether  : " + hash);
+            appendLineToStringBuilder(responseBuilder, "Balance of the account in Ether  : " + balance);
         } catch (Exception e) {
             return ResultFactory.newErrorResult(context, STATUS_CODE_BAD_CONTEXT, "Error encountered :", e);
 

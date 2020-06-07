@@ -1,20 +1,22 @@
 package com.neotys.ethereumJ.CustomActions;
 
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.google.common.base.Optional;
 import com.neotys.action.result.ResultFactory;
-import com.neotys.ethereumJ.common.utils.Whiteblock.management.WhiteBlockConstants;
-import com.neotys.ethereumJ.common.utils.Whiteblock.management.WhiteBlockContext;
-import com.neotys.ethereumJ.common.utils.Whiteblock.management.WhiteblockProcessbuilder;
-import com.neotys.ethereumJ.common.utils.Whiteblock.rpc.WhiteblockHttpContext;
+import com.neotys.ethereumJ.Web3J.Web3JContext;
+import com.neotys.ethereumJ.Web3J.Web3JUtils;
 import com.neotys.extensions.action.ActionParameter;
 import com.neotys.extensions.action.engine.ActionEngine;
 import com.neotys.extensions.action.engine.Context;
 import com.neotys.extensions.action.engine.Logger;
 import com.neotys.extensions.action.engine.SampleResult;
-import static com.neotys.action.argument.Arguments.getArgumentLogString;
-import static com.neotys.action.argument.Arguments.parseArguments;
+
 import java.util.List;
 import java.util.Map;
+
+import static com.neotys.action.argument.Arguments.getArgumentLogString;
+import static com.neotys.action.argument.Arguments.parseArguments;
 
 public class GetAccountListActionEngine implements ActionEngine {
     private static final String STATUS_CODE_INVALID_PARAMETER = "NL-WB_ACCOUNT_ACTION-01";
@@ -43,20 +45,18 @@ public class GetAccountListActionEngine implements ActionEngine {
                     + getArgumentLogString(parsedArgs, GetMonitoringDataOption.values()));
         }
 
-        final String whiteBlocMasterHost = parsedArgs.get(GetAccountListOption.WhiteBlocMasterHost.getName()).get();
-        final String whiteBlockRpcPort=parsedArgs.get(GetAccountListOption.WhiteBlocRpcPort.getName()).get();
-        final String whiteBlockRpctoken=parsedArgs.get(GetAccountListOption.WhiteBlocRpctoken.getName()).get();
-        final Optional<String> proxyName=parsedArgs.get(GetAccountListOption.ProxyName.getName());
-
-
-        final Optional<String> tracemode=parsedArgs.get((GetAccountListOption.TraceMode.getName()));
+        final String nodeIP = parsedArgs.get(GetAccountListOption.NodeIP.getName()).get();
+        final String nodePort = parsedArgs.get(GetAccountListOption.NodePort.getName()).get();
 
         try
         {
-            WhiteblockHttpContext whiteBlockContext=new WhiteblockHttpContext(whiteBlocMasterHost,whiteBlockRpctoken, tracemode,context,whiteBlockRpcPort,proxyName);
-            String testnetid=WhiteblockProcessbuilder.getNetID(whiteBlockContext);
-            String output= WhiteblockProcessbuilder.getAccountLis(whiteBlockContext,testnetid).generateOutPut();
-            responseBuilder.append(output);
+            Web3JContext ctx = new Web3JContext(nodeIP, nodePort, context);
+            Web3JUtils w3 = new Web3JUtils(ctx);
+            List<String> accounts = w3.getAccounts();
+            XmlMapper xmlMapper = new XmlMapper();
+            xmlMapper.enable(SerializationFeature.INDENT_OUTPUT);
+            String xml = xmlMapper.writeValueAsString(accounts);
+            responseBuilder.append(xml);
         }
         catch (Exception e)
         {

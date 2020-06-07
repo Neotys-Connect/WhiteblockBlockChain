@@ -1,26 +1,23 @@
 package com.neotys.ethereumJ.CustomActions;
 
 import com.google.common.base.Optional;
-import com.google.common.collect.ImmutableList;
 import com.neotys.action.result.ResultFactory;
-import com.neotys.ethereumJ.common.utils.Whiteblock.management.WhiteBlockConstants;
-import com.neotys.ethereumJ.common.utils.Whiteblock.management.WhiteBlockContext;
-import com.neotys.ethereumJ.common.utils.Whiteblock.management.WhiteblockProcessbuilder;
-import com.neotys.ethereumJ.common.utils.Whiteblock.rpc.WhiteblockHttpContext;
+import com.neotys.ethereumJ.common.utils.Whiteblock.data.WhiteblockBuildMeta;
+import com.neotys.ethereumJ.common.utils.Whiteblock.data.WhiteblockStatus;
+import com.neotys.ethereumJ.common.utils.Whiteblock.management.WhiteblockProcessBuilder;
+import com.neotys.ethereumJ.common.utils.Whiteblock.rest.WhiteblockHttpContext;
 import com.neotys.extensions.action.ActionParameter;
 import com.neotys.extensions.action.engine.ActionEngine;
 import com.neotys.extensions.action.engine.Context;
 import com.neotys.extensions.action.engine.Logger;
 import com.neotys.extensions.action.engine.SampleResult;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.Map;
-
-import java.io.File; //TODO: most likely want to use some neotys class instead
-import java.io.FileNotFoundException; 
 import java.util.Scanner;
 
-import static com.google.common.base.Strings.emptyToNull;
 import static com.neotys.action.argument.Arguments.getArgumentLogString;
 import static com.neotys.action.argument.Arguments.parseArguments;
 
@@ -30,10 +27,10 @@ public class BuildWhiteblockNetworkActionEngine implements ActionEngine {
     private static final String STATUS_CODE_BAD_CONTEXT = "NL-WB_BUILD_ACTION-03";
     private static final String VALIDATION="completed";
 
-    private boolean isTestReady(WhiteblockHttpContext wbContext, String testID, String phase) {
+    private boolean isTestReady(WhiteblockHttpContext wbContext, String testID, String phase) throws Exception {
         // TODO: there is a race condition in this implementation, will need to also check if 
         // the phase has already passed to fix it. 
-        WhiteblockStatus status = WhiteblockProcessbuilder.status(wbContext, testID);
+        WhiteblockStatus status = WhiteblockProcessBuilder.status(wbContext, testID);
         return status.getPhase() == phase;
     }
     @Override
@@ -65,6 +62,7 @@ public class BuildWhiteblockNetworkActionEngine implements ActionEngine {
         final String startPhase = parsedArgs.get(BuildWhiteblockNetworkOption.
             StartPhase.getName()).get();
         final Optional<String> tracemode = parsedArgs.get((BuildWhiteblockNetworkOption.TraceMode.getName()));
+        final Optional<String> proxyName=parsedArgs.get(GetNodesListOption.ProxyName.getName());
 
         String rawDefinition = "";
         try {
@@ -81,8 +79,7 @@ public class BuildWhiteblockNetworkActionEngine implements ActionEngine {
         {
             WhiteblockHttpContext wbContext = new WhiteblockHttpContext(accessToken, tracemode,context,proxyName);
 
-            WhiteblockBuildMeta meta = new WhiteblockBuildMeta(rawDefinition);
-            List<String> testIDs  = WhiteblockProcessbuilder.build(wbContext, meta);
+            List<String> testIDs  = WhiteblockProcessBuilder.build(wbContext, new WhiteblockBuildMeta(rawDefinition));
             if (testIDs.size() != 1) {
                 // TODO: Establish whether we handle the case of multiple tests or just give an error
             }

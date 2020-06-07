@@ -5,7 +5,6 @@ import com.neotys.action.argument.Option;
 import com.neotys.extensions.action.ActionParameter;
 
 import static com.neotys.action.argument.DefaultArgumentValidator.BOOLEAN_VALIDATOR;
-import static com.neotys.action.argument.DefaultArgumentValidator.INTEGER_VALIDATOR;
 import static com.neotys.action.argument.DefaultArgumentValidator.NON_EMPTY;
 import static com.neotys.action.argument.Option.AppearsByDefault.True;
 import static com.neotys.action.argument.Option.OptionalRequired.Optional;
@@ -13,21 +12,17 @@ import static com.neotys.action.argument.Option.OptionalRequired.Required;
 import static com.neotys.extensions.action.ActionParameter.Type.TEXT;
 
 enum GetBalanceOption implements Option {
-    Service("service", Required, True, TEXT,
-            "The service to target for the call",
-            "The service to target for the call",
+    nodeIP("nodeIP", Required, True, TEXT,
+            "The node to target for the call",
+            "The node to target for the call",
             NON_EMPTY),
-    from("from", Required, True, TEXT,
-            "Address of the account that will send the transaction",
-            "Address of the account that will send the transaction",
+    nodePort("nodePort", Required, True, TEXT,
+            "The node port to target for the call",
+            "The node port to target for the call",
             NON_EMPTY),
-    privatekey("privatekey", Required, True, TEXT,
-            "Keystore of the from account ",
-            "Keystore of the from account ",
-            NON_EMPTY),
-    publickey("publickey", Required, True, TEXT,
-            "Keystore of the from account ",
-            "Keystore of the from account ",
+    address("address", Required, True, TEXT,
+            "address to get the balance of",
+            "address to get the balance of",
             NON_EMPTY),
     TraceMode("TraceMode", Optional, True, TEXT,
             "enable logging ",

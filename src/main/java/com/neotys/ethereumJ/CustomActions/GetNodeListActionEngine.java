@@ -2,8 +2,8 @@ package com.neotys.ethereumJ.CustomActions;
 
 import com.google.common.base.Optional;
 import com.neotys.action.result.ResultFactory;
-import com.neotys.ethereumJ.common.utils.Whiteblock.management.WhiteblockProcessbuilder;
-import com.neotys.ethereumJ.common.utils.Whiteblock.rpc.WhiteblockHttpContext;
+import com.neotys.ethereumJ.common.utils.Whiteblock.management.WhiteblockProcessBuilder;
+import com.neotys.ethereumJ.common.utils.Whiteblock.rest.WhiteblockHttpContext;
 import com.neotys.extensions.action.ActionParameter;
 import com.neotys.extensions.action.engine.ActionEngine;
 import com.neotys.extensions.action.engine.Context;
@@ -40,18 +40,23 @@ public class GetNodeListActionEngine implements ActionEngine {
             logger.debug("Executing " + this.getClass().getName() + " with parameters: "
                     + getArgumentLogString(parsedArgs, GetMonitoringDataOption.values()));
         }
-        final String whiteBlocMasterHost = parsedArgs.get(GetNodesListOption.WhiteBlocMasterHost.getName()).get();
-        final String whiteBlockRpcPort=parsedArgs.get(GetNodesListOption.WhiteBlocRpcPort.getName()).get();
-        final String whiteBlockRpctoken=parsedArgs.get(GetNodesListOption.WhiteBlocRpctoken.getName()).get();
+        final String testID = parsedArgs.get(GetNodesListOption.TestID.getName()).get();
+        final Optional<String> service = parsedArgs.get(GetNodesListOption.Service.getName());
         final Optional<String> proxyName=parsedArgs.get(GetNodesListOption.ProxyName.getName());
-
+        final String accessToken = parsedArgs.get(BuildWhiteblockNetworkOption.
+                AccessToken.getName()).get();
         final Optional<String> tracemode=parsedArgs.get((GetNodesListOption.TraceMode.getName()));
 
         try
         {
-            WhiteblockHttpContext whiteBlockContext=new WhiteblockHttpContext(whiteBlocMasterHost, whiteBlockRpctoken,tracemode,context,whiteBlockRpcPort,proxyName);
-            String testnetid=WhiteblockProcessbuilder.getNetID(whiteBlockContext);
-            String output= WhiteblockProcessbuilder.getNodeLis(whiteBlockContext,testnetid).generateOutPut();
+            WhiteblockHttpContext whiteBlockContext=new WhiteblockHttpContext(accessToken,tracemode,context,proxyName);
+            String output;
+            if(service.isPresent()) {
+                output = WhiteblockProcessBuilder.listNodes(whiteBlockContext,testID, service.get()).generateOutPut();
+            }else{
+                output = WhiteblockProcessBuilder.listAllNodes(whiteBlockContext,testID).generateOutPut();
+            }
+
             responseBuilder.append(output);
         }
         catch (Exception e)

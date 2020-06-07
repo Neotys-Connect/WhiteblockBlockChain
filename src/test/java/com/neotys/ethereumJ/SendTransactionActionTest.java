@@ -1,23 +1,18 @@
 package com.neotys.ethereumJ;
 
-import static com.neotys.ethereumJ.common.utils.Whiteblock.Constants.ERROR;
-import static org.junit.Assert.assertEquals;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.common.base.Function;
 import com.google.common.base.Optional;
 import com.google.common.primitives.Ints;
 import com.google.gson.Gson;
 import com.neotys.ethereumJ.CustomActions.SendTransactionAction;
-import com.neotys.ethereumJ.common.utils.Whiteblock.data.WhiteblockAccountList;
 import com.neotys.ethereumJ.common.utils.Whiteblock.data.WhiteblockMonitoringData;
-import com.neotys.ethereumJ.common.utils.Whiteblock.management.WhiteblockConnectionException;
 import com.neotys.ethereumJ.common.utils.Whiteblock.monitoring.WhiteblockData;
 import org.junit.Test;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static org.junit.Assert.assertEquals;
 
 public class SendTransactionActionTest {
 	@Test
@@ -94,14 +89,14 @@ public class SendTransactionActionTest {
 			"  }\n" +
 			"]";
 
-	@Test
-	public void testobjectconversion() throws JsonProcessingException {
-		Gson gson = new Gson();
-		String jsonCustomer = "{ \"accountList\":" + payload + "}";
-		WhiteblockAccountList whiteblockAccountList = gson.fromJson(jsonCustomer, WhiteblockAccountList.class);
-
-		System.out.println(whiteblockAccountList.generateOutPut());
-	}
+//	@Test
+//	public void testobjectconversion() throws JsonProcessingException {
+//		Gson gson = new Gson();
+//		String jsonCustomer = "{ \"accountList\":" + payload + "}";
+//		WhiteblockAccountList whiteblockAccountList = gson.fromJson(jsonCustomer, WhiteblockAccountList.class);
+//
+//		System.out.println(whiteblockAccountList.generateOutPut());
+//	}
 
 	@Test
 	public void testoptionnal() {

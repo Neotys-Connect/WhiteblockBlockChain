@@ -1,13 +1,9 @@
 package com.neotys.ethereumJ.CustomActions;
 
 import com.google.common.base.Optional;
-import com.google.common.base.Splitter;
 import com.neotys.action.result.ResultFactory;
 import com.neotys.ascode.swagger.client.ApiException;
 import com.neotys.ethereumJ.common.utils.Whiteblock.Constants;
-import com.neotys.ethereumJ.common.utils.Whiteblock.management.WhiteBlockConstants;
-import com.neotys.ethereumJ.common.utils.Whiteblock.management.WhiteBlockContext;
-import com.neotys.ethereumJ.common.utils.Whiteblock.management.WhiteblockConnectionException;
 import com.neotys.ethereumJ.common.utils.Whiteblock.monitoring.WhiteblockDataToNeoLoad;
 import com.neotys.ethereumJ.common.utils.Whiteblock.rpc.WhiteblockHttpContext;
 import com.neotys.extensions.action.ActionParameter;
@@ -24,15 +20,12 @@ import org.apache.olingo.odata2.api.exception.ODataException;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.security.GeneralSecurityException;
-import java.time.ZoneOffset;
-import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Map;
 
 import static com.google.common.base.Strings.emptyToNull;
 import static com.neotys.action.argument.Arguments.getArgumentLogString;
 import static com.neotys.action.argument.Arguments.parseArguments;
-import static com.neotys.ethereumJ.common.utils.Whiteblock.Constants.WHITEBLOCK_MONITORING_PACE;
 
 public class GetMonitoringDataActionEngine implements ActionEngine {
     private static final String STATUS_CODE_INVALID_PARAMETER = "NL-WB_MONITORING_ACTION-01";

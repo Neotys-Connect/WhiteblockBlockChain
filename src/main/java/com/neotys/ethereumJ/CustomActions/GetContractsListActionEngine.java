@@ -2,10 +2,6 @@ package com.neotys.ethereumJ.CustomActions;
 
 import com.google.common.base.Optional;
 import com.neotys.action.result.ResultFactory;
-import com.neotys.ethereumJ.common.utils.Whiteblock.management.WhiteBlockConstants;
-import com.neotys.ethereumJ.common.utils.Whiteblock.management.WhiteBlockContext;
-import com.neotys.ethereumJ.common.utils.Whiteblock.management.WhiteblockProcessbuilder;
-import com.neotys.ethereumJ.common.utils.Whiteblock.rpc.WhiteblockHttpContext;
 import com.neotys.extensions.action.ActionParameter;
 import com.neotys.extensions.action.engine.ActionEngine;
 import com.neotys.extensions.action.engine.Context;
@@ -54,10 +50,13 @@ public class GetContractsListActionEngine implements ActionEngine
 
             try
             {
-                WhiteblockHttpContext whiteBlockContext=new WhiteblockHttpContext(whiteBlocMasterHost, whiteBlockRpctoken,tracemode,context,whiteBlockRpcPort,proxyName);
-                String testnetid=WhiteblockProcessbuilder.getNetID(whiteBlockContext);
-                String output= WhiteblockProcessbuilder.getContractList(whiteBlockContext,testnetid).generateOutPut();
-                responseBuilder.append(output);
+                //TODO: Add a way to get the contracts
+//                WhiteblockHttpContext whiteBlockContext=new WhiteblockHttpContext(whiteBlocMasterHost, whiteBlockRpctoken,tracemode,context,whiteBlockRpcPort,proxyName);
+//
+//                Web3JUtils w3 = new Web3JUtils(whiteBlockContext);
+//                String testnetid= WhiteblockProcessBuilder.getNetID(whiteBlockContext);
+//                String output= WhiteblockProcessBuilder.getContractList(whiteBlockContext,testnetid).generateOutPut();
+//                responseBuilder.append(output);
             }
             catch (Exception e)
             {

@@ -16,6 +16,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 
@@ -79,6 +80,22 @@ public class HTTPGenerator {
 		final HTTPGenerator httpGenerator = new HTTPGenerator(httpMethod, url, headers, params, proxy);
 		final StringEntity requestEntity = new StringEntity(bodyJson, "application/json","utf8");
 		addJsonParameters(httpGenerator.request, requestEntity, httpMethod);
+		return httpGenerator;
+	}
+
+	public static HTTPGenerator newHttpGenerator(final String httpMethod,
+													 final String url,
+													 final Map<String, String> headers,
+													 final Map<String, String> params,
+													 final Optional<Proxy> proxy,
+													 final String payload)
+			throws Exception {
+		final HTTPGenerator httpGenerator = new HTTPGenerator(httpMethod, url, headers, params, proxy);
+		if(payload != null) {
+			final StringEntity requestEntity = new StringEntity(payload, "application/json","utf8");
+			addPayload(httpGenerator.request, requestEntity, httpMethod);
+		}
+
 		return httpGenerator;
 	}
 
