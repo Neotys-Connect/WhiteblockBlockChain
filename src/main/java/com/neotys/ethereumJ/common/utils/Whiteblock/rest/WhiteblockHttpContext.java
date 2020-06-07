@@ -27,10 +27,6 @@ public class WhiteblockHttpContext {
         this.proxy = proxy;
     }
 
-    public String getWhiteblocMasterHost() {
-        return HOST;
-    }
-
     public String getBearerToken() {
         // TODO: properly handle oauth.
         return bearertoken;

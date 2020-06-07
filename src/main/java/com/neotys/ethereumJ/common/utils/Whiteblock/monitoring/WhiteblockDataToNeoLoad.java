@@ -8,7 +8,7 @@ import com.neotys.ascode.swagger.client.model.CustomMonitorValuesInner;
 import com.neotys.ascode.swagger.client.model.MonitorPostRequest;
 import com.neotys.ethereumJ.common.utils.Whiteblock.Constants;
 import com.neotys.ethereumJ.common.utils.Whiteblock.data.WhiteblockMonitoringData;
-import com.neotys.ethereumJ.common.utils.Whiteblock.management.WhiteBlockConstants;
+import com.neotys.ethereumJ.common.utils.Whiteblock.management.WhiteblockConstants;
 import com.neotys.ethereumJ.common.utils.Whiteblock.rpc.WhiteblockHttpContext;
 import com.neotys.rest.dataexchange.client.DataExchangeAPIClient;
 import com.neotys.rest.dataexchange.model.EntryBuilder;
@@ -96,7 +96,7 @@ public class WhiteblockDataToNeoLoad {
     {
         if(context.getTracemode().isPresent())
         {
-            if(context.getTracemode().get().toLowerCase().equals(WhiteBlockConstants.TRUE))
+            if(context.getTracemode().get().toLowerCase().equals(WhiteblockConstants.TRUE))
             {
                 context.getContext().getLogger().info(log);
             }

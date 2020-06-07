@@ -1,6 +1,6 @@
 package com.neotys.ethereumJ.Web3J;
 
-import com.neotys.ethereumJ.common.utils.Whiteblock.management.WhiteBlockConstants;
+import com.neotys.ethereumJ.common.utils.Whiteblock.management.WhiteblockConstants;
 import org.web3j.contracts.eip20.generated.ERC20;
 import org.web3j.contracts.eip721.generated.ERC721;
 import org.web3j.crypto.Credentials;
@@ -120,7 +120,7 @@ public class Web3JUtils {
     {
         if(this.context.getTracemode().isPresent())
         {
-            if(this.context.getTracemode().get().toLowerCase().equals(WhiteBlockConstants.TRUE))
+            if(this.context.getTracemode().get().toLowerCase().equals(WhiteblockConstants.TRUE))
                 this.context.getContext().getLogger().info(text);
         }
     }

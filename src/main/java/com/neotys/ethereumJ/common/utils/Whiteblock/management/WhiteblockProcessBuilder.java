@@ -5,13 +5,14 @@ import com.neotys.ethereumJ.common.utils.Whiteblock.rest.*;
 import java.util.*;
 
 public class WhiteblockProcessBuilder {
-    private static ProcessBuilder processBuilder;
+
+     private static ProcessBuilder processBuilder;
 
      private static void traceInfo(WhiteblockHttpContext context, String log)
     {
         if(context.getTracemode().isPresent())
         {
-            if(context.getTracemode().get().toLowerCase().equals(WhiteBlockConstants.TRUE))
+            if(context.getTracemode().get().toLowerCase().equals(WhiteblockConstants.TRUE))
             {
                 context.getContext().getLogger().info(log);
             }
@@ -28,6 +29,9 @@ public class WhiteblockProcessBuilder {
      */
     public static List<String> build(WhiteblockHttpContext context, WhiteblockBuildMeta meta)
             throws Exception {
+        // Parse
+        // Upload the files
+        WhiteblockRestAPI.multipartRequest(context,WhiteblockConstants.FILE_UPLOAD_URI,meta.)
         return null;
         // TODO: Implement me
     }
