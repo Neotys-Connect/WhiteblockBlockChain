@@ -3,7 +3,6 @@ package com.neotys.ethereumJ.CustomActions;
 import com.google.common.base.Optional;
 import com.neotys.action.result.ResultFactory;
 import com.neotys.ethereumJ.common.utils.Whiteblock.data.WhiteblockBuildMeta;
-import com.neotys.ethereumJ.common.utils.Whiteblock.data.WhiteblockStatus;
 import com.neotys.ethereumJ.common.utils.Whiteblock.management.WhiteblockProcessBuilder;
 import com.neotys.ethereumJ.common.utils.Whiteblock.rest.WhiteblockHttpContext;
 import com.neotys.extensions.action.ActionParameter;
@@ -29,9 +28,8 @@ public class BuildWhiteblockNetworkActionEngine implements ActionEngine {
 
     private boolean isTestReady(WhiteblockHttpContext wbContext, String testID, String phase) throws Exception {
         // TODO: there is a race condition in this implementation, will need to also check if 
-        // the phase has already passed to fix it. 
-        WhiteblockStatus status = WhiteblockProcessBuilder.status(wbContext, testID);
-        return status.getPhase() == phase;
+        // the phase has already passed to fix it.
+        return WhiteblockProcessBuilder.phasePassed(wbContext, testID, phase);
     }
     @Override
     public SampleResult execute(Context context, List<ActionParameter> list) {
@@ -79,7 +77,7 @@ public class BuildWhiteblockNetworkActionEngine implements ActionEngine {
         {
             WhiteblockHttpContext wbContext = new WhiteblockHttpContext(accessToken, tracemode,context,proxyName);
 
-            List<String> testIDs  = WhiteblockProcessBuilder.build(wbContext, new WhiteblockBuildMeta(rawDefinition));
+            List<String> testIDs  = WhiteblockProcessBuilder.build(wbContext, org, new WhiteblockBuildMeta(rawDefinition));
             if (testIDs.size() != 1) {
                 // TODO: Establish whether we handle the case of multiple tests or just give an error
             }

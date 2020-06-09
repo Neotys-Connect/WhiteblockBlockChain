@@ -12,7 +12,10 @@ public class WhiteblockConstants {
     public static final String STOP_TEST_URI = TEST_EXECUTION_API+"/stop/test/%s";
     public static final String STATUS_TEST_URI = TEST_EXECUTION_API+"/status/%s";
     public static final String FILE_UPLOAD_URI = FILE_API + "/organizations/%s/definitions";
-
+    public static final String PHASE_PASSED_URI = TEST_EXECUTION_API + "/status/%s/phase/%s/passed"; //test, phase
+    public static final String PARSE_FILES_URI = TEST_EXECUTION_API + "/parse/files";
+    public static final String NODE_ENDPOINTS_URI = TEST_EXECUTION_API + "/info/tests/%s/endpoints/services"; // test
+    public static final String NODE_ENDPOINTS_FILTERED_URI = TEST_EXECUTION_API + "/info/tests/%s/endpoints/services/%s"; // test, service
     public static final String TRUE="true";
 
 }

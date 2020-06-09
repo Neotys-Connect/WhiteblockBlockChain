@@ -8,6 +8,7 @@ import com.neotys.extensions.action.engine.Context;
 import com.neotys.extensions.action.engine.Proxy;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.net.MalformedURLException;
@@ -136,6 +137,48 @@ public class WhiteblockRestAPI {
             if(isSuccessHttpCode(statusCode))
             {
                 return HttpResponseUtils.getJsonResponse(response);
+            }
+            final String stringResponse = HttpResponseUtils.getStringResponse(response);
+            throw new WhiteBlockHttpException(response.getStatusLine().getReasonPhrase() + " - " + url +
+                    " - " + payload + " - " + stringResponse);
+
+        }
+        catch (Exception e)
+        {
+            throw new WhiteBlockHttpException(e.getMessage());
+        }
+    }
+
+
+    public static JSONArray jsonArrRequest(String method, String path, String payload, WhiteblockHttpContext context)
+            throws Exception {
+        final Map<String, String> parameters = new HashMap<>();
+
+        final Map<String, String> headers = new HashMap<>();
+        String url = context.HOST + path;
+        headers.put("Authorization"," Bearer "+context.getBearerToken());
+
+        final Optional<Proxy> proxy = getProxy(context.getContext(), context.getProxy(), url);
+
+        final HTTPGenerator http = new HTTPGenerator(method, url,  headers, parameters, proxy);
+        try
+        {
+            if(context.getTracemode().isPresent()&&context.getTracemode().get().equalsIgnoreCase("TRUE"))
+            {
+                context.getContext().getLogger().info("Whiteblock rpc service, :\n" + http.getRequest() +
+                        "\n" + payload);
+
+            }
+            HttpResponse response=http.execute();
+            if(context.getTracemode().isPresent()&&context.getTracemode().get().equalsIgnoreCase("TRUE"))
+            {
+                context.getContext().getLogger().info("Whiteblock rpc response, :\n" + response.toString() );
+
+            }
+            final int statusCode = response.getStatusLine().getStatusCode();
+            if(isSuccessHttpCode(statusCode))
+            {
+                return HttpResponseUtils.getJsonArrayResponse(response);
             }
             final String stringResponse = HttpResponseUtils.getStringResponse(response);
             throw new WhiteBlockHttpException(response.getStatusLine().getReasonPhrase() + " - " + url +

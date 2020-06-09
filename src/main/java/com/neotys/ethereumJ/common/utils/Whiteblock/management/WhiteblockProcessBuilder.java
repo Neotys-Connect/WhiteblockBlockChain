@@ -2,7 +2,11 @@ package com.neotys.ethereumJ.common.utils.Whiteblock.management;
 
 import com.neotys.ethereumJ.common.utils.Whiteblock.data.*;
 import com.neotys.ethereumJ.common.utils.Whiteblock.rest.*;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.*;
+import static com.neotys.ethereumJ.common.utils.Whiteblock.management.WhiteblockConstants.*;
 
 public class WhiteblockProcessBuilder {
 
@@ -27,12 +31,27 @@ public class WhiteblockProcessBuilder {
      * @param meta The build meta data
      * @return The ids of the tests which have been created
      */
-    public static List<String> build(WhiteblockHttpContext context, WhiteblockBuildMeta meta)
+    public static List<String> build(WhiteblockHttpContext context, String orgID, WhiteblockBuildMeta meta)
             throws Exception {
         // Parse
+        JSONArray rawFiles = WhiteblockRestAPI.jsonArrRequest("POST", PARSE_FILES_URI,
+                meta.getDefinitionRaw(), context);
+        List<String> files = new ArrayList<>();
+        for(int i = 0; i < rawFiles.length(); i++) {
+            files.add(rawFiles.getString(i));
+        }
         // Upload the files
-        WhiteblockRestAPI.multipartRequest(context,WhiteblockConstants.FILE_UPLOAD_URI,meta.)
-        return null;
+        String rawResp = WhiteblockRestAPI.multipartRequest(context, String.format(FILE_UPLOAD_URI,orgID), files);
+        JSONObject resp = new JSONObject(rawResp);
+        String defID = resp.getJSONObject("data").getString("definitionID");
+        JSONObject payload = meta.marshalJSON();
+        JSONArray rawTestIDs = WhiteblockRestAPI.jsonArrRequest("POST",
+                String.format(RUN_TEST_URI,orgID, defID),payload.toString(),context);
+        List<String> testIDs = new ArrayList<>();
+        for(int i = 0; i < rawTestIDs.length(); i++) {
+            testIDs.add(rawTestIDs.getString(i));
+        }
+        return testIDs;
         // TODO: Implement me
     }
     /**
@@ -49,6 +68,13 @@ public class WhiteblockProcessBuilder {
         return null;
         // TODO: Implement me
     }
+
+    public static boolean phasePassed(WhiteblockHttpContext context, String testID, String phase)
+            throws Exception {
+        String result = WhiteblockRestAPI.request("GET",
+                String.format(PHASE_PASSED_URI,testID, phase),null,context);
+        return result == "true";
+    }
     
     /**
      * @brief Stop a test and cleanup resources
@@ -59,7 +85,9 @@ public class WhiteblockProcessBuilder {
      */
     public static void abortTest(WhiteblockHttpContext context, String testID)
             throws Exception {
-        // TODO: Implement me
+        WhiteblockRestAPI.request("GET",
+                String.format(STOP_TEST_URI,testID),null,context);
+        return;
     }
 
     /**
@@ -73,8 +101,18 @@ public class WhiteblockProcessBuilder {
      */
     public static List<String> tcpEndpoints(WhiteblockHttpContext context, String testID)
             throws Exception {
-        return null;
-        // TODO: Implement me
+        WhiteblockNodeList allNodes = listAllNodes(context, testID);
+
+        List<WhiteblockNode> lst = allNodes.getWhiteblockNodeList();
+        List<String> out = new ArrayList<>();
+        for(int i = 0; i < lst.size(); i++) {
+            WhiteblockNode node = lst.get(i);
+            List<Integer> ports = node.getPorts();
+            for(int j = 0; j < ports.size(); j++) {
+                out.add(node.getIP()+":"+ports.get(j).toString());
+            }
+        }
+        return out;
     }
 
 
@@ -90,20 +128,32 @@ public class WhiteblockProcessBuilder {
      */
     public static List<String> tcpEndpointsByService(WhiteblockHttpContext context, 
         String testID, String service) throws Exception {
-        return null;
-        // TODO: Implement me
+        WhiteblockNodeList allNodes = listNodes(context, testID, service);
+
+        List<WhiteblockNode> lst = allNodes.getWhiteblockNodeList();
+        List<String> out = new ArrayList<>();
+        for(int i = 0; i < lst.size(); i++) {
+            WhiteblockNode node = lst.get(i);
+            List<Integer> ports = node.getPorts();
+            for(int j = 0; j < ports.size(); j++) {
+                out.add(node.getIP()+":"+ports.get(j).toString());
+            }
+        }
+        return out;
     }
 
     public static WhiteblockNodeList listAllNodes(WhiteblockHttpContext context, String testID)
         throws Exception {
-        // TODO: Implement me
-        return null;
+        JSONArray result = WhiteblockRestAPI.jsonArrRequest("GET",
+                String.format(NODE_ENDPOINTS_URI,testID),null,context);
+        return new WhiteblockNodeList(result);
     }
 
     public static WhiteblockNodeList listNodes(WhiteblockHttpContext context, String testID, String service)
         throws Exception {
-        // TODO: Implement me
-        return null;
+        JSONArray result = WhiteblockRestAPI.jsonArrRequest("GET",
+                String.format(NODE_ENDPOINTS_FILTERED_URI,testID, service),null,context);
+        return new WhiteblockNodeList(result);
     }
 
 }
