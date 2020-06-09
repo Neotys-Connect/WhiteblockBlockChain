@@ -66,8 +66,10 @@ public class HTTPGenerator {
 													final Map<String, String> params,
 													final Optional<Proxy> proxy,
 													final List<String> filePaths)
-		throws Exception{
-		throw new Exception("nyi"); // TODO: implement the multipart request
+		throws Exception {
+		final HTTPGenerator httpGenerator = new HTTPGenerator(HTTP_POST_METHOD, url, headers, params, proxy);
+		addFileParameters(httpGenerator.request,filePaths);
+		return httpGenerator;
 	}
 
 	public static HTTPGenerator newJsonHttpGenerator(final String httpMethod,
