@@ -27,8 +27,6 @@ public class BuildWhiteblockNetworkActionEngine implements ActionEngine {
     private static final String VALIDATION="completed";
 
     private boolean isTestReady(WhiteblockHttpContext wbContext, String testID, String phase) throws Exception {
-        // TODO: there is a race condition in this implementation, will need to also check if 
-        // the phase has already passed to fix it.
         return WhiteblockProcessBuilder.phasePassed(wbContext, testID, phase);
     }
     @Override

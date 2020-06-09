@@ -169,7 +169,8 @@ public class Web3JUtils {
         logInfo("transfertfunds receipt :" + txReceipt);
         String transactionhash= txReceipt.getTransactionHash();
         if(transactionhash==null)
-            throw new Web3JExeption("Transaction Hash is null - not appble to send funds to : "+to +" amountwei  :" +amoutwei +" from "+ this.context.getAccountAdress().get()+ " error "+txReceipt.getLogs().toString());
+            throw new Web3JExeption("Transaction Hash is null - not appble to send funds to : "+to +" amountwei  :" +
+                    amoutwei +" from "+ this.context.getAccountAdress().get()+ " error "+txReceipt.getLogs().toString());
         else
             return transactionhash;
     }
@@ -363,7 +364,7 @@ public class Web3JUtils {
            //--get gas limit
             BigInteger blockGasLimit = web3JA.ethGetBlockByNumber(DefaultBlockParameterName.LATEST, false).send().getBlock().getGasLimit();
 
-           logInfo("Gaslimit :"+blockGasLimit.toString());
+           logInfo("Gas Limit :"+blockGasLimit.toString());
             // create our transaction
             Transaction transaction= Transaction.createEtherTransaction(context.getAccountAdress().get(),nonce,gasprice,blockGasLimit,to,convertEtherStringTOBigInteger(amountWei));
 
@@ -373,7 +374,9 @@ public class Web3JUtils {
             String transactionHash = ethSendTransaction.getTransactionHash();
 
             if(transactionHash==null)
-                throw new Web3JExeption("Transaction Hash is null - not appble to send  ether transaction to : "+to +" amountwei  :" +amountWei +" from "+ this.context.getAccountAdress().get()+" error "+ethSendTransaction.getRawResponse());
+                throw new Web3JExeption("Transaction Hash is null - not able to send  ether transaction to : "+to +
+                        " amountwei  :" +amountWei +" from "+ this.context.getAccountAdress().get()+" error "+
+                        ethSendTransaction.getRawResponse());
 
 
             return transactionHash;

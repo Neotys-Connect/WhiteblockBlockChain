@@ -49,7 +49,7 @@ public class SendFundsActionEngine implements ActionEngine {
         final Optional<String> traceMode = parsedArgs.get(SendFundsOption.TraceMode.getName());
 
         if (!isaDouble(amount))
-            return ResultFactory.newErrorResult(context, STATUS_CODE_INVALID_PARAMETER, "Amout needs to be double  :" + amount, null);
+            return ResultFactory.newErrorResult(context, STATUS_CODE_INVALID_PARAMETER, "Amount needs to be double  :" + amount, null);
 
         sampleResult.sampleStart();
         try {

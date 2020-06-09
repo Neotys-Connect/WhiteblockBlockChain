@@ -53,7 +53,6 @@ public class GetTransactionByHashActionEngine implements ActionEngine {
             responseBuilder.append(tx);
         } catch (Exception e) {
             return ResultFactory.newErrorResult(context, STATUS_CODE_BAD_CONTEXT, "Error encountered :", e);
-
         }
 
         sampleResult.sampleEnd();

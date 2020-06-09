@@ -69,10 +69,6 @@ public class Web3JContext {
         return ipOftheNode;
     }
 
-    public void setIpOftheNode(String ipOftheNode) {
-        this.ipOftheNode = ipOftheNode;
-    }
-
     public Optional<String> getAccountAdress() {
         return accountAdress;
     }
