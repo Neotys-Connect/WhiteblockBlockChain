@@ -5,14 +5,14 @@ import com.google.common.base.Optional;
 import com.neotys.extensions.action.engine.Context;
 
 public class WhiteblockHttpContext {
-    private String bearertoken;
+    private String bearerToken;
     private Optional<String> tracemode;
     private Context context;
     private Optional<String> proxy;
-    public static final String HOST = "https://genesis.whiteblock.io";
+    public static final String HOST = "https://infra.whiteblock.io";
 
-    public WhiteblockHttpContext(String bearertoken, Optional<String> tracemode, Context context, Optional<String> proxy) {
-        this.bearertoken = bearertoken;
+    public WhiteblockHttpContext(String bearerToken, Optional<String> tracemode, Context context, Optional<String> proxy) {
+        this.bearerToken = bearerToken;
         this.tracemode = tracemode;
         this.context = context;
         this.proxy=proxy;
@@ -29,11 +29,11 @@ public class WhiteblockHttpContext {
 
     public String getBearerToken() {
         // TODO: properly handle oauth.
-        return bearertoken;
+        return bearerToken;
     }
 
     public void setBearerToken(String bearertoken) {
-        this.bearertoken = bearertoken;
+        this.bearerToken = bearertoken;
     }
 
     public Optional<String> getTracemode() {

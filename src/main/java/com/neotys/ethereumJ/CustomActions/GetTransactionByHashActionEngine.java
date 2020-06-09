@@ -1,9 +1,9 @@
 package com.neotys.ethereumJ.CustomActions;
 
 import com.google.common.base.Optional;
-import com.neotys.action.argument.Option;
 import com.neotys.action.result.ResultFactory;
-import com.neotys.ethereumJ.Web3J.Web3UtilsWhiteblock;
+import com.neotys.ethereumJ.Web3J.Web3JContext;
+import com.neotys.ethereumJ.Web3J.Web3JUtils;
 import com.neotys.extensions.action.ActionParameter;
 import com.neotys.extensions.action.engine.ActionEngine;
 import com.neotys.extensions.action.engine.Context;
@@ -39,23 +39,22 @@ public class GetTransactionByHashActionEngine implements ActionEngine {
             logger.debug("Executing " + this.getClass().getName() + " with parameters: "
                     + getArgumentLogString(parsedArgs, GetBalanceOption.values()));
         }
-        final String whiteBlocMasterHost = parsedArgs.get(GetTransactionByHashOption.WhiteBlocMasterHost.getName()).get();
-        final String whiteblocrpcPort = parsedArgs.get(GetTransactionByHashOption.WhiteBlocRpcPortofNode.getName()).get();
+        final String nodeIP = parsedArgs.get(GetTransactionByHashOption.NodeIP.getName()).get();
+        final String nodePort = parsedArgs.get(GetTransactionByHashOption.NodePort.getName()).get();
 
         final String hash = parsedArgs.get(GetTransactionByHashOption.transactionHash.getName()).get();
-        final Optional<String> traceMode = parsedArgs.get(GetTransactionByHashOption.TraceMode.getName());
+        //final Optional<String> traceMode = parsedArgs.get(GetTransactionByHashOption.TraceMode.getName());
 
         sampleResult.sampleStart();
         try {
-            Web3UtilsWhiteblock whiteblock = new Web3UtilsWhiteblock(whiteBlocMasterHost,whiteblocrpcPort ,Optional.absent(),Optional.absent(),  Optional.absent(),  Optional.absent(), traceMode, context);
-            String balance = whiteblock.getBalance();
-
-            appendLineToStringBuilder(responseBuilder, "Balanace of the account in Ether  : " + balance);
+            Web3JContext ctx = new Web3JContext(nodeIP, nodePort, context);
+            Web3JUtils w3 = new Web3JUtils(ctx);
+            String tx = w3.getTransactionByHash(hash);
+            responseBuilder.append(tx);
         } catch (Exception e) {
             return ResultFactory.newErrorResult(context, STATUS_CODE_BAD_CONTEXT, "Error encountered :", e);
 
         }
-
 
         sampleResult.sampleEnd();
 
