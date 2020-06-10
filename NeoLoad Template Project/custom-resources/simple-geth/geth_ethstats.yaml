@@ -16,6 +16,15 @@ services:
       cpus: 6
       memory: 6 GB
       storage: 30 GiB
+  - name: record
+    image: gcr.io/whiteblock/ethereum/record:latest
+    script:
+      inline:
+        app --target http://$GETH_SERVICE0_COMMON_NETWORK:8545
+    resources:
+      cpus: 1
+      memory: 1 GiB
+      storage: 10 GiB
 #sidecars:
 #  - name: ethlogger
 #    sidecar-to:
@@ -45,9 +54,16 @@ tests:
         system: 
         - type: geth
           count: 2
-          port-mapping:
+          port-mappings:
             - "$_dist_ports(8545):8545"
           resources: 
             networks: 
+              - name: common-network
+        - type: record
+          count: 1
+          port-mappings:
+            - "8080:8080"
+          resources:
+            networks:
               - name: common-network
 
