@@ -1,6 +1,7 @@
 package com.neotys.ethereumJ.common.utils.Whiteblock.http;
 
 import com.google.common.base.Splitter;
+import com.neotys.ethereumJ.common.utils.Whiteblock.data.WhiteblockPseudoFile;
 import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -15,6 +16,7 @@ import org.apache.http.conn.ssl.X509HostnameVerifier;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.entity.mime.content.FileBody;
+import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.conn.SingleClientConnManager;
 import org.apache.http.message.BasicNameValuePair;
@@ -96,12 +98,25 @@ class HTTPGeneratorUtils {
 				throw new UnsupportedOperationException("Invalid http method");
 		}
 	}
+	static void handleAddingFilePart(MultipartEntityBuilder reqEntityBuilder, String file,
+									 final List<WhiteblockPseudoFile> fileOverides) throws Exception {
+		if(fileOverides != null) {
+			for(int i = 0; i < fileOverides.size();i++) {
+				if (fileOverides.get(i).getName() == file) {
+					reqEntityBuilder.addPart(file, new StringBody(fileOverides.get(i).getData()));
+					return;
+				}
+			}
+		}
+		FileBody bin = new FileBody(new File(file));
+		reqEntityBuilder.addPart(file,bin);
 
-	static void addFileParameters(final HttpRequestBase request, final List<String> files) {
+	}
+	static void addFileParameters(final HttpRequestBase request, final List<String> files,
+								  final List<WhiteblockPseudoFile> fileOverides)  throws Exception {
 		MultipartEntityBuilder reqEntityBuilder = MultipartEntityBuilder.create();
 		for (String file : files) {
-		 	FileBody bin = new FileBody(new File(file));
-			reqEntityBuilder.addPart(file,bin);
+			handleAddingFilePart(reqEntityBuilder,file,fileOverides);
 		}
 		((HttpPost) request).setEntity(reqEntityBuilder.build());
 	}

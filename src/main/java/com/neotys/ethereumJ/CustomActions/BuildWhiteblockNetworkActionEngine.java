@@ -74,7 +74,7 @@ public class BuildWhiteblockNetworkActionEngine implements ActionEngine {
         try
         {
             WhiteblockHttpContext wbContext = new WhiteblockHttpContext(accessToken, tracemode,context,proxyName);
-
+            // TODO: Add logic for the custom ethereum case, which generates the accounts, and stores it somewhere it
             List<String> testIDs  = WhiteblockProcessBuilder.build(wbContext, org, new WhiteblockBuildMeta(rawDefinition));
             if (testIDs.size() != 1) {
                 // TODO: Establish whether we handle the case of multiple tests or just give an error

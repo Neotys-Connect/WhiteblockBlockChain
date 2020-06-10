@@ -3,6 +3,7 @@ package com.neotys.ethereumJ.common.utils.Whiteblock.management;
 import com.neotys.ethereumJ.common.utils.Whiteblock.data.*;
 import com.neotys.ethereumJ.common.utils.Whiteblock.rest.WhiteblockHttpContext;
 import com.neotys.ethereumJ.common.utils.Whiteblock.rest.WhiteblockRestAPI;
+import com.neotys.ethereumJ.common.utils.Whiteblock.tools.Ethereum;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -44,7 +45,42 @@ public class WhiteblockProcessBuilder {
             files.add(rawFiles.getString(i));
         }
         // Upload the files
-        String rawResp = WhiteblockRestAPI.multipartRequest(context, String.format(FILE_UPLOAD_URI,orgID), files);
+        String rawResp = WhiteblockRestAPI.multipartRequest(context, String.format(FILE_UPLOAD_URI,orgID), files, null);
+        JSONObject resp = new JSONObject(rawResp);
+        String defID = resp.getJSONObject("data").getString("definitionID");
+        JSONObject payload = meta.marshalJSON();
+        JSONArray rawTestIDs = WhiteblockRestAPI.jsonArrRequest("POST",
+                String.format(RUN_TEST_URI,orgID, defID),payload.toString(),context);
+        List<String> testIDs = new ArrayList<>();
+        for(int i = 0; i < rawTestIDs.length(); i++) {
+            testIDs.add(rawTestIDs.getString(i));
+        }
+        return testIDs;
+    }
+
+    /**
+     * @brief Build the testnets according to the give YAML
+     * @details Build the testnets according to the give YAML
+     *
+     * @param context WhiteblockHttpContext
+     * @param meta The build meta data
+     * @return The ids of the tests which have been created
+     */
+    public static List<String> buildEthereum(WhiteblockHttpContext context, String orgID, WhiteblockBuildMeta meta,
+                                             List<WhiteblockAccount> accounts)
+            throws Exception {
+        // Parse
+        JSONObject genesis = Ethereum.createGenesis(accounts);
+        JSONArray rawFiles = WhiteblockRestAPI.jsonArrRequest("POST", PARSE_FILES_URI,
+                meta.getDefinitionRaw(), context);
+        List<String> files = new ArrayList<>();
+        for(int i = 0; i < rawFiles.length(); i++) {
+            files.add(rawFiles.getString(i));
+        }
+        List<WhiteblockPseudoFile> overrides =  new ArrayList<>();
+        overrides.add(new WhiteblockPseudoFile("genesis.json",genesis.toString()));
+        // Upload the files
+        String rawResp = WhiteblockRestAPI.multipartRequest(context, String.format(FILE_UPLOAD_URI,orgID), files, overrides);
         JSONObject resp = new JSONObject(rawResp);
         String defID = resp.getJSONObject("data").getString("definitionID");
         JSONObject payload = meta.marshalJSON();

@@ -2,6 +2,7 @@ package com.neotys.ethereumJ.common.utils.Whiteblock.http;
 
 import com.google.common.base.Optional;
 import com.google.common.base.Strings;
+import com.neotys.ethereumJ.common.utils.Whiteblock.data.WhiteblockPseudoFile;
 import com.neotys.extensions.action.engine.Proxy;
 import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
@@ -65,10 +66,11 @@ public class HTTPGenerator {
 													final Map<String, String> headers,
 													final Map<String, String> params,
 													final Optional<Proxy> proxy,
-													final List<String> filePaths)
+													final List<String> filePaths,
+													final List<WhiteblockPseudoFile> fileOverides)
 		throws Exception {
 		final HTTPGenerator httpGenerator = new HTTPGenerator(HTTP_POST_METHOD, url, headers, params, proxy);
-		addFileParameters(httpGenerator.request,filePaths);
+		addFileParameters(httpGenerator.request,filePaths, fileOverides);
 		return httpGenerator;
 	}
 

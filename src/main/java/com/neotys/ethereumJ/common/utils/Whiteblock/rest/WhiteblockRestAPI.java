@@ -1,6 +1,7 @@
 package com.neotys.ethereumJ.common.utils.Whiteblock.rest;
 
 import com.google.common.base.Optional;
+import com.neotys.ethereumJ.common.utils.Whiteblock.data.WhiteblockPseudoFile;
 import com.neotys.ethereumJ.common.utils.Whiteblock.http.HTTPGenerator;
 import com.neotys.ethereumJ.common.utils.Whiteblock.http.HttpResponseUtils;
 import com.neotys.ethereumJ.common.utils.Whiteblock.http.WhiteBlockHttpException;
@@ -20,14 +21,15 @@ import java.util.Map;
 public class WhiteblockRestAPI {
 
 	public static String multipartRequest(WhiteblockHttpContext context,
-                                          String path, List<String> filePaths) throws Exception {
+                                          String path, List<String> filePaths,
+                                          List<WhiteblockPseudoFile> fileOverides) throws Exception {
         final Map<String, String> parameters = new HashMap<>();
 
         final Map<String, String> headers = new HashMap<>();
         String url = context.HOST + path;
         headers.put("Authorization"," Bearer "+context.getBearerToken());
         final Optional<Proxy> proxy = getProxy(context.getContext(), context.getProxy(), url);
-        final HTTPGenerator http = HTTPGenerator.newMultiPartRequest(url,  headers, parameters, proxy, filePaths);
+        final HTTPGenerator http = HTTPGenerator.newMultiPartRequest(url,  headers, parameters, proxy, filePaths, fileOverides);
 
         try
         {
