@@ -119,10 +119,10 @@ public class WhiteblockDataToNeoLoad {
         ApiClient neoLoadWebApiClient = new ApiClient();
         neoLoadWebApiClient.setApiKey(context.getContext().getAccountToken());
         neoLoadWebApiClient.setBasePath(getBasePath(context));
-        // TODO: Replace this dat asend
+        // TODO: Replace this data send
 //        WhiteblockMonitoringData monitoringData= WhiteblockProcessBuilder.getMonitoringData(context,startime,endtime);
 //       // traceInfo(context,String.valueOf(monitoringData.getBlockTime()));
-//     //    traceInfo(context,monitoringData.generateOutPut());
+//     //    traceInfo(context,.generateOutPut());
 //        if(testid!=null)
 //        {
 //            ResultsApi resultsApi=new ResultsApi(neoLoadWebApiClient);

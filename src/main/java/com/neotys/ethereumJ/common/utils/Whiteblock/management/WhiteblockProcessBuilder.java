@@ -1,11 +1,14 @@
 package com.neotys.ethereumJ.common.utils.Whiteblock.management;
 
 import com.neotys.ethereumJ.common.utils.Whiteblock.data.*;
-import com.neotys.ethereumJ.common.utils.Whiteblock.rest.*;
+import com.neotys.ethereumJ.common.utils.Whiteblock.rest.WhiteblockHttpContext;
+import com.neotys.ethereumJ.common.utils.Whiteblock.rest.WhiteblockRestAPI;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+
 import static com.neotys.ethereumJ.common.utils.Whiteblock.management.WhiteblockConstants.*;
 
 public class WhiteblockProcessBuilder {
@@ -52,7 +55,6 @@ public class WhiteblockProcessBuilder {
             testIDs.add(rawTestIDs.getString(i));
         }
         return testIDs;
-        // TODO: Implement me
     }
     /**
      * @brief Get the build status of a test
@@ -65,8 +67,10 @@ public class WhiteblockProcessBuilder {
      */
     public static WhiteblockStatus status(WhiteblockHttpContext context, String testID)
             throws Exception {
-        return null;
-        // TODO: Implement me
+
+        JSONObject jResult  = WhiteblockRestAPI.jsonRequest("GET",String.format(STATUS_TEST_URI,testID),
+                null, context);
+        return new WhiteblockStatus(jResult);
     }
 
     public static boolean phasePassed(WhiteblockHttpContext context, String testID, String phase)
@@ -154,6 +158,34 @@ public class WhiteblockProcessBuilder {
         JSONArray result = WhiteblockRestAPI.jsonArrRequest("GET",
                 String.format(NODE_ENDPOINTS_FILTERED_URI,testID, service),null,context);
         return new WhiteblockNodeList(result);
+    }
+
+    /**
+     * @brief This fetches the monitoring data from a helper. It makes a call to the Whiteblock API to determine the
+     * location of this helper, if it exists at all
+     * @param context WhiteblockHttpContext
+     * @param testID The id of the test
+     * @param startBlock The block to get the monitoring data starting at
+     * @param endBlock The last block to include in the monitoring data calculations
+     * @return
+     */
+    public static WhiteblockMonitoringData getEthMonitoringData(WhiteblockHttpContext context, String testID,
+                                                                int startBlock, int endBlock)
+        throws Exception {
+        WhiteblockNodeList nodeList = listNodes(context, testID, "record");
+        List<WhiteblockNode> nodes = nodeList.getWhiteblockNodeList();
+        if (nodes.size() == 0 ){
+            throw new WhiteblockLogicException("cannot get metrics, missing the record service helper");
+        }
+        WhiteblockNode record = nodes.get(0);
+        if (record.getPorts().size() != 1) {
+            throw new WhiteblockLogicException("the record service helper should have exactly one port binding."+
+                    " Note: record listens on :8080 by default");
+        }
+        String url = "https://" + record.getIP() + ":" + record.getPorts().get(0).toString();
+        url += String.format("/stats/block/%d/%d",startBlock, endBlock);
+        return new WhiteblockMonitoringData(WhiteblockRestAPI.jRequest("GET",url,null,context));
+
     }
 
 }

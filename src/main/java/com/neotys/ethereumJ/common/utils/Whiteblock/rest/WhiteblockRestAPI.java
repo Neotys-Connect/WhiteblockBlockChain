@@ -107,13 +107,12 @@ public class WhiteblockRestAPI {
         }
     }
 
-
-    public static JSONObject jsonRequest(String method, String path, String payload, WhiteblockHttpContext context)
+    public static JSONObject jRequest(String method, String url, String payload, WhiteblockHttpContext context)
             throws Exception {
         final Map<String, String> parameters = new HashMap<>();
 
         final Map<String, String> headers = new HashMap<>();
-        String url = context.HOST + path;
+
         headers.put("Authorization"," Bearer "+context.getBearerToken());
 
         final Optional<Proxy> proxy = getProxy(context.getContext(), context.getProxy(), url);
@@ -147,6 +146,10 @@ public class WhiteblockRestAPI {
         {
             throw new WhiteBlockHttpException(e.getMessage());
         }
+    }
+    public static JSONObject jsonRequest(String method, String path, String payload, WhiteblockHttpContext context)
+            throws Exception {
+	    return jRequest(method, context.HOST + path, payload, context);
     }
 
 
