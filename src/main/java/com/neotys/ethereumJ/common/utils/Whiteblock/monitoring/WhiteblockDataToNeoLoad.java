@@ -2,6 +2,7 @@ package com.neotys.ethereumJ.common.utils.Whiteblock.monitoring;
 
 import com.google.common.base.Optional;
 import com.neotys.ascode.swagger.client.ApiClient;
+import com.neotys.ascode.swagger.client.api.ResultsApi;
 import com.neotys.ascode.swagger.client.model.CustomMonitor;
 import com.neotys.ascode.swagger.client.model.CustomMonitorValues;
 import com.neotys.ascode.swagger.client.model.CustomMonitorValuesInner;
@@ -9,7 +10,8 @@ import com.neotys.ascode.swagger.client.model.MonitorPostRequest;
 import com.neotys.ethereumJ.common.utils.Whiteblock.Constants;
 import com.neotys.ethereumJ.common.utils.Whiteblock.data.WhiteblockMonitoringData;
 import com.neotys.ethereumJ.common.utils.Whiteblock.management.WhiteblockConstants;
-import com.neotys.ethereumJ.common.utils.Whiteblock.rpc.WhiteblockHttpContext;
+import com.neotys.ethereumJ.common.utils.Whiteblock.management.WhiteblockProcessBuilder;
+import com.neotys.ethereumJ.common.utils.Whiteblock.rest.WhiteblockHttpContext;
 import com.neotys.rest.dataexchange.client.DataExchangeAPIClient;
 import com.neotys.rest.dataexchange.model.EntryBuilder;
 
@@ -25,8 +27,8 @@ public class WhiteblockDataToNeoLoad {
 
     Optional<DataExchangeAPIClient> dataExchangeAPIClient;
     WhiteblockHttpContext context;
-    long startime;
-    long endtime;
+    int startBlock;
+    int endBlock;
 
     private com.neotys.rest.dataexchange.model.Entry toEntry(final WhiteblockData whiteblockMetric) {
 
@@ -67,23 +69,23 @@ public class WhiteblockDataToNeoLoad {
         return monitor;
     }
 
-    public WhiteblockDataToNeoLoad(WhiteblockHttpContext context, long start, long end, Optional<DataExchangeAPIClient> apiclient)
+    public WhiteblockDataToNeoLoad(WhiteblockHttpContext context, int start, int end, Optional<DataExchangeAPIClient> apiclient)
     {
         dataExchangeAPIClient=apiclient;
         this.context=context;
-        startime=start;
-        endtime=end;
+        startBlock=start;
+        endBlock=end;
 
 
     }
 
-//    public void getMonitoringData() throws Exception {
-//        WhiteblockMonitoringData monitoringData= WhiteblockProcessBuilder.getMonitoringData(context,startime,endtime);
-//       if(dataExchangeAPIClient.isPresent())
-//            dataExchangeAPIClient.get().addEntries(toEntries(monitoringData));
-//
-//
-//    }
+    public void getMonitoringData(String testID) throws Exception {
+        WhiteblockMonitoringData monitoringData= WhiteblockProcessBuilder.getEthMonitoringData(context,testID, startBlock,endBlock);
+       if(dataExchangeAPIClient.isPresent())
+            dataExchangeAPIClient.get().addEntries(toEntries(monitoringData));
+
+
+    }
 
     private List<com.neotys.rest.dataexchange.model.Entry> toEntries(final WhiteblockMonitoringData whiteblockMetric) {
         List<WhiteblockData> data=whiteblockMetric.getWhiteblockDataTONL();
@@ -114,27 +116,27 @@ public class WhiteblockDataToNeoLoad {
         return basePathBuilder.toString();
     }
     public void sendToNeoLoadWeb() throws Exception {
-        String testid=context.getContext().getTestId();
+        String testID = context.getContext().getTestId();
 
         ApiClient neoLoadWebApiClient = new ApiClient();
         neoLoadWebApiClient.setApiKey(context.getContext().getAccountToken());
         neoLoadWebApiClient.setBasePath(getBasePath(context));
-        // TODO: Replace this data send
-//        WhiteblockMonitoringData monitoringData= WhiteblockProcessBuilder.getMonitoringData(context,startime,endtime);
-//       // traceInfo(context,String.valueOf(monitoringData.getBlockTime()));
-//     //    traceInfo(context,.generateOutPut());
-//        if(testid!=null)
-//        {
-//            ResultsApi resultsApi=new ResultsApi(neoLoadWebApiClient);
-//            MonitorPostRequest monitorPostRequest=new MonitorPostRequest();
-//            monitorPostRequest.monitors(convertWhiteblockMonitoringToCustomMonitor(monitoringData));
-//            traceInfo(context,generateLogfromMonitorRequest(monitorPostRequest));
-//            resultsApi.postTestMonitors(monitorPostRequest,testid);
-//        }
+        WhiteblockMonitoringData monitoringData= WhiteblockProcessBuilder.getEthMonitoringData(context, testID,
+                startBlock,endBlock);
+        traceInfo(context,String.valueOf(monitoringData.getBlockTime()));
+        traceInfo(context, monitoringData.generateOutPut());
+        if(testID != null)
+        {
+            ResultsApi resultsApi=new ResultsApi(neoLoadWebApiClient);
+            MonitorPostRequest monitorPostRequest=new MonitorPostRequest();
+            monitorPostRequest.monitors(convertWhiteblockMonitoringToCustomMonitor(monitoringData));
+            traceInfo(context,generateLogFromMonitorRequest(monitorPostRequest));
+            resultsApi.postTestMonitors(monitorPostRequest,testID);
+        }
     }
 
 
-    private String generateLogfromMonitorRequest(MonitorPostRequest request)
+    private String generateLogFromMonitorRequest(MonitorPostRequest request)
     {
 
         String output= request.getMonitors().stream().map(monitor->{

@@ -12,17 +12,9 @@ import static com.neotys.action.argument.Option.OptionalRequired.Required;
 import static com.neotys.extensions.action.ActionParameter.Type.TEXT;
 
 enum  GetMonitoringDataOption implements Option {
-    WhiteBlocMasterHost("WhiteBlocMasterHost", Required, True, TEXT,
-            "Host of the master Node ",
-                    "Master Node of your Whiteblock Network",
-                        NON_EMPTY),
-    WhiteBlocRpcPort("WhiteBlocRpcPort", Required, True, TEXT,
-            "RPC port of the whiteblock node",
-            "RPC port of the whiteblock node",
-            INTEGER_VALIDATOR),
-    WhiteBlocRpctoken("WhiteBlocRpctoken", Required, True, TEXT,
-            "RPC token of the whiteblock node",
-            "RPC token of the whiteblock node",
+    AccessToken("AccessToken", Required, True, TEXT,
+            "Access token for whiteblock",
+            "Access token for whiteblock",
             NON_EMPTY),
     ProxyName("ProxyName", Optional, False, TEXT,
             "name of the neoload proxy",

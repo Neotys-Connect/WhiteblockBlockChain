@@ -5,7 +5,7 @@ import com.neotys.action.result.ResultFactory;
 import com.neotys.ascode.swagger.client.ApiException;
 import com.neotys.ethereumJ.common.utils.Whiteblock.Constants;
 import com.neotys.ethereumJ.common.utils.Whiteblock.monitoring.WhiteblockDataToNeoLoad;
-import com.neotys.ethereumJ.common.utils.Whiteblock.rpc.WhiteblockHttpContext;
+import com.neotys.ethereumJ.common.utils.Whiteblock.rest.WhiteblockHttpContext;
 import com.neotys.extensions.action.ActionParameter;
 import com.neotys.extensions.action.engine.ActionEngine;
 import com.neotys.extensions.action.engine.Context;
@@ -52,10 +52,7 @@ public class GetMonitoringDataActionEngine implements ActionEngine {
             logger.debug("Executing " + this.getClass().getName() + " with parameters: "
                     + getArgumentLogString(parsedArgs, GetMonitoringDataOption.values()));
         }
-
-        final String whiteBlocMasterHost = parsedArgs.get(GetMonitoringDataOption.WhiteBlocMasterHost.getName()).get();
-        final String whiteBlockRpcPort=parsedArgs.get(GetMonitoringDataOption.WhiteBlocRpcPort.getName()).get();
-        final String whiteBlockRpctoken=parsedArgs.get(GetMonitoringDataOption.WhiteBlocRpctoken.getName()).get();
+        final String bearerToken=parsedArgs.get(GetMonitoringDataOption.AccessToken.getName()).get();
         final Optional<String> proxyName=parsedArgs.get(GetMonitoringDataOption.ProxyName.getName());
 
         final Optional<String> dataExchangeApiKey = parsedArgs.get(GetMonitoringDataOption.NeoLoadDataExchangeApiKey.getName());
@@ -66,36 +63,20 @@ public class GetMonitoringDataActionEngine implements ActionEngine {
         if (context.getLogger().isDebugEnabled()) {
             context.getLogger().debug("Data Exchange API URL used: " + dataExchangeApiUrl);
         }
-
-
+        // We should use the block numbers rather than the time, due to potential time sync issues.
+        // It also provides more consistent data.
+        Object whiteblockLastBlockNumber = context.getCurrentVirtualUser().get(Constants.WHITEBLOCK_LAST_BLOCK_NUMBER);
+        final Integer whiteblockCurrentBlockNumber = (int)whiteblockLastBlockNumber + Constants.WHITEBLOCK_MAX_STATS_BLOCKS;
         try {
 
             sampleResult.sampleStart();
             // Check last execution time (and fail if called less than 45 seconds ago).
-            Object whiteblockLastExecutionTime = context.getCurrentVirtualUser().get(Constants.WHITEBLOCK_LAST_EXECUTION_TIME);
+
             final Long whiteblockCurrentExecution = System.currentTimeMillis();
 
-            if(whiteblockLastExecutionTime==null)
-                whiteblockLastExecutionTime=Long.valueOf(0);
-
-            if(!(whiteblockLastExecutionTime instanceof Long)){
-                requestBuilder.append("(first execution).\n");
-            } else if((Long)whiteblockLastExecutionTime + Constants.WHITEBLOCK_MAX_DELAY*1000 > whiteblockCurrentExecution){
-                return ResultFactory.newErrorResult(context, STATUS_CODE_BAD_CONTEXT, "Bad context: Not enough delay between the two Dynatrace advanced action execution. Make sure to have at least 5 seconds pacing on the Actions container.");
-            } else {
-                requestBuilder.append("(last execution was " + ((whiteblockCurrentExecution - (Long)whiteblockLastExecutionTime)/1000) + " seconds ago)\n");
-            }
-
-            if((Long)whiteblockLastExecutionTime==0)
-                whiteblockLastExecutionTime=whiteblockCurrentExecution- Constants.WHITEBLOCK_MAX_DELAY*1000;
-
-            
-            WhiteblockHttpContext whiteBlockContext=new WhiteblockHttpContext(whiteBlocMasterHost, whiteBlockRpctoken,tracemode,context,whiteBlockRpcPort,proxyName);
-            WhiteblockDataToNeoLoad whiteblockDataToNeoLoad=new WhiteblockDataToNeoLoad(whiteBlockContext,(long)whiteblockLastExecutionTime,(long)whiteblockCurrentExecution,Optional.absent());
+            WhiteblockHttpContext whiteBlockContext=new WhiteblockHttpContext(bearerToken,tracemode,context,proxyName);
+            WhiteblockDataToNeoLoad whiteblockDataToNeoLoad=new WhiteblockDataToNeoLoad(whiteBlockContext,(int)whiteblockLastBlockNumber,(int)whiteblockCurrentBlockNumber,Optional.absent());
             whiteblockDataToNeoLoad.sendToNeoLoadWeb();
-
-            context.getCurrentVirtualUser().put(Constants.WHITEBLOCK_LAST_EXECUTION_TIME, whiteblockCurrentExecution);
-
 
             sampleResult.sampleEnd();
         } catch (ApiException e) {
@@ -105,6 +86,8 @@ public class GetMonitoringDataActionEngine implements ActionEngine {
         catch (Exception e) {
             return ResultFactory.newErrorResult(context, STATUS_CODE_TECHNICAL_ERROR, "Error encountered :", e);
         }
+
+        context.getCurrentVirtualUser().put(Constants.WHITEBLOCK_LAST_BLOCK_NUMBER, whiteblockCurrentBlockNumber);
 
         sampleResult.setRequestContent(requestBuilder.toString());
         sampleResult.setResponseContent(responseBuilder.toString());
