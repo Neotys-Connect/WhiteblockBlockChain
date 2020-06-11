@@ -17,7 +17,7 @@ enum BuildWhiteblockNetworkOption implements Option {
             "The name or id of the organization to deploy one",
             NON_EMPTY),
     TestDefinition("TestDefinition", Required, True, TEXT,
-            "The Whiteblock Genesis test definition yaml file",
+            "${NL-CustomResources}/youFile.yaml",
             "The path to the Whiteblock Genesis test definition yaml file",
             NON_EMPTY),
     AccessToken("AccessToken", Required, True, TEXT,
