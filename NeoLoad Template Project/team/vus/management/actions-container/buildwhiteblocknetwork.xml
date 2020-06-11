@@ -1,0 +1,14 @@
+<custom-action actionType="BuildWhiteblockNetwork" enabled="false"
+    isHit="false" name="buildwhiteblocknetwork" uid="412d9d45-0672-4a32-813d-2a894de7645c">
+    <description>Build a BlockChain Network.
+
+Possible parameters are:&#xd;
+- WhiteBlocMasterHost (required): Master Node of your Whiteblock Network Default value is "Host of the master Node ".&#xd;
+- TypeofBlochacin (required):  value possible :Ethereum, Syscoin, Rchain, EOS, Monero, NEM, Fabric, Quorum, or Custom Default value is "Type of BlockChain Network".&#xd;
+- NumberOfNodes (required): Number of nodes to generate in the network Default value is "Number of Nodes".</description>
+    <custom-action-parameter name="WhiteBlocMasterHost" type="TEXT" value="wb-neotys"/>
+    <custom-action-parameter name="TypeofBlochacin" type="TEXT" value="Ethereum"/>
+    <custom-action-parameter name="NumberOfNodes" type="TEXT" value="10"/>
+    <custom-action-parameter name="TraceMode" type="TEXT" value="true"/>
+    <responsePageFileDescription>recorded-responses/res_cust_824958e7-a9ab-479c-9acd-4da47f34af4d</responsePageFileDescription>
+</custom-action>

@@ -1,0 +1,41 @@
+<lg-host citrixSupport="false" hostname="naxas.intranet.neotys.com:7100"
+    loadWeight="1" sapSupport="false" standalone="true"
+    supportWANEmulation="true"
+    uid="379b90fb-602b-4435-ba7e-5b698a39e32e" version="6.10.0;build=20190509-21">
+    <!--****** LG NETWORK INTERFACES ******-->
+    <lg-networkiface description="Software Loopback Interface 1"
+        enabled="false" isLoopBack="true" name="lo">
+        <!--****** LG ADDRESSES ******-->
+        <lg-address enabled="false" hostname="127.0.0.1">
+            <ip value="127.0.0.1"/>
+        </lg-address>
+        <lg-address enabled="false" hostname="0:0:0:0:0:0:0:1">
+            <ip value="0:0:0:0:0:0:0:1"/>
+        </lg-address>
+        <!--****** END LG ADDRESSES ******-->
+    </lg-networkiface>
+    <lg-networkiface
+        description="Connexion réseau Intel(R) 82574L Gigabit #2"
+        enabled="false" isLoopBack="false" name="eth3">
+        <!--****** LG ADDRESSES ******-->
+        <lg-address enabled="false" hostname="qawinl8agent.intranet.neotys.com">
+            <ip value="10.0.3.30"/>
+        </lg-address>
+        <lg-address enabled="false" hostname="fe80:0:0:0:c511:ea51:adfa:bc0%eth3">
+            <ip value="fe80:0:0:0:c511:ea51:adfa:bc0%eth3"/>
+        </lg-address>
+        <!--****** END LG ADDRESSES ******-->
+    </lg-networkiface>
+    <lg-networkiface
+        description="Connexion réseau Intel(R) 82574L Gigabit"
+        enabled="false" isLoopBack="false" name="eth1">
+        <!--****** LG ADDRESSES ******-->
+        <lg-address enabled="false" hostname="qawinl8agent.intranet.neotys.com">
+            <ip value="10.0.3.28"/>
+        </lg-address>
+        <lg-address enabled="false" hostname="fe80:0:0:0:b482:f670:a59b:bf77%eth1">
+            <ip value="fe80:0:0:0:b482:f670:a59b:bf77%eth1"/>
+        </lg-address>
+        <!--****** END LG ADDRESSES ******-->
+    </lg-networkiface>
+</lg-host>

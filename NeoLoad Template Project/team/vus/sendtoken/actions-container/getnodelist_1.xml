@@ -1,0 +1,29 @@
+<custom-action actionType="getNodeList" enabled="false" isHit="false"
+    name="getnodelist_1" uid="7f738f02-130e-4bfb-a1e6-12b474c1e2a4">
+    <description>Get the list of Nodes Available in the network .
+
+Possible parameters are:&#xd;
+- WhiteBlocMasterHost (required): Master Node of your Whiteblock Network Default value is "Host of the master Node ".&#xd;
+- WhiteBlocRpcPort (required): RPC port of the whiteblock node Default value is "RPC port of the whiteblock node".&#xd;
+- WhiteBlocRpctoken (required): RPC token of the whiteblock node Default value is "RPC token of the whiteblock node".&#xd;
+- ProxyName (optional): name of the neoload proxy Default value is "name of the neoload proxy".&#xd;
+- TraceMode (optional): enable loggin details  : true: enable ; false : Disable Default value is "enable logging ".</description>
+    <custom-action-parameter name="WhiteBlocMasterHost" type="TEXT" value="wb-neotys.boxes.whiteblock.io"/>
+    <custom-action-parameter name="WhiteBlocRpcPort" type="TEXT" value="5001"/>
+    <custom-action-parameter name="WhiteBlocRpctoken" type="TEXT" value="eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IjNiOGVhZTlmLTA2MDItNGUwNS1iN2E4LTIwN2U4MWJkMmE0YyJ9.eyJhdWQiOiJPcmdhbml6YXRpb25BZ2VudCIsImlzcyI6Imh0dHBzOi8vYXBpLndoaXRlYmxvY2suaW8iLCJzdWIiOiI2NzcxIn0.LhDELBxo015dKJcjKlzg0EZ4rQ-g8lzBKiuGt5hh0kB_TkTnFAuO1yVF1jnayjoKlZB-hy8dZKc9g1ItNWC295m43ZSh0UFAayhWCHpQTB5ld7NIzvwy7W8QWG5RKbJxY8UyN8f4hmWhGdbWw0elGs9-Qh4Vp57-zDtsYXXhZHyFG3wHYhJoysOeTCRxRgHle4I2ADW8xfo2mOw9I8EF_7LkSQqeXaj956H_V41ISZ_6C--L-evF7zqVxw80ahatnAVcH3QRwiCn173RDOHMQVM1oheOnd1ATwi9CyPnl3uqove30qlsS_HAZZ6b1L0zdktSyKQgm8eK_69coT-WfA"/>
+    <custom-action-parameter name="TraceMode" type="TEXT" value="false"/>
+    <responsePageFileDescription>recorded-responses/res_7f738f02-130e-4bfb-a1e6-12b474c1e2a4</responsePageFileDescription>
+    <variable-extractor assertionOnNoMatch="true"
+        defaultValue="&lt;NOT FOUND>" displayMode="1" endsWithSimple=""
+        extractFromVarNameAdv="" extractFromVarNameSimple=""
+        extractType="0" extractTypeAdv="0" extractTypeSimple="0"
+        matchNumber="0" matchNumberAdv="0" matchNumberSimple="1"
+        name="node_port"
+        regExp="&lt;portMappings>&lt;\d+>(\d+)&lt;/\d+>"
+        regExpAdv="&lt;portMappings>&lt;\d+>(\d+)&lt;/\d+>"
+        setDefaultValue="true" startsWithSimple="" template="$1$"
+        templateAdv="$1$" uid="728e2ca8-a4a8-4d49-872b-63631b279c9d" xpath="">
+        <variable-extractor-group extract="true" occurs="1" pattern="" type="4"/>
+    </variable-extractor>
+    <screenshotFileDescription>team/vus/sendtoken/%resources%/recorded-screenshots/sc_7f738f02-130e-4bfb-a1e6-12b474c1e2a4.jpg</screenshotFileDescription>
+</custom-action>

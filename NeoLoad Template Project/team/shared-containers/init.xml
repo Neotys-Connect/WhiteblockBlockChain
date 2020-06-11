@@ -1,0 +1,10 @@
+<basic-logical-action-container element-number="1" execution-type="0"
+    name="init" pacingEnd="0" pacingMode="MODE_NO_PACING"
+    pacingStart="0" pacingValue="0" slaProfileEnabled="false"
+    traceVariableNamesAsString=""
+    uid="62b40529-5c69-4911-93ed-f90671f70c25" weightsEnabled="false">
+    <weighted-embedded-action uid="e6c14d43-c3a5-4e31-a610-22662f55c89a"/>
+    <weighted-embedded-action uid="b6cb575d-cd29-4de2-bfc5-c294634c776d"/>
+    <weighted-embedded-action uid="e581e412-ed09-4f47-a534-808738ee8800"/>
+</basic-logical-action-container>
+<shared-element>62b40529-5c69-4911-93ed-f90671f70c25</shared-element>

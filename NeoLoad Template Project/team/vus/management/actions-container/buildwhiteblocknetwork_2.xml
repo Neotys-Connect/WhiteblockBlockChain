@@ -1,0 +1,17 @@
+<custom-action actionType="BuildWhiteblockNetwork" isHit="false"
+    name="buildwhiteblocknetwork_2" uid="6620d95f-fa1c-4073-9dfc-2abac2d103c6">
+    <description>Build a BlockChain Network.
+
+Possible parameters are:&#xd;
+- Organization (required): The name or id of the organization to deploy one Default value is "The name or id of the organization to deploy one".&#xd;
+- TestDefinition (required): The path to the Whiteblock Genesis test definition yaml file Default value is "${NL-CustomResources}/youFile.yaml".&#xd;
+- AccessToken (required): You can get this by running the command genesis auth print-access-token Default value is "A Whiteblock Genesis access token".&#xd;
+- StartPhase (required): Choose a phase in your test during which you want to start the load test Default value is "The phase at which to start the load test".&#xd;
+- TraceMode (optional): enable loggin details  : true: enable ; false : Disable Default value is "enable logging ".</description>
+    <custom-action-parameter name="Organization" type="TEXT" value="beba63f8-4eea-11ea-971c-42010a90000a "/>
+    <custom-action-parameter name="TestDefinition" type="TEXT" value="${NL-CustomResources}/simple-geth/geth_ethstats.yaml"/>
+    <custom-action-parameter name="AccessToken" type="TEXT" value="${Accestoken}"/>
+    <custom-action-parameter name="StartPhase" type="TEXT" value="start"/>
+    <custom-action-parameter name="TraceMode" type="TEXT" value="true"/>
+    <responsePageFileDescription>recorded-responses/res_6620d95f-fa1c-4073-9dfc-2abac2d103c6</responsePageFileDescription>
+</custom-action>

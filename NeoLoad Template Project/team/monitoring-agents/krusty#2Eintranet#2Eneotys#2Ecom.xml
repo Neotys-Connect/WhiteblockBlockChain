@@ -1,0 +1,52 @@
+<me-host citrixSupport="false" loadWeight="1" sapSupport="false"
+    standalone="false" supportWANEmulation="false"
+    uid="krusty.intranet.neotys.com" version="7.0.0;build=20190703-3">
+    <!--****** LG NETWORK INTERFACES ******-->
+    <lg-networkiface description="Dell Wireless 1830 802.11ac"
+        enabled="false" isLoopBack="false" name="wlan0">
+        <!--****** LG ADDRESSES ******-->
+        <lg-address enabled="false" hostname="fe80:0:0:0:1c4f:f5a6:1c73:96d1%wlan0">
+            <ip value="fe80:0:0:0:1c4f:f5a6:1c73:96d1%wlan0"/>
+        </lg-address>
+        <!--****** END LG ADDRESSES ******-->
+    </lg-networkiface>
+    <lg-networkiface description="Software Loopback Interface 1"
+        enabled="false" isLoopBack="true" name="lo">
+        <!--****** LG ADDRESSES ******-->
+        <lg-address enabled="false" hostname="127.0.0.1">
+            <ip value="127.0.0.1"/>
+        </lg-address>
+        <lg-address enabled="false" hostname="0:0:0:0:0:0:0:1">
+            <ip value="0:0:0:0:0:0:0:1"/>
+        </lg-address>
+        <!--****** END LG ADDRESSES ******-->
+    </lg-networkiface>
+    <lg-networkiface description="TAP-Windows Adapter V9"
+        enabled="false" isLoopBack="false" name="eth5">
+        <!--****** LG ADDRESSES ******-->
+        <lg-address enabled="false" hostname="fe80:0:0:0:11e0:439a:2ff4:abe%eth5">
+            <ip value="fe80:0:0:0:11e0:439a:2ff4:abe%eth5"/>
+        </lg-address>
+        <!--****** END LG ADDRESSES ******-->
+    </lg-networkiface>
+    <lg-networkiface description="Realtek USB GbE Family Controller #2"
+        enabled="false" isLoopBack="false" name="eth0">
+        <!--****** LG ADDRESSES ******-->
+        <lg-address enabled="false" hostname="krusty.intranet.neotys.com">
+            <ip value="10.0.4.41"/>
+        </lg-address>
+        <lg-address enabled="false" hostname="fe80:0:0:0:a001:4dfa:82a5:318e%eth0">
+            <ip value="fe80:0:0:0:a001:4dfa:82a5:318e%eth0"/>
+        </lg-address>
+        <!--****** END LG ADDRESSES ******-->
+    </lg-networkiface>
+    <lg-networkiface
+        description="Bluetooth Device (Personal Area Network)"
+        enabled="false" isLoopBack="false" name="eth15">
+        <!--****** LG ADDRESSES ******-->
+        <lg-address enabled="false" hostname="fe80:0:0:0:c10:7c57:fe77:ff4b%eth15">
+            <ip value="fe80:0:0:0:c10:7c57:fe77:ff4b%eth15"/>
+        </lg-address>
+        <!--****** END LG ADDRESSES ******-->
+    </lg-networkiface>
+</me-host>

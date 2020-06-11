@@ -1,0 +1,21 @@
+<lg-host citrixSupport="false"
+    hostname="wb-neotys.boxes.whiteblock.io:7100" loadWeight="1"
+    sapSupport="false" standalone="true" supportWANEmulation="false"
+    uid="0d139750-4c7c-4742-bf44-8ede941eddda" version="6.10.0;build=20190514-29">
+    <!--****** LG NETWORK INTERFACES ******-->
+    <lg-networkiface description="lo" enabled="false" isLoopBack="true" name="lo">
+        <!--****** LG ADDRESSES ******-->
+        <lg-address enabled="false" hostname="localhost">
+            <ip value="127.0.0.1"/>
+        </lg-address>
+        <!--****** END LG ADDRESSES ******-->
+    </lg-networkiface>
+    <lg-networkiface description="eth0" enabled="false"
+        isLoopBack="false" name="eth0">
+        <!--****** LG ADDRESSES ******-->
+        <lg-address enabled="false" hostname="a06d6527bd48">
+            <ip value="172.18.0.3"/>
+        </lg-address>
+        <!--****** END LG ADDRESSES ******-->
+    </lg-networkiface>
+</lg-host>

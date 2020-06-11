@@ -1,0 +1,18 @@
+<custom-action actionType="SendTransaction" enabled="false" isHit="true"
+    name="sentethertransaction_1" uid="647e4104-1392-4c82-9c60-63274c0e8f23">
+    <description>Send BlockChain Transaction in the network .
+
+Possible parameters are:&#xd;
+- ipOfTheWhiteblockNode (required): Ip of one of the Whiteblock Node Default value is "Ip of one of the Whiteblock Node ".&#xd;
+- from (required): Address of the account that will send the transaction Default value is "Address of the account that will send the transaction".&#xd;
+- to (required): Address of the account that will receive the transaction Default value is "Address of the account that will receive the transaction".&#xd;
+- amount (required): Amount to send Default value is "Amount to send".&#xd;
+- TraceMode (optional): enable loggin details  : true: enable ; false : Disable Default value is "enable logging ".</description>
+    <custom-action-parameter name="WhiteBlocMasterHost" type="TEXT" value="wb-neotys.boxes.whiteblock.io"/>
+    <custom-action-parameter name="from" type="TEXT" value="${accountadress}"/>
+    <custom-action-parameter name="to" type="TEXT" value="${AccountstoSend_rand}"/>
+    <custom-action-parameter name="amount" type="TEXT" value="0.0${amount}"/>
+    <custom-action-parameter name="TraceMode" type="TEXT" value="false"/>
+    <custom-action-parameter name="WhiteBlocRpcPortofNode" type="TEXT" value="${node_port}"/>
+    <responsePageFileDescription>recorded-responses/res_647e4104-1392-4c82-9c60-63274c0e8f23</responsePageFileDescription>
+</custom-action>

@@ -1,0 +1,18 @@
+<custom-action actionType="GetMonitoringData" isHit="false"
+    name="getmonitoringdata_1" uid="31da664f-4d52-49e4-bc3d-622dab9df8e7">
+    <description>Retrieve the monitoring from Whiteblock .
+
+Possible parameters are:&#xd;
+- WhiteBlocMasterHost (required): Master Node of your Whiteblock Network Default value is "Host of the master Node ".&#xd;
+- WhiteBlocRpcPort (required): RPC port of the whiteblock node Default value is "RPC port of the whiteblock node".&#xd;
+- WhiteBlocRpctoken (required): RPC token of the whiteblock node Default value is "RPC token of the whiteblock node".&#xd;
+- ProxyName (optional): name of the neoload proxy Default value is "name of the neoload proxy".&#xd;
+- dataExchangeApiUrl (optional): Where the DataExchange server is located. Optional, by default it is: http://${NL-ControllerIp}:7400/DataExchange/v1/Service.svc/&#xd;
+- dataExchangeApiKey (optional): Identification key specified in NeoLoad.&#xd;
+- TraceMode (optional): enable loggin details  : true: enable ; false : Disable Default value is "enable logging ".</description>
+    <custom-action-parameter name="WhiteBlocMasterHost" type="TEXT" value="wb-neotys.boxes.whiteblock.io"/>
+    <custom-action-parameter name="WhiteBlocRpcPort" type="TEXT" value="5001"/>
+    <custom-action-parameter name="WhiteBlocRpctoken" type="TEXT" value="eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IjNiOGVhZTlmLTA2MDItNGUwNS1iN2E4LTIwN2U4MWJkMmE0YyJ9.eyJhdWQiOiJPcmdhbml6YXRpb25BZ2VudCIsImlzcyI6Imh0dHBzOi8vYXBpLndoaXRlYmxvY2suaW8iLCJzdWIiOiI2NzcxIn0.LhDELBxo015dKJcjKlzg0EZ4rQ-g8lzBKiuGt5hh0kB_TkTnFAuO1yVF1jnayjoKlZB-hy8dZKc9g1ItNWC295m43ZSh0UFAayhWCHpQTB5ld7NIzvwy7W8QWG5RKbJxY8UyN8f4hmWhGdbWw0elGs9-Qh4Vp57-zDtsYXXhZHyFG3wHYhJoysOeTCRxRgHle4I2ADW8xfo2mOw9I8EF_7LkSQqeXaj956H_V41ISZ_6C--L-evF7zqVxw80ahatnAVcH3QRwiCn173RDOHMQVM1oheOnd1ATwi9CyPnl3uqove30qlsS_HAZZ6b1L0zdktSyKQgm8eK_69coT-WfA"/>
+    <custom-action-parameter name="TraceMode" type="TEXT" value="true"/>
+    <responsePageFileDescription>recorded-responses/res_31da664f-4d52-49e4-bc3d-622dab9df8e7</responsePageFileDescription>
+</custom-action>

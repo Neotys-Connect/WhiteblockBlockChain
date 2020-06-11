@@ -1,0 +1,22 @@
+<custom-action actionType="SendFunds" enabled="false" isHit="true"
+    name="transfertfunds" uid="3361bd26-e3fe-4f9e-b969-30a714cdb2ac">
+    <description>Send SendFunds to another account .
+
+Possible parameters are:&#xd;
+- ipOfTheWhiteblockNode (required): Ip of one of the Whiteblock Node Default value is "Ip of one of the Whiteblock Node ".&#xd;
+- from (required): Address of the account that will send the transaction Default value is "Address of the account that will send the transaction".&#xd;
+- to (required): Address of the account that will receive the transaction Default value is "Address of the account that will receive the transaction".&#xd;
+- privatekey (required): Keystore of the from account  Default value is "Keystore of the from account ".&#xd;
+- publickey (required): Keystore of the from account  Default value is "Keystore of the from account ".&#xd;
+- amount (required): Amount to send Default value is "Amount to send".&#xd;
+- TraceMode (optional): enable loggin details  : true: enable ; false : Disable Default value is "enable logging ".</description>
+    <custom-action-parameter name="ipOfTheWhiteblockNode" type="TEXT" value="${nodeip}"/>
+    <custom-action-parameter name="from" type="TEXT" value="${accountadress}"/>
+    <custom-action-parameter name="to" type="TEXT" value="${AccountstoSend_rand}"/>
+    <custom-action-parameter name="privatekey" type="TEXT" value="${privatekey}"/>
+    <custom-action-parameter name="publickey" type="TEXT" value="${publickey}"/>
+    <custom-action-parameter name="amount" type="TEXT" value="0.0${amount}"/>
+    <custom-action-parameter name="TraceMode" type="TEXT" value="true"/>
+    <responsePageFileDescription>recorded-responses/res_c183ea24-cbae-4c6f-853d-6624cae09356</responsePageFileDescription>
+    <screenshotFileDescription>team/vus/sendtoken/%resources%/recorded-screenshots/sc_c183ea24-cbae-4c6f-853d-6624cae09356.jpg</screenshotFileDescription>
+</custom-action>

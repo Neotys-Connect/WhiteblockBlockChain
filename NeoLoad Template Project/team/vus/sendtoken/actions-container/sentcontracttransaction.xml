@@ -1,0 +1,18 @@
+<custom-action actionType="SendContractTransaction" enabled="false"
+    isHit="true" name="sentcontracttransaction" uid="87631e24-113b-4705-95ff-859eaa0a4905">
+    <description>Send BlockChain signed Transaction in the network .
+
+Possible parameters are:&#xd;
+- ipOfTheWhiteblockNode (required): Ip of one of the Whiteblock Node Default value is "Ip of one of the Whiteblock Node ".&#xd;
+- from (required): Address of the account that will send the transaction Default value is "Address of the account that will send the transaction".&#xd;
+- contractadress (required): Address of the contract that will receive the transaction Default value is "Address of the contract that will receive the transaction".&#xd;
+- amount (required): Amount to send Default value is "Amount to send".&#xd;
+- TraceMode (optional): enable loggin details  : true: enable ; false : Disable Default value is "enable logging ".</description>
+    <custom-action-parameter name="WhiteBlocMasterHost" type="TEXT" value="wb-neotys.boxes.whiteblock.io"/>
+    <custom-action-parameter name="from" type="TEXT" value="${accountadress}"/>
+    <custom-action-parameter name="contractadress" type="TEXT" value="${othercontractAdress}"/>
+    <custom-action-parameter name="amount" type="TEXT" value="0.0${amount}"/>
+    <custom-action-parameter name="TraceMode" type="TEXT" value="true"/>
+    <custom-action-parameter name="WhiteBlocRpcPortofNode" type="TEXT" value="${node_port}"/>
+    <responsePageFileDescription>recorded-responses/res_87631e24-113b-4705-95ff-859eaa0a4905</responsePageFileDescription>
+</custom-action>

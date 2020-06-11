@@ -1,0 +1,18 @@
+<custom-action actionType="GetBalance" enabled="false" isHit="true"
+    name="getbalance" uid="d8fae300-527f-4caf-88f1-603e15e800fd">
+    <description>Send GetBalance RPC Transaction in the network .
+
+Possible parameters are:&#xd;
+- ipOfTheWhiteblockNode (required): Ip of one of the Whiteblock Node Default value is "Ip of one of the Whiteblock Node ".&#xd;
+- from (required): Address of the account that will send the transaction Default value is "Address of the account that will send the transaction".&#xd;
+- privatekey (required): Keystore of the from account  Default value is "Keystore of the from account ".&#xd;
+- publickey (required): Keystore of the from account  Default value is "Keystore of the from account ".&#xd;
+- TraceMode (optional): enable loggin details  : true: enable ; false : Disable Default value is "enable logging ".</description>
+    <custom-action-parameter name="WhiteBlocMasterHost" type="TEXT" value="wb-neotys.boxes.whiteblock.io"/>
+    <custom-action-parameter name="from" type="TEXT" value="${accountadress}"/>
+    <custom-action-parameter name="privatekey" type="TEXT" value="${privatekey}"/>
+    <custom-action-parameter name="publickey" type="TEXT" value="${publickey}"/>
+    <custom-action-parameter name="TraceMode" type="TEXT" value="true"/>
+    <custom-action-parameter name="WhiteBlocRpcPortofNode" type="TEXT" value="${node_port}"/>
+    <responsePageFileDescription>recorded-responses/res_d8fae300-527f-4caf-88f1-603e15e800fd</responsePageFileDescription>
+</custom-action>

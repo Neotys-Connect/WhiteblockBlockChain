@@ -1,0 +1,22 @@
+<custom-action actionType="SendFunds" enabled="false" isHit="true"
+    name="transfertfunds" uid="828bd0cb-b1b6-4ae4-a150-56c489a011a4">
+    <description>Send SendFunds to another account .
+
+Possible parameters are:&#xd;
+- ipOfTheWhiteblockNode (required): Ip of one of the Whiteblock Node Default value is "Ip of one of the Whiteblock Node ".&#xd;
+- from (required): Address of the account that will send the transaction Default value is "Address of the account that will send the transaction".&#xd;
+- to (required): Address of the account that will receive the transaction Default value is "Address of the account that will receive the transaction".&#xd;
+- privatekey (required): Keystore of the from account  Default value is "Keystore of the from account ".&#xd;
+- publickey (required): Keystore of the from account  Default value is "Keystore of the from account ".&#xd;
+- amount (required): Amount to send Default value is "Amount to send".&#xd;
+- TraceMode (optional): enable loggin details  : true: enable ; false : Disable Default value is "enable logging ".</description>
+    <custom-action-parameter name="WhiteBlocMasterHost" type="TEXT" value="wb-neotys.boxes.whiteblock.io"/>
+    <custom-action-parameter name="from" type="TEXT" value="${accountadress}"/>
+    <custom-action-parameter name="to" type="TEXT" value="${AccountstoSend_rand}"/>
+    <custom-action-parameter name="privatekey" type="TEXT" value="${privatekey}"/>
+    <custom-action-parameter name="publickey" type="TEXT" value="${publickey}"/>
+    <custom-action-parameter name="amount" type="TEXT" value="0.0${amount}"/>
+    <custom-action-parameter name="TraceMode" type="TEXT" value="true"/>
+    <custom-action-parameter name="WhiteBlocRpcPortofNode" type="TEXT" value="${node_port}"/>
+    <responsePageFileDescription>recorded-responses/res_828bd0cb-b1b6-4ae4-a150-56c489a011a4</responsePageFileDescription>
+</custom-action>

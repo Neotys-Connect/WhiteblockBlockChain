@@ -93,17 +93,44 @@
             <version>1.0.4</version>
         </dependency>
         <dependency>
-            <groupId>org.web3j</groupId>
-            <artifactId>core</artifactId>
-            <version>4.2.0</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/org.web3j/contracts -->
+        <groupId>org.web3j</groupId>
+        <artifactId>core</artifactId>
+        <version>4.6.0</version>
+        <exclusions>
+            <exclusion>
+                <groupId>org.web3j</groupId>
+                <artifactId>crypto</artifactId>
+            </exclusion>
+        </exclusions>
+    </dependency>
         <dependency>
             <groupId>org.web3j</groupId>
             <artifactId>contracts</artifactId>
-            <version>4.3.1</version>
-        </dependency>
+            <version>4.6.0</version>
 
+        </dependency>
+        <dependency>
+            <groupId>org.web3j</groupId>
+            <artifactId>crypto</artifactId>
+            <version>4.6.0</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.web3j</groupId>
+                    <artifactId>utils</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.web3j</groupId>
+            <artifactId>utils</artifactId>
+            <version>4.6.0</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.bouncycastle</groupId>
+                    <artifactId>bcprov-jdk15on</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
@@ -117,7 +144,13 @@
             <scope>test</scope>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.ethereum/ethereumj-core -->
-
+        <!-- https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk15on -->
+        <dependency>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bcprov-jdk15on</artifactId>
+            <version>1.53</version>
+            <scope>provided</scope>
+        </dependency>
 
     </dependencies>
     <build>

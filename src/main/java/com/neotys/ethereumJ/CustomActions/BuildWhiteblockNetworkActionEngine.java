@@ -1,5 +1,7 @@
 package com.neotys.ethereumJ.CustomActions;
 
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.google.common.base.Optional;
 import com.neotys.action.result.ResultFactory;
 import com.neotys.ethereumJ.common.utils.Whiteblock.data.WhiteblockAccount;
@@ -60,7 +62,7 @@ public class BuildWhiteblockNetworkActionEngine implements ActionEngine {
         final String startPhase = parsedArgs.get(BuildWhiteblockNetworkOption.
             StartPhase.getName()).get();
         final Optional<String> tracemode = parsedArgs.get((BuildWhiteblockNetworkOption.TraceMode.getName()));
-        final Optional<String> proxyName=parsedArgs.get(GetNodesListOption.ProxyName.getName());
+        final Optional<String> proxyName=parsedArgs.get(BuildWhiteblockNetworkOption.ProxyName.getName());
 
         String rawDefinition = "";
         try {
@@ -80,9 +82,27 @@ public class BuildWhiteblockNetworkActionEngine implements ActionEngine {
             // TODO: Add logic for the custom ethereum case, which generates the accounts, and stores it somewhere it
             List<String> testIDs  = WhiteblockProcessBuilder.buildEthereum(wbContext, org,
                     new WhiteblockBuildMeta(rawDefinition), accounts);
-            if (testIDs.size() != 1) {
+            if (testIDs.size() >0) {
+
+                responseBuilder.append("<TestIds>");
+                testIDs.forEach(s ->
+                {
+                    responseBuilder.append("<testid>"+s+"</testid>");
+                });
+                responseBuilder.append("</TestIds>");
+
                 // TODO: Establish whether we handle the case of multiple tests or just give an error
             }
+
+            ///----generate output of the custom action----
+            if(accounts.size()>0)
+            {
+                XmlMapper xmlMapper = new XmlMapper();
+                xmlMapper.enable(SerializationFeature.INDENT_OUTPUT);
+                String xml = xmlMapper.writeValueAsString(accounts);
+                responseBuilder.append(xml);
+            }
+
             String testID = testIDs.get(0);
             while(!isTestReady(wbContext, testID, startPhase)) {
                  Thread.sleep(500);

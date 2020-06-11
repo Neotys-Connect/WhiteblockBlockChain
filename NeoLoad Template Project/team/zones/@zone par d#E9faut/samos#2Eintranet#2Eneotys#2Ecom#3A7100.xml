@@ -1,0 +1,40 @@
+<lg-host citrixSupport="false" hostname="samos.intranet.neotys.com:7100"
+    loadWeight="1" sapSupport="false" standalone="false"
+    supportWANEmulation="true"
+    uid="3b5bba67-692a-4f40-9eba-a0eca0666c5e" version="7.0.0;build=20190712-20">
+    <!--****** LG NETWORK INTERFACES ******-->
+    <lg-networkiface description="Software Loopback Interface 1"
+        enabled="false" isLoopBack="true" name="lo">
+        <!--****** LG ADDRESSES ******-->
+        <lg-address enabled="false" hostname="127.0.0.1">
+            <ip value="127.0.0.1"/>
+        </lg-address>
+        <lg-address enabled="false" hostname="0:0:0:0:0:0:0:1">
+            <ip value="0:0:0:0:0:0:0:1"/>
+        </lg-address>
+        <!--****** END LG ADDRESSES ******-->
+    </lg-networkiface>
+    <lg-networkiface
+        description="Intel(R) 82579LM Gigabit Network Connection"
+        enabled="false" isLoopBack="false" name="eth3">
+        <!--****** LG ADDRESSES ******-->
+        <lg-address enabled="false" hostname="samos.intranet.neotys.com">
+            <ip value="10.0.4.26"/>
+        </lg-address>
+        <lg-address enabled="false" hostname="fe80:0:0:0:7d50:148c:5eb8:d675%eth3">
+            <ip value="fe80:0:0:0:7d50:148c:5eb8:d675%eth3"/>
+        </lg-address>
+        <!--****** END LG ADDRESSES ******-->
+    </lg-networkiface>
+    <lg-networkiface description="TAP-Windows Adapter V9"
+        enabled="false" isLoopBack="false" name="eth13">
+        <!--****** LG ADDRESSES ******-->
+        <lg-address enabled="false" hostname="samos.intranet.neotys.com">
+            <ip value="10.8.0.46"/>
+        </lg-address>
+        <lg-address enabled="false" hostname="fe80:0:0:0:49e9:da7f:f6bf:823c%eth13">
+            <ip value="fe80:0:0:0:49e9:da7f:f6bf:823c%eth13"/>
+        </lg-address>
+        <!--****** END LG ADDRESSES ******-->
+    </lg-networkiface>
+</lg-host>

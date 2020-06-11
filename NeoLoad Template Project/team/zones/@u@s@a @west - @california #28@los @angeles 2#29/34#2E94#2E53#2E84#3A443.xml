@@ -1,0 +1,28 @@
+<lg-host citrixSupport="false" cloudLoadGeneratorId="1568099561888-2497"
+    cloudSessionId="1568099561888" hostname="34.94.53.84:443"
+    loadWeight="1" sapSupport="false" standalone="true"
+    supportWANEmulation="true"
+    uid="47038d5e-c2da-4078-a794-22b683e90422" version="6.9.0;build=20190307-5">
+    <!--****** LG NETWORK INTERFACES ******-->
+    <lg-networkiface description="lo" enabled="false" isLoopBack="true" name="lo">
+        <!--****** LG ADDRESSES ******-->
+        <lg-address enabled="false" hostname="localhost">
+            <ip value="127.0.0.1"/>
+        </lg-address>
+        <lg-address enabled="false" hostname="0:0:0:0:0:0:0:1%lo">
+            <ip value="0:0:0:0:0:0:0:1%lo"/>
+        </lg-address>
+        <!--****** END LG ADDRESSES ******-->
+    </lg-networkiface>
+    <lg-networkiface description="eth0" enabled="false"
+        isLoopBack="false" name="eth0">
+        <!--****** LG ADDRESSES ******-->
+        <lg-address enabled="false" hostname="nllg-prod-1568099561888-2497-0-vm.c.pocgce.neotys.com.internal">
+            <ip value="10.168.0.2"/>
+        </lg-address>
+        <lg-address enabled="false" hostname="fe80:0:0:0:4001:aff:fea8:2%eth0">
+            <ip value="fe80:0:0:0:4001:aff:fea8:2%eth0"/>
+        </lg-address>
+        <!--****** END LG ADDRESSES ******-->
+    </lg-networkiface>
+</lg-host>

@@ -1,0 +1,22 @@
+<zone dnsOverrideEnabled="false" proxyType="COMMON"
+    proxyTypeLg="NO_PROXY" uid="Zone par défaut">
+    <embedded-action>e1175ac4-e5d0-4bcc-9e1a-fc07b32e0e92</embedded-action>
+    <embedded-action>0d139750-4c7c-4742-bf44-8ede941eddda</embedded-action>
+    <embedded-action>b4bede76-c709-4a6e-b0ad-242f58dd838c</embedded-action>
+    <embedded-action>6e7f0d92-159a-461a-898e-273de3f8f8aa</embedded-action>
+    <embedded-action>3b5bba67-692a-4f40-9eba-a0eca0666c5e</embedded-action>
+    <embedded-action>628caf18-9b34-4d37-b751-370c1a68a6ca</embedded-action>
+    <embedded-action>5c1c0697-2119-4f03-840c-2f0ffd56df5a</embedded-action>
+    <embedded-action>c5b051b0-9e2b-4a2e-9d93-3d9551c88862</embedded-action>
+    <embedded-action>fb547c99-1ba2-4b04-be97-7df39fd8476c</embedded-action>
+    <embedded-action>f61ca5ef-97b4-4f54-96c1-4e9db88fbd1a</embedded-action>
+    <embedded-action>3a7e77dc-9de2-4c41-b981-12f1a119002d</embedded-action>
+    <embedded-action>e224b2b6-293c-4a5e-8968-ebd25bd41655</embedded-action>
+    <embedded-action>4d8ea60f-a981-4719-a437-d4c7aea4b5e5</embedded-action>
+    <embedded-action>34f61fde-d91f-4ccb-88a5-5f0338acd270</embedded-action>
+    <embedded-action>0dff34b4-8de6-40c8-8f8d-90daecb361cc</embedded-action>
+    <embedded-action>38ecbed6-3ff4-4769-bc49-c363828f5e5e</embedded-action>
+    <embedded-action>379b90fb-602b-4435-ba7e-5b698a39e32e</embedded-action>
+    <embedded-action>8ce3bae7-973e-4250-a8b6-496948667372</embedded-action>
+    <embedded-action>4e4daeaa-ee5e-4025-8305-372df0bbd166</embedded-action>
+</zone>

@@ -1,0 +1,22 @@
+<custom-action actionType="BuildWhiteblockNetwork" enabled="false"
+    isHit="false" name="buildwhiteblocknetwork_1" uid="a0e7aab3-915f-4c95-b080-da019f2a5fcc">
+    <description>Build a BlockChain Network.
+
+Possible parameters are:&#xd;
+- WhiteBlocMasterHost (required): Master Node of your Whiteblock Network Default value is "Host of the master Node ".&#xd;
+- WhiteBlocRpcPort (required): RPC port of the whiteblock node Default value is "RPC port of the whiteblock node".&#xd;
+- WhiteBlocRpctoken (required): RPC token of the whiteblock node Default value is "RPC token of the whiteblock node".&#xd;
+- ProxyName (optional): name of the neoload proxy Default value is "name of the neoload proxy".&#xd;
+- TypeofBlochacin (required):  value possible :Ethereum, Syscoin, Rchain, EOS, Monero, NEM, Fabric, Quorum, or Custom Default value is "Type of BlockChain Network".&#xd;
+- DockerImage (required):  Docker Image of the node Default value is "Docker Image of the node".&#xd;
+- NumberOfNodes (required): Number of nodes to generate in the network Default value is "Number of Nodes".&#xd;
+- TraceMode (optional): enable loggin details  : true: enable ; false : Disable Default value is "enable logging ".</description>
+    <custom-action-parameter name="WhiteBlocMasterHost" type="TEXT" value="wb-neotys.boxes.whiteblock.io"/>
+    <custom-action-parameter name="WhiteBlocRpcPort" type="TEXT" value="5001"/>
+    <custom-action-parameter name="WhiteBlocRpctoken" type="TEXT" value="eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IjNiOGVhZTlmLTA2MDItNGUwNS1iN2E4LTIwN2U4MWJkMmE0YyJ9.eyJhdWQiOiJPcmdhbml6YXRpb25BZ2VudCIsImlzcyI6Imh0dHBzOi8vYXBpLndoaXRlYmxvY2suaW8iLCJzdWIiOiI2NzcxIn0.LhDELBxo015dKJcjKlzg0EZ4rQ-g8lzBKiuGt5hh0kB_TkTnFAuO1yVF1jnayjoKlZB-hy8dZKc9g1ItNWC295m43ZSh0UFAayhWCHpQTB5ld7NIzvwy7W8QWG5RKbJxY8UyN8f4hmWhGdbWw0elGs9-Qh4Vp57-zDtsYXXhZHyFG3wHYhJoysOeTCRxRgHle4I2ADW8xfo2mOw9I8EF_7LkSQqeXaj956H_V41ISZ_6C--L-evF7zqVxw80ahatnAVcH3QRwiCn173RDOHMQVM1oheOnd1ATwi9CyPnl3uqove30qlsS_HAZZ6b1L0zdktSyKQgm8eK_69coT-WfA"/>
+    <custom-action-parameter name="TypeofBlochacin" type="TEXT" value="ethereum"/>
+    <custom-action-parameter name="DockerImage" type="TEXT" value="gcr.io/whiteblock/geth:light"/>
+    <custom-action-parameter name="NumberOfNodes" type="TEXT" value="3"/>
+    <custom-action-parameter name="TraceMode" type="TEXT" value="false"/>
+    <responsePageFileDescription>recorded-responses/res_a0e7aab3-915f-4c95-b080-da019f2a5fcc</responsePageFileDescription>
+</custom-action>

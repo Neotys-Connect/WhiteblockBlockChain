@@ -1,0 +1,5 @@
+<variable-modifier-action definedMode="1"
+    dest-variable-name="acountdetail" name="getAccount"
+    shared-variable-name="Accounts" sharedMode="4" src-variable-name=""
+    uid="b6cb575d-cd29-4de2-bfc5-c294634c776d"
+    variable-category="SHARED" variable-name=""/>
