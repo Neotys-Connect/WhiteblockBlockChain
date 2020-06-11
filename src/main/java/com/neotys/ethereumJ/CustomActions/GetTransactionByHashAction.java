@@ -45,7 +45,6 @@ public class GetTransactionByHashAction implements Action {
 
     @Override
     public Icon getIcon() {
-        // TODO Add an icon
         return WhiteblockUtils.getWhiteblockIcon();
     }
 

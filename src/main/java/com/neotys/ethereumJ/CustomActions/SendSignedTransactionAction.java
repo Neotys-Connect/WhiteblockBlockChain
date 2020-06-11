@@ -46,7 +46,6 @@ public class SendSignedTransactionAction implements Action {
 
     @Override
     public Icon getIcon() {
-        // TODO Add an icon
         return WhiteblockUtils.getWhiteblockIcon();
     }
 
