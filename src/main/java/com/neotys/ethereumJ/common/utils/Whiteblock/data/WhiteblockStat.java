@@ -7,7 +7,6 @@ public class WhiteblockStat {
 
     double max;
     double mean;
-    @SerializedName(value="standardDeviation", alternate={"standardDeviation"})
     double standardDeviation;
 
     public WhiteblockStat(double max, double mean, double standardDeviation) {

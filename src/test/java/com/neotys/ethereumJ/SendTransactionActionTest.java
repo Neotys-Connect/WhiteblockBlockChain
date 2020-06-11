@@ -118,14 +118,16 @@ public class SendTransactionActionTest {
 		//jsonCustomer=sshCommand(context,Arrays.asList("wb", "get", "stats", "time",String.valueOf(timestartend),String.valueOf(timestartend)));
 
 		WhiteblockMonitoringData data= gson.fromJson(monitoringpayload, WhiteblockMonitoringData.class);
-		List<WhiteblockData> listdata=data.getWhiteblockDataTONL();
-		System.out.println(listdata.stream().map(d->{
-			StringBuilder str =new StringBuilder();
-			str.append("metric :"+ d.getMetricName());
-			str.append("time :"+d.getTime());
-			//  str.append("unit :"+d.getUnit());
-			return str.toString();
-		}).collect(Collectors.joining("\t")));
+		if(data !=null) {
+			List<WhiteblockData> listdata = data.getWhiteblockDataTONL();
+			System.out.println(listdata.stream().map(d -> {
+				StringBuilder str = new StringBuilder();
+				str.append("metric :" + d.getMetricName());
+				str.append("time :" + d.getTime());
+				//  str.append("unit :"+d.getUnit());
+				return str.toString();
+			}).collect(Collectors.joining("\t")));
+		}
 
 	}
 

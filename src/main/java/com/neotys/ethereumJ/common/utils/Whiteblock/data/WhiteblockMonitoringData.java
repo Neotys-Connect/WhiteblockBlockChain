@@ -95,6 +95,7 @@ public class WhiteblockMonitoringData extends  WhiteblockDataModel{
 
     public List<WhiteblockData> getWhiteblockDataTONL()
     {
+
         List<WhiteblockData> data=new ArrayList<>();
         Field[] listofField=this.getClass().getDeclaredFields();
         Arrays.stream(listofField).forEach(f->{
@@ -102,11 +103,12 @@ public class WhiteblockMonitoringData extends  WhiteblockDataModel{
             {
                 try {
                     WhiteblockStat stat= (WhiteblockStat) f.get(this);
-                    String metricName = f.getName();
-                    data.add(new WhiteblockData(null,stat.getMean(), Instant.now().toEpochMilli(),metricName+"_average"));
-                    data.add(new WhiteblockData(null,stat.getMax(), Instant.now().toEpochMilli(),metricName+"_max"));
-                    data.add(new WhiteblockData(null,stat.getStandardDeviation(), Instant.now().toEpochMilli(),metricName+"_standarddeviation"));
-
+                    if(stat!=null) {
+                        String metricName = f.getName();
+                        data.add(new WhiteblockData(null, stat.getMean(), Instant.now().toEpochMilli(), metricName + "_average"));
+                        data.add(new WhiteblockData(null, stat.getMax(), Instant.now().toEpochMilli(), metricName + "_max"));
+                        data.add(new WhiteblockData(null, stat.getStandardDeviation(), Instant.now().toEpochMilli(), metricName + "_standarddeviation"));
+                    }
                 } catch (IllegalAccessException e) {
                     e.printStackTrace();
                 }
