@@ -74,7 +74,8 @@ public class GetMonitoringDataActionEngine implements ActionEngine {
             // TODO: Determine if we still need to enforce this 45 second rule
 
             WhiteblockHttpContext whiteBlockContext=new WhiteblockHttpContext(bearerToken,tracemode,context,proxyName);
-            WhiteblockDataToNeoLoad whiteblockDataToNeoLoad=new WhiteblockDataToNeoLoad(whiteBlockContext,(int)whiteblockLastBlockNumber,(int)whiteblockCurrentBlockNumber,Optional.absent());
+            WhiteblockDataToNeoLoad whiteblockDataToNeoLoad=new WhiteblockDataToNeoLoad(whiteBlockContext,
+                    (int)whiteblockLastBlockNumber, whiteblockCurrentBlockNumber, Optional.absent());
             whiteblockDataToNeoLoad.sendToNeoLoadWeb();
 
             sampleResult.sampleEnd();

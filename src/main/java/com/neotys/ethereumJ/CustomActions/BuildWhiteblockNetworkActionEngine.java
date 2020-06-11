@@ -2,9 +2,11 @@ package com.neotys.ethereumJ.CustomActions;
 
 import com.google.common.base.Optional;
 import com.neotys.action.result.ResultFactory;
+import com.neotys.ethereumJ.common.utils.Whiteblock.data.WhiteblockAccount;
 import com.neotys.ethereumJ.common.utils.Whiteblock.data.WhiteblockBuildMeta;
 import com.neotys.ethereumJ.common.utils.Whiteblock.management.WhiteblockProcessBuilder;
 import com.neotys.ethereumJ.common.utils.Whiteblock.rest.WhiteblockHttpContext;
+import com.neotys.ethereumJ.common.utils.Whiteblock.tools.Ethereum;
 import com.neotys.extensions.action.ActionParameter;
 import com.neotys.extensions.action.engine.ActionEngine;
 import com.neotys.extensions.action.engine.Context;
@@ -74,8 +76,10 @@ public class BuildWhiteblockNetworkActionEngine implements ActionEngine {
         try
         {
             WhiteblockHttpContext wbContext = new WhiteblockHttpContext(accessToken, tracemode,context,proxyName);
+            List<WhiteblockAccount> accounts = Ethereum.generateAccounts(200);
             // TODO: Add logic for the custom ethereum case, which generates the accounts, and stores it somewhere it
-            List<String> testIDs  = WhiteblockProcessBuilder.build(wbContext, org, new WhiteblockBuildMeta(rawDefinition));
+            List<String> testIDs  = WhiteblockProcessBuilder.buildEthereum(wbContext, org,
+                    new WhiteblockBuildMeta(rawDefinition), accounts);
             if (testIDs.size() != 1) {
                 // TODO: Establish whether we handle the case of multiple tests or just give an error
             }
