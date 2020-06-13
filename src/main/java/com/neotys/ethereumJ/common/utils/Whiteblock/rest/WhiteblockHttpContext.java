@@ -1,21 +1,51 @@
 package com.neotys.ethereumJ.common.utils.Whiteblock.rest;
 
 
+import com.google.api.client.auth.oauth2.BearerToken;
+import com.google.api.client.auth.oauth2.Credential;
+import com.google.api.client.auth.oauth2.RefreshTokenRequest;
+import com.google.api.client.auth.oauth2.TokenResponse;
+import com.google.api.client.http.GenericUrl;
+import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.common.base.Optional;
 import com.neotys.extensions.action.engine.Context;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 public class WhiteblockHttpContext {
-    private String bearerToken;
     private Optional<String> tracemode;
     private Context context;
     private Optional<String> proxy;
-    public static final String HOST = "https://infra.whiteblock.io";
+    private Credential credential;
+    public static final String DOMAIN = "infra.whiteblock.io";
+    public static final String HOST = "https://"+DOMAIN;
+    public static final String TOKEN_URL = "https://auth."+DOMAIN+"/auth/realms/wb/protocol/openid-connect/token";
+    public static final String AUTH_URL = "https://auth."+DOMAIN+"/auth/realms/wb/protocol/openid-connect/auth";
 
-    public WhiteblockHttpContext(String bearerToken, Optional<String> tracemode, Context context, Optional<String> proxy) {
-        this.bearerToken = bearerToken;
+    public WhiteblockHttpContext(String refreshToken, Optional<String> tracemode, Context context, Optional<String> proxy)
+            throws Exception {
         this.tracemode = tracemode;
         this.context = context;
         this.proxy=proxy;
+        Collection<String> scopes = new ArrayList<>();
+        scopes.add("offline_access");
+        RefreshTokenRequest request = new RefreshTokenRequest(
+                new NetHttpTransport(),
+                new JacksonFactory(),
+                new GenericUrl(TOKEN_URL),
+                refreshToken).setScopes(scopes).set("client_id","cli");
+
+        TokenResponse tr = request.execute();
+        context.getLogger().info("got the access token, :\n" + tr.getAccessToken() );
+
+        this.credential = new Credential.Builder(BearerToken.authorizationHeaderAccessMethod()).setTransport(
+                new NetHttpTransport())
+                .setJsonFactory(new JacksonFactory())
+                .setTokenServerUrl(new GenericUrl(TOKEN_URL))
+                .build()
+                .setFromTokenResponse(tr);
     }
 
 
@@ -28,12 +58,8 @@ public class WhiteblockHttpContext {
     }
 
     public String getBearerToken() {
-        // TODO: properly handle oauth.
-        return bearerToken;
-    }
-
-    public void setBearerToken(String bearertoken) {
-        this.bearerToken = bearertoken;
+        String token = this.credential.getAccessToken();
+        return token;
     }
 
     public Optional<String> getTracemode() {
@@ -54,7 +80,7 @@ public class WhiteblockHttpContext {
 
 
     public boolean isTraceModeActive() {
-        return this.getTracemode().isPresent() && this.getTracemode().get().equalsIgnoreCase("TRUE");
+        return this.getTracemode().isPresent() && this.tracemode.get().equalsIgnoreCase("TRUE");
     }
 }
 

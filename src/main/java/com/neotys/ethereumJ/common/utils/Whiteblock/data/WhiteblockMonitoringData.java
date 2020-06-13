@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class WhiteblockMonitoringData extends  WhiteblockDataModel{
+public class WhiteblockMonitoringData extends  WhiteblockDataModel {
 
 
     //{

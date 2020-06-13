@@ -1,5 +1,5 @@
-<custom-action actionType="BuildWhiteblockNetwork" isHit="false"
-    name="buildwhiteblocknetwork_2" uid="6620d95f-fa1c-4073-9dfc-2abac2d103c6">
+<custom-action actionType="BuildWhiteblockNetwork" enabled="false"
+    isHit="false" name="buildwhiteblocknetwork_2" uid="6620d95f-fa1c-4073-9dfc-2abac2d103c6">
     <description>Build a BlockChain Network.
 
 Possible parameters are:&#xd;
