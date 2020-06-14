@@ -35,7 +35,7 @@ public class WhiteblockHttpContext {
                 new NetHttpTransport(),
                 new JacksonFactory(),
                 new GenericUrl(TOKEN_URL),
-                refreshToken).setScopes(scopes).set("client_id","cli");
+                refreshToken).setScopes(scopes);
 
         TokenResponse tr = request.execute();
         context.getLogger().info("got the access token, :\n" + tr.getAccessToken() );
