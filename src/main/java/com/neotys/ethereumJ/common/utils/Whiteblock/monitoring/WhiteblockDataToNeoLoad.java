@@ -25,10 +25,10 @@ import static com.neotys.ethereumJ.common.utils.Whiteblock.Constants.NLWEB_VERSI
 
 public class WhiteblockDataToNeoLoad {
 
-    Optional<DataExchangeAPIClient> dataExchangeAPIClient;
-    WhiteblockHttpContext context;
-    int startBlock;
-    int endBlock;
+    final Optional<DataExchangeAPIClient> dataExchangeAPIClient;
+    final WhiteblockHttpContext context;
+    final int startBlock;
+    final int endBlock;
 
     private com.neotys.rest.dataexchange.model.Entry toEntry(final WhiteblockData whiteblockMetric) {
 
@@ -62,7 +62,7 @@ public class WhiteblockDataToNeoLoad {
         Instant instant = Instant.now();
         customMonitorValuesInner.setTimestamp(instant.getEpochSecond());
         customMonitorValuesInner.setValue((float)whiteblockData.getValue());
-        traceInfo(context,"value :" +String.valueOf(whiteblockData.getValue())+" ts:"+String.valueOf(System.currentTimeMillis()));
+        traceInfo(context,"value :" + whiteblockData.getValue() +" ts:"+ System.currentTimeMillis());
         valuesInners.add(customMonitorValuesInner);
        //
         monitor.setValues(valuesInners);
@@ -146,7 +146,7 @@ public class WhiteblockDataToNeoLoad {
             builder.append("Path");
             builder.append(monitor.getPath().stream().collect(Collectors.joining("/")));
             builder.append("Value:");
-            monitor.getValues().stream().forEach(value-> builder.append("v:"+value.getValue().toString()+" ts:"+value.getTimestamp().toString()));
+            monitor.getValues().stream().forEach(value-> builder.append("v:").append(value.getValue().toString()).append(" ts:").append(value.getTimestamp().toString()));
             return builder.toString();
         }).collect(Collectors.joining("\n"));
 
@@ -156,11 +156,10 @@ public class WhiteblockDataToNeoLoad {
     {
         List<WhiteblockData> data=whiteblockData.getWhiteblockDataTONL();
         traceInfo(context,data.stream().map(d->{
-            StringBuilder str =new StringBuilder();
-            str.append("metric :"+ d.getMetricName());
-            str.append("time :"+d.getTime());
-          //  str.append("unit :"+d.getUnit());
-            return str.toString();
+            //  str.append("unit :"+d.getUnit());
+            String str = "metric :" + d.getMetricName() +
+                    "time :" + d.getTime();
+            return str;
         }).collect(Collectors.joining("\t")));
 
         return data.stream()

@@ -36,7 +36,6 @@ public class BuildWhiteblockNetworkActionEngine implements ActionEngine {
     @Override
     public SampleResult execute(Context context, List<ActionParameter> list) {
         final SampleResult sampleResult = new SampleResult();
-        final StringBuilder requestBuilder = new StringBuilder();
         final StringBuilder responseBuilder = new StringBuilder();
 
 
@@ -86,9 +85,7 @@ public class BuildWhiteblockNetworkActionEngine implements ActionEngine {
 
                 responseBuilder.append("<TestIds>");
                 testIDs.forEach(s ->
-                {
-                    responseBuilder.append("<testid>"+s+"</testid>");
-                });
+                        responseBuilder.append("<testid>").append(s).append("</testid>"));
                 responseBuilder.append("</TestIds>");
 
                 // TODO: Establish whether we handle the case of multiple tests or just give an error
@@ -114,7 +111,7 @@ public class BuildWhiteblockNetworkActionEngine implements ActionEngine {
 
         }
 
-        sampleResult.setRequestContent(requestBuilder.toString());
+        sampleResult.setRequestContent("");
         sampleResult.setResponseContent(responseBuilder.toString());
         return sampleResult;
     }

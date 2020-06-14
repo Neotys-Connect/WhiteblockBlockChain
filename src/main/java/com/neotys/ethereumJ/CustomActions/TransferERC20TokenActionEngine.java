@@ -23,7 +23,6 @@ public class TransferERC20TokenActionEngine implements ActionEngine {
     @Override
     public SampleResult execute(Context context, List<ActionParameter> list) {
         final SampleResult sampleResult = new SampleResult();
-        final StringBuilder requestBuilder = new StringBuilder();
         final StringBuilder responseBuilder = new StringBuilder();
         final Map<String, Optional<String>> parsedArgs;
         try {
@@ -70,7 +69,7 @@ public class TransferERC20TokenActionEngine implements ActionEngine {
 
         sampleResult.sampleEnd();
 
-        sampleResult.setRequestContent(requestBuilder.toString());
+        sampleResult.setRequestContent("");
         sampleResult.setResponseContent(responseBuilder.toString());
         return sampleResult;
     }

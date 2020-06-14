@@ -26,7 +26,7 @@ public class WhiteblockRestAPI {
         final Map<String, String> parameters = new HashMap<>();
 
         final Map<String, String> headers = new HashMap<>();
-        String url = context.HOST + path;
+        String url = WhiteblockHttpContext.HOST + path;
         headers.put("Authorization"," Bearer "+context.getBearerToken());
         final Optional<Proxy> proxy = getProxy(context.getContext(), context.getProxy(), url);
         final HTTPGenerator http = HTTPGenerator.newMultiPartRequest(url,  headers, parameters, proxy, filePaths, fileOverides);
@@ -68,7 +68,7 @@ public class WhiteblockRestAPI {
         final Map<String, String> parameters = new HashMap<>();
 
         final Map<String, String> headers = new HashMap<>();
-        String url = context.HOST + path;
+        String url = WhiteblockHttpContext.HOST + path;
         headers.put("Authorization"," Bearer "+context.getBearerToken());
 
         final Optional<Proxy> proxy = getProxy(context.getContext(), context.getProxy(), url);
@@ -151,7 +151,7 @@ public class WhiteblockRestAPI {
     }
     public static JSONObject jsonRequest(String method, String path, String payload, WhiteblockHttpContext context)
             throws Exception {
-	    return jRequest(method, context.HOST + path, payload, context);
+	    return jRequest(method, WhiteblockHttpContext.HOST + path, payload, context);
     }
 
 
@@ -160,7 +160,7 @@ public class WhiteblockRestAPI {
         final Map<String, String> parameters = new HashMap<>();
 
         final Map<String, String> headers = new HashMap<>();
-        String url = context.HOST + path;
+        String url = WhiteblockHttpContext.HOST + path;
         headers.put("Authorization"," Bearer "+context.getBearerToken());
 
         final Optional<Proxy> proxy = getProxy(context.getContext(), context.getProxy(), url);

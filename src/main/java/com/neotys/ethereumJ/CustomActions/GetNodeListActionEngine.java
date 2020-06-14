@@ -23,7 +23,6 @@ public class GetNodeListActionEngine implements ActionEngine {
     @Override
     public SampleResult execute(Context context, List<ActionParameter> list) {
         final SampleResult sampleResult = new SampleResult();
-        final StringBuilder requestBuilder = new StringBuilder();
         final StringBuilder responseBuilder = new StringBuilder();
 
 
@@ -64,7 +63,7 @@ public class GetNodeListActionEngine implements ActionEngine {
             return ResultFactory.newErrorResult(context, STATUS_CODE_BAD_CONTEXT, "Error encountered :", e);
 
         }
-        sampleResult.setRequestContent(requestBuilder.toString());
+        sampleResult.setRequestContent("");
         sampleResult.setResponseContent(responseBuilder.toString());
         return sampleResult;
     }

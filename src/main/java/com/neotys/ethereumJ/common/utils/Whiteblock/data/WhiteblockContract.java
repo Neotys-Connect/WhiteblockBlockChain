@@ -6,32 +6,20 @@ public class WhiteblockContract {
     String deployedNodeAddress;
 
     public WhiteblockContract(String contractAddress, String contractName, String deployedNodeAddress) {
-        contractAddress = contractAddress;
-        contractName = contractName;
-        deployedNodeAddress = deployedNodeAddress;
+        this.contractAddress = contractAddress;
+        this.contractName = contractName;
+        this.deployedNodeAddress = deployedNodeAddress;
     }
 
     public String getContractAddress() {
         return contractAddress;
     }
 
-    public void setContractAddress(String contractAddress) {
-        this.contractAddress = contractAddress;
-    }
-
     public String getContractName() {
         return contractName;
     }
 
-    public void setContractName(String contractName) {
-        this.contractName = contractName;
-    }
-
     public String getDeployedNodeAddress() {
         return deployedNodeAddress;
-    }
-
-    public void setDeployedNodeAddress(String deployedNodeAddress) {
-        this.deployedNodeAddress = deployedNodeAddress;
     }
 }

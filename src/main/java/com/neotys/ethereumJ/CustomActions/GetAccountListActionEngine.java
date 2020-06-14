@@ -27,7 +27,6 @@ public class GetAccountListActionEngine implements ActionEngine {
 
 
         final SampleResult sampleResult = new SampleResult();
-        final StringBuilder requestBuilder = new StringBuilder();
         final StringBuilder responseBuilder = new StringBuilder();
 
 
@@ -63,7 +62,7 @@ public class GetAccountListActionEngine implements ActionEngine {
             return ResultFactory.newErrorResult(context, STATUS_CODE_BAD_CONTEXT, "Error encountered :", e);
 
         }
-        sampleResult.setRequestContent(requestBuilder.toString());
+        sampleResult.setRequestContent("");
         sampleResult.setResponseContent(responseBuilder.toString());
         return sampleResult;
     }

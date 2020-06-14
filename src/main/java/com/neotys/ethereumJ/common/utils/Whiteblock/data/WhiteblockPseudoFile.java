@@ -1,8 +1,8 @@
 package com.neotys.ethereumJ.common.utils.Whiteblock.data;
 
 public class WhiteblockPseudoFile {
-    private String name;
-    private String data;
+    private final String name;
+    private final String data;
 
     public WhiteblockPseudoFile(String name, String data) {
         this.name = name;

@@ -113,7 +113,7 @@ public class WhiteblockProcessBuilder {
             throws Exception {
         String result = WhiteblockRestAPI.request("GET",
                 String.format(PHASE_PASSED_URI,testID, phase),null,context);
-        return result == "true";
+        return result.equals("true");
     }
     
     /**
@@ -127,7 +127,6 @@ public class WhiteblockProcessBuilder {
             throws Exception {
         WhiteblockRestAPI.request("GET",
                 String.format(STOP_TEST_URI,testID),null,context);
-        return;
     }
 
     /**
@@ -145,11 +144,10 @@ public class WhiteblockProcessBuilder {
 
         List<WhiteblockNode> lst = allNodes.getWhiteblockNodeList();
         List<String> out = new ArrayList<>();
-        for(int i = 0; i < lst.size(); i++) {
-            WhiteblockNode node = lst.get(i);
+        for (WhiteblockNode node : lst) {
             List<Integer> ports = node.getPorts();
-            for(int j = 0; j < ports.size(); j++) {
-                out.add(node.getIP()+":"+ports.get(j).toString());
+            for (Integer port : ports) {
+                out.add(node.getIP() + ":" + port.toString());
             }
         }
         return out;
@@ -172,11 +170,10 @@ public class WhiteblockProcessBuilder {
 
         List<WhiteblockNode> lst = allNodes.getWhiteblockNodeList();
         List<String> out = new ArrayList<>();
-        for(int i = 0; i < lst.size(); i++) {
-            WhiteblockNode node = lst.get(i);
+        for (WhiteblockNode node : lst) {
             List<Integer> ports = node.getPorts();
-            for(int j = 0; j < ports.size(); j++) {
-                out.add(node.getIP()+":"+ports.get(j).toString());
+            for (Integer port : ports) {
+                out.add(node.getIP() + ":" + port.toString());
             }
         }
         return out;

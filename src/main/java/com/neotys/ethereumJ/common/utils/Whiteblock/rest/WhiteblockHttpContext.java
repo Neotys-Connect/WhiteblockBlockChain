@@ -5,6 +5,7 @@ import com.google.api.client.auth.oauth2.BearerToken;
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.auth.oauth2.RefreshTokenRequest;
 import com.google.api.client.auth.oauth2.TokenResponse;
+import com.google.api.client.http.BasicAuthentication;
 import com.google.api.client.http.GenericUrl;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
@@ -18,7 +19,7 @@ public class WhiteblockHttpContext {
     private Optional<String> tracemode;
     private Context context;
     private Optional<String> proxy;
-    private Credential credential;
+    private final Credential credential;
     public static final String DOMAIN = "infra.whiteblock.io";
     public static final String HOST = "https://"+DOMAIN;
     public static final String TOKEN_URL = "https://auth."+DOMAIN+"/auth/realms/wb/protocol/openid-connect/token";
@@ -35,7 +36,8 @@ public class WhiteblockHttpContext {
                 new NetHttpTransport(),
                 new JacksonFactory(),
                 new GenericUrl(TOKEN_URL),
-                refreshToken).setScopes(scopes);
+                refreshToken).setScopes(scopes).setClientAuthentication(
+                        new BasicAuthentication("cli", ""));
 
         TokenResponse tr = request.execute();
         context.getLogger().info("got the access token, :\n" + tr.getAccessToken() );

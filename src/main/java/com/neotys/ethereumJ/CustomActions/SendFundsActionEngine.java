@@ -23,7 +23,6 @@ public class SendFundsActionEngine implements ActionEngine {
     @Override
     public SampleResult execute(Context context, List<ActionParameter> parameters) {
         final SampleResult sampleResult = new SampleResult();
-        final StringBuilder requestBuilder = new StringBuilder();
         final StringBuilder responseBuilder = new StringBuilder();
         final Map<String, Optional<String>> parsedArgs;
         try {
@@ -65,7 +64,7 @@ public class SendFundsActionEngine implements ActionEngine {
 
         sampleResult.sampleEnd();
 
-        sampleResult.setRequestContent(requestBuilder.toString());
+        sampleResult.setRequestContent("");
         sampleResult.setResponseContent(responseBuilder.toString());
         return sampleResult;
     }

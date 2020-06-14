@@ -4,7 +4,7 @@ import org.web3j.crypto.Credentials;
 import org.web3j.crypto.ECKeyPair;
 
 public class WhiteblockAccount {
-    Credentials cred;
+    final Credentials cred;
 
     public WhiteblockAccount(String privateKey) {
         this.cred = Credentials.create(privateKey);

@@ -2,9 +2,9 @@
     sapSupport="false" standalone="false" supportWANEmulation="false"
     uid="e1175ac4-e5d0-4bcc-9e1a-fc07b32e0e92" version="7.4.0;build=20200528-24">
     <!--****** LG NETWORK INTERFACES ******-->
-    <lg-networkiface description="lo" enabled="false" isLoopBack="true" name="lo">
+    <lg-networkiface description="lo" enabled="true" isLoopBack="true" name="lo">
         <!--****** LG ADDRESSES ******-->
-        <lg-address enabled="false" hostname="localhost">
+        <lg-address enabled="true" hostname="localhost">
             <ip value="127.0.0.1"/>
         </lg-address>
         <lg-address enabled="false" hostname="0:0:0:0:0:0:0:1%lo">

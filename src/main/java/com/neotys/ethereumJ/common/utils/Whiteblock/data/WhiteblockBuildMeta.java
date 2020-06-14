@@ -5,10 +5,10 @@ import org.json.JSONObject;
 import java.util.List;
 
 public class WhiteblockBuildMeta {
-	List<String> domains;
-	JSONObject cloudDetails; // TODO: define these out so they can be used by our users
-	JSONObject dockerAuth; // TODO: define these out so they can be used by our users
-	String definitionRaw;
+	final List<String> domains;
+	final JSONObject cloudDetails; // TODO: define these out so they can be used by our users
+	final JSONObject dockerAuth; // TODO: define these out so they can be used by our users
+	final String definitionRaw;
 
 	public WhiteblockBuildMeta(String definitionRaw) {
 		this.domains = null;

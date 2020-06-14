@@ -1,5 +1,5 @@
-<custom-action actionType="GetMonitoringData" isHit="false"
-    name="getmonitoringdata_1" uid="31da664f-4d52-49e4-bc3d-622dab9df8e7">
+<custom-action actionType="GetMonitoringData" enabled="false"
+    isHit="false" name="getmonitoringdata_1" uid="31da664f-4d52-49e4-bc3d-622dab9df8e7">
     <description>Retrieve the monitoring from Whiteblock .
 
 Possible parameters are:&#xd;

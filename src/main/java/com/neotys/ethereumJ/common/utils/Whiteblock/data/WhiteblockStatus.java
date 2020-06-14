@@ -4,13 +4,13 @@ package com.neotys.ethereumJ.common.utils.Whiteblock.data;
 import org.json.JSONObject;
 
 public class WhiteblockStatus {
-	String test;
-	String org;
-	String def;
-	String phase;
-	int stepsLeft;
-	String message;
-	boolean finished;
+	final String test;
+	final String org;
+	final String def;
+	final String phase;
+	final int stepsLeft;
+	final String message;
+	final boolean finished;
 
 	public WhiteblockStatus(JSONObject obj) {
 		this.test = obj.getString("test");

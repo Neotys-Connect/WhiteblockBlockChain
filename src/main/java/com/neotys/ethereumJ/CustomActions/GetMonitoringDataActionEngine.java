@@ -35,8 +35,6 @@ public class GetMonitoringDataActionEngine implements ActionEngine {
     @Override
     public SampleResult execute(Context context, List<ActionParameter> parameters) {
         final SampleResult sampleResult = new SampleResult();
-        final StringBuilder requestBuilder = new StringBuilder();
-        final StringBuilder responseBuilder = new StringBuilder();
 
 
         final Map<String, Optional<String>> parsedArgs;
@@ -89,8 +87,8 @@ public class GetMonitoringDataActionEngine implements ActionEngine {
 
         context.getCurrentVirtualUser().put(Constants.WHITEBLOCK_LAST_BLOCK_NUMBER, whiteblockCurrentBlockNumber);
 
-        sampleResult.setRequestContent(requestBuilder.toString());
-        sampleResult.setResponseContent(responseBuilder.toString());
+        sampleResult.setRequestContent("");
+        sampleResult.setResponseContent("");
         return sampleResult;
     }
 

@@ -4,7 +4,7 @@ import com.google.common.base.Optional;
 import com.neotys.extensions.action.engine.Context;
 
 public class Web3JContext {
-    private String ipOftheNode;
+    private final String ipOftheNode;
     private Optional<String> accountAdress;
     private Optional<String> tracemode;
     private Context context;

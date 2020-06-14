@@ -24,8 +24,6 @@ public class GetContractsListActionEngine implements ActionEngine
 
 
             final SampleResult sampleResult = new SampleResult();
-            final StringBuilder requestBuilder = new StringBuilder();
-            final StringBuilder responseBuilder = new StringBuilder();
 
 
             final Map<String, Optional<String>> parsedArgs;
@@ -63,8 +61,8 @@ public class GetContractsListActionEngine implements ActionEngine
                 return ResultFactory.newErrorResult(context, STATUS_CODE_BAD_CONTEXT, "Error encountered :", e);
 
             }
-            sampleResult.setRequestContent(requestBuilder.toString());
-            sampleResult.setResponseContent(responseBuilder.toString());
+            sampleResult.setRequestContent("");
+            sampleResult.setResponseContent("");
             return sampleResult;
         }
 

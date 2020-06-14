@@ -101,9 +101,9 @@ class HTTPGeneratorUtils {
 	static void handleAddingFilePart(MultipartEntityBuilder reqEntityBuilder, String file,
 									 final List<WhiteblockPseudoFile> fileOverides) throws Exception {
 		if(fileOverides != null) {
-			for(int i = 0; i < fileOverides.size();i++) {
-				if (fileOverides.get(i).getName() == file) {
-					reqEntityBuilder.addPart(file, new StringBody(fileOverides.get(i).getData()));
+			for (WhiteblockPseudoFile fileOveride : fileOverides) {
+				if (fileOveride.getName().equals(file)) {
+					reqEntityBuilder.addPart(file, new StringBody(fileOveride.getData()));
 					return;
 				}
 			}

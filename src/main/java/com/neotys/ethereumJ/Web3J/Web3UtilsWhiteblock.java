@@ -4,7 +4,6 @@ import com.google.common.base.Optional;
 import com.neotys.extensions.action.engine.Context;
 
 import static com.neotys.ethereumJ.common.utils.Whiteblock.Constants.WHITEBLOCK_DEFAULT_PASSWORD;
-import static com.neotys.ethereumJ.common.utils.Whiteblock.Constants.WHITEBLOCK_RPC_PORT;
 
 public class Web3UtilsWhiteblock extends Web3JUtils {
     public Web3UtilsWhiteblock(String hostname,String RPC, Optional<String> token,Optional<String> walletAdress, Optional<String> privatekey, Optional<String> publick, Optional<String> tracemode,Context context) {

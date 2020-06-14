@@ -2,7 +2,6 @@ package com.neotys.ethereumJ.CustomActions;
 
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ExecutionException;
 
 import com.google.common.base.Optional;
 import com.neotys.action.result.ResultFactory;
@@ -24,7 +23,6 @@ public final class SendTransactionActionEngine implements ActionEngine {
 	@Override
 	public SampleResult execute(Context context, List<ActionParameter> parameters) {
 		final SampleResult sampleResult = new SampleResult();
-		final StringBuilder requestBuilder = new StringBuilder();
 		final StringBuilder responseBuilder = new StringBuilder();
 		final Map<String, Optional<String>> parsedArgs;
 		try {
@@ -68,7 +66,7 @@ public final class SendTransactionActionEngine implements ActionEngine {
 
 		sampleResult.sampleEnd();
 
-		sampleResult.setRequestContent(requestBuilder.toString());
+		sampleResult.setRequestContent("");
 		sampleResult.setResponseContent(responseBuilder.toString());
 		return sampleResult;
 	}

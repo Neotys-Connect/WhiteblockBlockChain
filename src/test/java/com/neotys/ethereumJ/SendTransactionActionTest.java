@@ -21,7 +21,7 @@ public class SendTransactionActionTest {
 		assertEquals("SendTransaction", action.getType());
 	}
 
-	String monitoringpayload = "{\n" +
+	final String monitoringpayload = "{\n" +
 			"  \"blockTime\": {\n" +
 			"    \"max\": 0,\n" +
 			"    \"mean\": 0,\n" +
@@ -105,7 +105,7 @@ public class SendTransactionActionTest {
 
 		final Optional<Integer> invalid = convert2OptionalInteger(Optional.of("Toto"));
 		System.out.println(invalid); // Optional.absent()
-		final Optional<Integer> absent = convert2OptionalInteger(Optional.<String>absent());
+		final Optional<Integer> absent = convert2OptionalInteger(Optional.absent());
 		System.out.println(absent); // Optional.absent()
 
 	}
@@ -121,11 +121,10 @@ public class SendTransactionActionTest {
 		if(data !=null) {
 			List<WhiteblockData> listdata = data.getWhiteblockDataTONL();
 			System.out.println(listdata.stream().map(d -> {
-				StringBuilder str = new StringBuilder();
-				str.append("metric :" + d.getMetricName());
-				str.append("time :" + d.getTime());
 				//  str.append("unit :"+d.getUnit());
-				return str.toString();
+				String str = "metric :" + d.getMetricName() +
+						"time :" + d.getTime();
+				return str;
 			}).collect(Collectors.joining("\t")));
 		}
 
@@ -137,10 +136,5 @@ public class SendTransactionActionTest {
 		return mode.transform(STR_TO_INT_FUNCTION).or(Optional.<Integer>absent());
 	}
 	private static final Function<String, Optional<Integer>> STR_TO_INT_FUNCTION =
-			new Function<String, Optional<Integer>>() {
-				@Override
-				public Optional<Integer> apply(final String input) {
-					return Optional.fromNullable(Ints.tryParse(input));
-				}
-			};
+			input -> Optional.fromNullable(Ints.tryParse(input));
 }

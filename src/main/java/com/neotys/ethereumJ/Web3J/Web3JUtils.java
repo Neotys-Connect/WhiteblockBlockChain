@@ -23,15 +23,16 @@ import org.web3j.utils.Numeric;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 
 public class Web3JUtils {
 
-    private Admin web3JA;
-    private Web3j web3j;
-    private Web3JContext context;
+    private final Admin web3JA;
+    private final Web3j web3j;
+    private final Web3JContext context;
 
 
     public Web3JUtils(Web3JContext context) {
@@ -150,16 +151,16 @@ public class Web3JUtils {
         if(transaction.getTransaction().isPresent())
         {
             org.web3j.protocol.core.methods.response.Transaction transac=transaction.getTransaction().get();
-            result.append("From :"+transac.getFrom());
-            result.append("to :"+transac.getTo());
-            result.append("blocknumber :"+transac.getBlockNumberRaw());
-            result.append("nonce :"+transac.getNonceRaw());
-            result.append("Value :"+transac.getValueRaw());
-            result.append("gas :"+transac.getGasRaw());
-            result.append("Gas Price :"+transac.getGasPriceRaw());
+            result.append("From :").append(transac.getFrom());
+            result.append("to :").append(transac.getTo());
+            result.append("blocknumber :").append(transac.getBlockNumberRaw());
+            result.append("nonce :").append(transac.getNonceRaw());
+            result.append("Value :").append(transac.getValueRaw());
+            result.append("gas :").append(transac.getGasRaw());
+            result.append("Gas Price :").append(transac.getGasPriceRaw());
 
         }else
-            result.append("No transaction with hash "+hash);
+            result.append("No transaction with hash ").append(hash);
 
         return result.toString();
     }
@@ -194,7 +195,7 @@ public class Web3JUtils {
             RawTransaction rawTransaction = RawTransaction.createEtherTransaction(nonce, gasprice, blockGasLimit, to, convertEtherStringTOBigInteger(amoutwei));
             // sign & send our transaction
             byte[] signedMessage = TransactionEncoder.signMessage(rawTransaction, credentials);
-            logInfo("Signed message :"+ signedMessage.toString());
+            logInfo("Signed message :"+ Arrays.toString(signedMessage));
 
             String hexValue = Numeric.toHexString(signedMessage);
             logInfo("hex Signed message :"+hexValue);
@@ -229,7 +230,7 @@ public class Web3JUtils {
             RawTransaction rawTransaction = RawTransaction.createContractTransaction(nonce, gasprice, blockGasLimit,  convertEtherStringTOBigInteger(amoutwei),contradtadress);
             // sign & send our transaction
             byte[] signedMessage = TransactionEncoder.signMessage(rawTransaction, credentials);
-            logInfo("Signed message :"+ signedMessage.toString());
+            logInfo("Signed message :"+ Arrays.toString(signedMessage));
 
             String hexValue = Numeric.toHexString(signedMessage);
             logInfo("hex Signed message :"+hexValue);
@@ -273,7 +274,7 @@ public class Web3JUtils {
 
 
 
-            TransactionReceipt receipt=token.safeTransferFrom(this.context.getAccountAdress().get(),to,BigInteger.valueOf((long)Long.parseLong(tokenid)),convertEtherStringTOBigInteger(value)).send();
+            TransactionReceipt receipt=token.safeTransferFrom(this.context.getAccountAdress().get(),to,BigInteger.valueOf(Long.parseLong(tokenid)),convertEtherStringTOBigInteger(value)).send();
              String transactionHash = receipt.getTransactionHash();
             if(transactionHash==null)
                 throw new Web3JExeption("Transaction Hash is null - not able to send  EC721 transaction on contract : "+contractadress +" amountwei  :" +value +" from "+ this.context.getAccountAdress().get()+" error "+ receipt.getStatus());

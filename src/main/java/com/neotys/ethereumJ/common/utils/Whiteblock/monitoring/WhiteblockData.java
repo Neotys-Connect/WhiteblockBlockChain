@@ -1,10 +1,10 @@
 package com.neotys.ethereumJ.common.utils.Whiteblock.monitoring;
 
 public class WhiteblockData {
-    private String unit;
-    private double value;
-    private long time;
-    private String metricName;
+    private final String unit;
+    private final double value;
+    private final long time;
+    private final String metricName;
 
 
     public String getUnit() {

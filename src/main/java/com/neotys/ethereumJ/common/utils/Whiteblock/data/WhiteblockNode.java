@@ -7,9 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WhiteblockNode extends  WhiteblockDataModel {
-    private String service;
-    private int instance;
-    private String ip;
+    private final String service;
+    private final int instance;
+    private final String ip;
     private List<Integer> ports;
 
     public WhiteblockNode(String service, int instance, String ip, List<Integer> ports){

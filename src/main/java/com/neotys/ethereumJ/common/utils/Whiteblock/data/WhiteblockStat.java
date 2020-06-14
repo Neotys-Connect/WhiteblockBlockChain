@@ -1,6 +1,5 @@
 package com.neotys.ethereumJ.common.utils.Whiteblock.data;
 
-import com.google.gson.annotations.SerializedName;
 import org.json.JSONObject;
 
 public class WhiteblockStat {
