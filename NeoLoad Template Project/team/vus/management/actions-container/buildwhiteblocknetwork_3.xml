@@ -1,0 +1,18 @@
+<custom-action actionType="BuildWhiteblockNetwork" isHit="false"
+    name="buildwhiteblocknetwork_3" uid="c5912bfd-861f-4303-9c6a-9abdc751e4a3">
+    <description>Build a BlockChain Network.
+
+Possible parameters are:&#xd;
+- Organization (required): The name or id of the organization to deploy one Default value is "The name or id of the organization to deploy one".&#xd;
+- TestDefinition (required): The path to the Whiteblock Genesis test definition yaml file Default value is "${NL-CustomResources}/youFile.yaml".&#xd;
+- AccessToken (required): You can get this by running the command genesis auth print-access-token Default value is "A Whiteblock Genesis access token".&#xd;
+- StartPhase (required): Choose a phase in your test during which you want to start the load test Default value is "The phase at which to start the load test".&#xd;
+- ProxyName (optional): name of the neoload proxy Default value is "name of the neoload proxy".&#xd;
+- TraceMode (optional): enable loggin details  : true: enable ; false : Disable Default value is "enable logging ".</description>
+    <custom-action-parameter name="Organization" type="TEXT" value="ded33620-3346-11ea-97c6-42010aae000e"/>
+    <custom-action-parameter name="TestDefinition" type="TEXT" value="/mnt/work/whiteblock/WhiteblockBlockChain/NeoLoad Template Project/custom-resources/simple-geth/geth_ethstats.yaml"/>
+    <custom-action-parameter name="AccessToken" type="TEXT" value="eyJhbGciOiJIUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICIxYTIzN2Q1NC1hZWNjLTQwYjEtYTI1MC04MTJhNDA0MGFhMDgifQ.eyJqdGkiOiI5YmU1OGExOS05ZDI4LTQ5ZjAtYjg2OS0wZWFmMjhjNzVhMTUiLCJleHAiOjAsIm5iZiI6MCwiaWF0IjoxNTkxMTIxMTQwLCJpc3MiOiJodHRwczovL2F1dGguaW5mcmEud2hpdGVibG9jay5pby9hdXRoL3JlYWxtcy93YiIsImF1ZCI6Imh0dHBzOi8vYXV0aC5pbmZyYS53aGl0ZWJsb2NrLmlvL2F1dGgvcmVhbG1zL3diIiwic3ViIjoiOTg0Y2YyZmEtZmQ4Mi00MTIyLWJkNmUtYWQxYTFlZWY5NjI3IiwidHlwIjoiT2ZmbGluZSIsImF6cCI6ImNsaSIsImF1dGhfdGltZSI6MCwic2Vzc2lvbl9zdGF0ZSI6IjBmMzExNmYyLWQyMmUtNDM2Yi05ZGE4LWU0YTM5YTMwZjVkZSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyJdfSwic2NvcGUiOiJvZmZsaW5lX2FjY2VzcyBwcm9maWxlIGVtYWlsIn0.gEH8GmX73rvxx8xqhnLXohxDHbClN-JJJs9jFx3wtTQ"/>
+    <custom-action-parameter name="StartPhase" type="TEXT" value="start"/>
+    <custom-action-parameter name="TraceMode" type="TEXT" value="true"/>
+    <responsePageFileDescription>recorded-responses/res_c5912bfd-861f-4303-9c6a-9abdc751e4a3</responsePageFileDescription>
+</custom-action>
