@@ -73,7 +73,7 @@ public class WhiteblockRestAPI {
 
         final Optional<Proxy> proxy = getProxy(context.getContext(), context.getProxy(), url);
 
-        final HTTPGenerator http = new HTTPGenerator(method, url,  headers, parameters, proxy);
+        final HTTPGenerator http = HTTPGenerator.newHttpGenerator(method, url,  headers, parameters, proxy,payload);
 
         try
         {
@@ -119,7 +119,7 @@ public class WhiteblockRestAPI {
 
         final Optional<Proxy> proxy = getProxy(context.getContext(), context.getProxy(), url);
 
-        final HTTPGenerator http = new HTTPGenerator(method, url,  headers, parameters, proxy);
+        final HTTPGenerator http = HTTPGenerator.newHttpGenerator(method, url,  headers, parameters, proxy,payload);
         try
         {
             if(context.getTracemode().isPresent()&&context.getTracemode().get().equalsIgnoreCase("TRUE"))
@@ -165,7 +165,7 @@ public class WhiteblockRestAPI {
 
         final Optional<Proxy> proxy = getProxy(context.getContext(), context.getProxy(), url);
 
-        final HTTPGenerator http = new HTTPGenerator(method, url,  headers, parameters, proxy);
+        final HTTPGenerator http = HTTPGenerator.newHttpGenerator(method, url,  headers, parameters, proxy,payload);
         try
         {
             if(context.getTracemode().isPresent()&&context.getTracemode().get().equalsIgnoreCase("TRUE"))
