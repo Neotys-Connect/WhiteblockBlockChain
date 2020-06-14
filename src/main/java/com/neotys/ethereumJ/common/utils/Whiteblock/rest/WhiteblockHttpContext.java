@@ -43,7 +43,8 @@ public class WhiteblockHttpContext {
         context.getLogger().info("got the access token, :\n" + tr.getAccessToken() );
 
         this.credential = new Credential.Builder(BearerToken.authorizationHeaderAccessMethod()).setTransport(
-                new NetHttpTransport())
+                new NetHttpTransport()).setClientAuthentication(
+                new BasicAuthentication("cli", ""))
                 .setJsonFactory(new JacksonFactory())
                 .setTokenServerUrl(new GenericUrl(TOKEN_URL))
                 .build()

@@ -74,6 +74,9 @@ public class WhiteblockProcessBuilder {
         JSONArray rawFiles = WhiteblockRestAPI.jsonArrRequest("POST", PARSE_FILES_URI,
                 meta.getDefinitionRaw(), context);
         List<String> files = new ArrayList<>();
+        if(rawFiles == null) {
+            throw new WhiteblockLogicException("got back null for raw files");
+        }
         for(int i = 0; i < rawFiles.length(); i++) {
             files.add(rawFiles.getString(i));
         }
