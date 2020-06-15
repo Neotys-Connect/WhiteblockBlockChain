@@ -1,5 +1,6 @@
 package com.neotys.ethereumJ.common.utils.Whiteblock.data;
 
+import org.bouncycastle.util.encoders.Base64;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -50,7 +51,7 @@ public class WhiteblockBuildMeta {
 		out.put("domains", domains);
 		out.put("cloudDetails", cloudDetails);
 		out.put("dockerAuth",dockerAuth);
-		out.put("definitionRaw", definitionRaw);
+		out.put("definitionRaw", new String(Base64.encode(definitionRaw.getBytes())));
 		return out;
 	}
 

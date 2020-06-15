@@ -50,7 +50,7 @@ public class WhiteblockRestAPI {
                 {
                     context.getContext().getLogger().info("Whiteblock multipart success response, :\n" + response );
                 }
-                return response.toString();
+                return HttpResponseUtils.getStringResponse(response);
             }
             else if(statusCode != HttpStatus.SC_BAD_REQUEST && statusCode != HttpStatus.SC_NOT_FOUND) {
                 throw new WhiteBlockHttpException(response.getStatusLine().getReasonPhrase() + " - " + url + " - " +

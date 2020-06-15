@@ -9,7 +9,7 @@ Possible parameters are:&#xd;
 - StartPhase (required): Choose a phase in your test during which you want to start the load test Default value is "The phase at which to start the load test".&#xd;
 - ProxyName (optional): name of the neoload proxy Default value is "name of the neoload proxy".&#xd;
 - TraceMode (optional): enable loggin details  : true: enable ; false : Disable Default value is "enable logging ".</description>
-    <custom-action-parameter name="Organization" type="TEXT" value="ded33620-3346-11ea-97c6-42010aae000e"/>
+    <custom-action-parameter name="Organization" type="TEXT" value="fad0a2a6-9ea6-11ea-9fe8-42010aae001c"/>
     <custom-action-parameter name="TestDefinition" type="TEXT" value="${NL-CustomResources}/simple-geth/geth_ethstats.yaml"/>
     <custom-action-parameter name="AccessToken" type="TEXT" value="eyJhbGciOiJIUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICIxYTIzN2Q1NC1hZWNjLTQwYjEtYTI1MC04MTJhNDA0MGFhMDgifQ.eyJqdGkiOiI3YmI3YmQyYS1lNTIyLTRlY2YtYjI3MS1kNDc1YjJmNDc1ZjgiLCJleHAiOjAsIm5iZiI6MCwiaWF0IjoxNTkyMTk0NTI1LCJpc3MiOiJodHRwczovL2F1dGguaW5mcmEud2hpdGVibG9jay5pby9hdXRoL3JlYWxtcy93YiIsImF1ZCI6Imh0dHBzOi8vYXV0aC5pbmZyYS53aGl0ZWJsb2NrLmlvL2F1dGgvcmVhbG1zL3diIiwic3ViIjoiNWUzOGZlOWItMjY2MC00ZDRlLTljNzMtNDE1N2JlZjViMTg3IiwidHlwIjoiT2ZmbGluZSIsImF6cCI6ImNsaSIsImF1dGhfdGltZSI6MCwic2Vzc2lvbl9zdGF0ZSI6ImU1NTE0ZmUwLThiMWItNDhmMy04NjMwLTQ2YTE1MDk3ODg3ZSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyJdfSwic2NvcGUiOiJvZmZsaW5lX2FjY2VzcyBwcm9maWxlIGVtYWlsIn0.HhOSMqXbxNsZuqpWjbQFfeQdefB89GBJodzb4t1jVwA"/>
     <custom-action-parameter name="StartPhase" type="TEXT" value="start"/>
