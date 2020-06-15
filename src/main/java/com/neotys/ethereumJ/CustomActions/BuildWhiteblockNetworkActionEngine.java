@@ -80,7 +80,7 @@ public class BuildWhiteblockNetworkActionEngine implements ActionEngine {
             List<WhiteblockAccount> accounts = Ethereum.generateAccounts(200);
             // TODO: Add logic for the custom ethereum case, which generates the accounts, and stores it somewhere it
             List<String> testIDs  = WhiteblockProcessBuilder.buildEthereum(wbContext, org,
-                    new WhiteblockBuildMeta(rawDefinition), accounts);
+                    new WhiteblockBuildMeta(rawDefinition,defFilePath), accounts);
             if (testIDs.size() >0) {
 
                 responseBuilder.append("<TestIds>");
