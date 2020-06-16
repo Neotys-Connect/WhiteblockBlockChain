@@ -1,7 +1,5 @@
 package com.neotys.ethereumJ.CustomActions;
 
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.google.common.base.Optional;
 import com.neotys.action.result.ResultFactory;
 import com.neotys.ethereumJ.common.utils.Whiteblock.data.WhiteblockAccount;
@@ -74,12 +72,14 @@ public class BuildWhiteblockNetworkActionEngine implements ActionEngine {
         }catch(FileNotFoundException e) {
             return ResultFactory.newErrorResult(context, STATUS_CODE_BAD_CONTEXT, "failed to find the provide test definition file: ", e);
         }
+        WhiteblockHttpContext wbContext = null;
+        List<String> testIDs = null;
         try
         {
-            WhiteblockHttpContext wbContext = new WhiteblockHttpContext(accessToken, tracemode,context,proxyName);
+            wbContext = new WhiteblockHttpContext(accessToken, tracemode,context,proxyName);
             List<WhiteblockAccount> accounts = Ethereum.generateAccounts(200);
             // TODO: Add logic for the custom ethereum case, which generates the accounts, and stores it somewhere it
-            List<String> testIDs  = WhiteblockProcessBuilder.buildEthereum(wbContext, org,
+            testIDs  = WhiteblockProcessBuilder.buildEthereum(wbContext, org,
                     new WhiteblockBuildMeta(rawDefinition,defFilePath), accounts);
             if (testIDs.size() >0) {
 
@@ -94,10 +94,19 @@ public class BuildWhiteblockNetworkActionEngine implements ActionEngine {
             ///----generate output of the custom action----
             if(accounts.size()>0)
             {
-                XmlMapper xmlMapper = new XmlMapper();
-                xmlMapper.enable(SerializationFeature.INDENT_OUTPUT);
-                String xml = xmlMapper.writeValueAsString(accounts);
-                responseBuilder.append(xml);
+                responseBuilder.append("<accounts>");
+                accounts.forEach(account ->{
+                    responseBuilder.append("<privateKey>");
+                    responseBuilder.append(account.getPrivateKey());
+                    responseBuilder.append("</privateKey>");
+                    responseBuilder.append("<publicKey>");
+                    responseBuilder.append(account.getPublicKey());
+                    responseBuilder.append("</publicKey>");
+                    responseBuilder.append("<address>");
+                    responseBuilder.append(account.getAccount());
+                    responseBuilder.append("</address>");
+                });
+                responseBuilder.append("</accounts>");
             }
 
             String testID = testIDs.get(0);
@@ -107,6 +116,18 @@ public class BuildWhiteblockNetworkActionEngine implements ActionEngine {
         }
         catch (Exception e)
         {
+            // Shutdown the tests immediately
+            if(testIDs != null && wbContext != null) {
+                for (String testID : testIDs) {
+                    try{
+                        WhiteblockProcessBuilder.abortTest(wbContext, testID);
+                    }catch (Exception e2) {
+                        wbContext.getContext().getLogger().error(e2.getMessage());
+                    }
+
+                }
+            }
+
             return ResultFactory.newErrorResult(context, STATUS_CODE_BAD_CONTEXT, "Error encountered :", e);
 
         }
