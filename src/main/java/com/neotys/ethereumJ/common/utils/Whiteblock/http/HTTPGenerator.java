@@ -69,7 +69,7 @@ public class HTTPGenerator {
 													final List<String> filePaths,
 													final List<WhiteblockPseudoFile> fileOverides)
 		throws Exception {
-		final HTTPGenerator httpGenerator = new HTTPGenerator(HTTP_POST_METHOD, url, headers, params, proxy);
+		final HTTPGenerator httpGenerator = new HTTPGenerator(HTTP_PUT_METHOD, url, headers, params, proxy);
 		addFileParameters(httpGenerator.request,filePaths, fileOverides);
 		return httpGenerator;
 	}

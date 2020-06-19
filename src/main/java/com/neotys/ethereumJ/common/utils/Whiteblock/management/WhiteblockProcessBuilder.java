@@ -78,6 +78,7 @@ public class WhiteblockProcessBuilder {
         if(rawFiles == null) {
             throw new WhiteblockLogicException("got back null for raw files");
         }
+
         for(int i = 0; i < rawFiles.length(); i++) {
             String rawfile=rawFiles.getString(i);
             if(rawfile.startsWith("./"))
@@ -86,8 +87,10 @@ public class WhiteblockProcessBuilder {
                 rawfile=rawfile.substring(1);
             files.add(meta.getFolderPath()+"/"+rawfile);
         }
+        files.add("definition");
         List<WhiteblockPseudoFile> overrides =  new ArrayList<>();
         overrides.add(new WhiteblockPseudoFile("genesis.json",genesis.toString()));
+        overrides.add(new WhiteblockPseudoFile("definition",meta.getDefinitionRaw()));
         // Upload the files
         String rawResp = WhiteblockRestAPI.multipartRequest(context, String.format(FILE_UPLOAD_URI,orgID), files, overrides);
         if(rawResp!=null) {

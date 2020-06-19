@@ -16,7 +16,6 @@ import org.apache.http.conn.ssl.X509HostnameVerifier;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.entity.mime.content.FileBody;
-import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.conn.SingleClientConnManager;
 import org.apache.http.message.BasicNameValuePair;
@@ -103,7 +102,7 @@ class HTTPGeneratorUtils {
 		if(fileOverides != null) {
 			for (WhiteblockPseudoFile fileOveride : fileOverides) {
 				if (fileOveride.getName().equals(file)) {
-					reqEntityBuilder.addPart(file, new StringBody(fileOveride.getData()));
+					reqEntityBuilder.addPart(file, fileOveride);
 					return;
 				}
 			}
@@ -118,7 +117,7 @@ class HTTPGeneratorUtils {
 		for (String file : files) {
 			handleAddingFilePart(reqEntityBuilder,file,fileOverides);
 		}
-		((HttpPost) request).setEntity(reqEntityBuilder.build());
+		((HttpPut) request).setEntity(reqEntityBuilder.build());
 	}
 
 	@SuppressWarnings("deprecation")
