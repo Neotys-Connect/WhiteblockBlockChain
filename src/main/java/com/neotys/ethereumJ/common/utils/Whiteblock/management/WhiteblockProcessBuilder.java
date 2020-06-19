@@ -141,7 +141,7 @@ public class WhiteblockProcessBuilder {
      */
     public static void abortTest(WhiteblockHttpContext context, String testID)
             throws Exception {
-        WhiteblockRestAPI.request("GET",
+        WhiteblockRestAPI.request("POST",
                 String.format(STOP_TEST_URI,testID),null,context);
     }
 
