@@ -21,15 +21,15 @@ import java.util.Map;
 public class WhiteblockRestAPI {
 
 	public static String multipartRequest(WhiteblockHttpContext context,
-                                          String path, List<String> filePaths,
+                                          String urlPath, String path, List<String> filePaths,
                                           List<WhiteblockPseudoFile> fileOverides) throws Exception {
         final Map<String, String> parameters = new HashMap<>();
 
         final Map<String, String> headers = new HashMap<>();
-        String url = WhiteblockHttpContext.HOST + path;
+        String url = WhiteblockHttpContext.HOST + urlPath;
         headers.put("Authorization"," Bearer "+context.getBearerToken());
         final Optional<Proxy> proxy = getProxy(context.getContext(), context.getProxy(), url);
-        final HTTPGenerator http = HTTPGenerator.newMultiPartRequest(url,  headers, parameters, proxy, filePaths, fileOverides);
+        final HTTPGenerator http = HTTPGenerator.newMultiPartRequest(url,  headers, parameters, proxy, path, filePaths, fileOverides);
 
         try
         {

@@ -13,7 +13,7 @@ services:
       - source-path: ./keystore/nodekey$_n
         destination-path: /geth/geth/nodekey
     resources:
-      cpus: 6
+      cpus: 4
       memory: 6 GB
       storage: 30 GiB
   - name: record

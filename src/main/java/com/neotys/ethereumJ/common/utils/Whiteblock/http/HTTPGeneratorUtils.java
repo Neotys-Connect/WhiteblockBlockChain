@@ -97,7 +97,7 @@ class HTTPGeneratorUtils {
 				throw new UnsupportedOperationException("Invalid http method");
 		}
 	}
-	static void handleAddingFilePart(MultipartEntityBuilder reqEntityBuilder, String file,
+	static void handleAddingFilePart(MultipartEntityBuilder reqEntityBuilder, String path, String file,
 									 final List<WhiteblockPseudoFile> fileOverides) throws Exception {
 		if(fileOverides != null) {
 			for (WhiteblockPseudoFile fileOveride : fileOverides) {
@@ -107,15 +107,24 @@ class HTTPGeneratorUtils {
 				}
 			}
 		}
-		FileBody bin = new FileBody(new File(file));
+		String filename = file;
+
+		if(filename.startsWith("./"))
+			filename=filename.substring(2);
+		if(!filename.startsWith("/")){
+			filename = path + "/" + filename;
+		}
+
+
+		FileBody bin = new FileBody(new File(filename));
 		reqEntityBuilder.addPart(file,bin);
 
 	}
-	static void addFileParameters(final HttpRequestBase request, final List<String> files,
+	static void addFileParameters(final HttpRequestBase request, final List<String> files, String path,
 								  final List<WhiteblockPseudoFile> fileOverides)  throws Exception {
 		MultipartEntityBuilder reqEntityBuilder = MultipartEntityBuilder.create();
 		for (String file : files) {
-			handleAddingFilePart(reqEntityBuilder,file,fileOverides);
+			handleAddingFilePart(reqEntityBuilder, path, file, fileOverides);
 		}
 		((HttpPut) request).setEntity(reqEntityBuilder.build());
 	}

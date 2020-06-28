@@ -66,11 +66,12 @@ public class HTTPGenerator {
 													final Map<String, String> headers,
 													final Map<String, String> params,
 													final Optional<Proxy> proxy,
+													final String path,
 													final List<String> filePaths,
 													final List<WhiteblockPseudoFile> fileOverides)
 		throws Exception {
 		final HTTPGenerator httpGenerator = new HTTPGenerator(HTTP_PUT_METHOD, url, headers, params, proxy);
-		addFileParameters(httpGenerator.request,filePaths, fileOverides);
+		addFileParameters(httpGenerator.request,filePaths, path, fileOverides);
 		return httpGenerator;
 	}
 

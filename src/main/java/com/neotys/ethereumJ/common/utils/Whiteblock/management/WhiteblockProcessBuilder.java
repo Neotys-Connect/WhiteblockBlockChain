@@ -46,7 +46,8 @@ public class WhiteblockProcessBuilder {
             files.add(rawFiles.getString(i));
         }
         // Upload the files
-        String rawResp = WhiteblockRestAPI.multipartRequest(context, String.format(FILE_UPLOAD_URI,orgID), files, null);
+        String rawResp = WhiteblockRestAPI.multipartRequest(context, String.format(FILE_UPLOAD_URI,orgID),
+                meta.getFolderPath(), files, null);
         JSONObject resp = new JSONObject(rawResp);
         String defID = resp.getJSONObject("data").getString("definitionID");
         JSONObject payload = meta.marshalJSON();
@@ -80,22 +81,19 @@ public class WhiteblockProcessBuilder {
         }
 
         for(int i = 0; i < rawFiles.length(); i++) {
-            String rawfile=rawFiles.getString(i);
-            if(rawfile.startsWith("./"))
-                rawfile=rawfile.substring(2);
-            if(rawfile.startsWith("/"))
-                rawfile=rawfile.substring(1);
-            files.add(meta.getFolderPath()+"/"+rawfile);
+            files.add(rawFiles.getString(i));
         }
         files.add("definition");
         List<WhiteblockPseudoFile> overrides =  new ArrayList<>();
         overrides.add(new WhiteblockPseudoFile("genesis.json",genesis.toString()));
         overrides.add(new WhiteblockPseudoFile("definition",meta.getDefinitionRaw()));
         // Upload the files
-        String rawResp = WhiteblockRestAPI.multipartRequest(context, String.format(FILE_UPLOAD_URI,orgID), files, overrides);
+        String rawResp = WhiteblockRestAPI.multipartRequest(context, String.format(FILE_UPLOAD_URI, orgID),
+                meta.getFolderPath(), files, overrides);
         if(rawResp!=null) {
             JSONObject resp = new JSONObject(rawResp);
             String defID = resp.getJSONObject("data").getString("definitionID");
+            meta.addDomain(defID.replaceAll("-",""));//Use the definition ID as the domain base
             JSONObject payload = meta.marshalJSON();
             JSONArray rawTestIDs = WhiteblockRestAPI.jsonArrRequest("POST",
                     String.format(RUN_TEST_URI, orgID, defID), payload.toString(), context);
