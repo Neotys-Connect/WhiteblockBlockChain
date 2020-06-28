@@ -127,7 +127,7 @@ public class WhiteblockProcessBuilder {
             throws Exception {
         String result = WhiteblockRestAPI.request("GET",
                 String.format(PHASE_PASSED_URI,testID, phase),null,context);
-        return "true".equals(result);
+        return result.contains("true");
     }
     
     /**
