@@ -3,6 +3,7 @@ package com.neotys.ethereumJ.CustomActions;
 import com.google.common.base.Optional;
 import com.neotys.action.result.ResultFactory;
 import com.neotys.ethereumJ.Web3J.Web3UtilsWhiteblock;
+import com.neotys.ethereumJ.common.utils.Whiteblock.data.WhiteblockAccount;
 import com.neotys.extensions.action.ActionParameter;
 import com.neotys.extensions.action.engine.ActionEngine;
 import com.neotys.extensions.action.engine.Context;
@@ -38,8 +39,8 @@ public class SendContractTransactionActionEngine implements ActionEngine {
             logger.debug("Executing " + this.getClass().getName() + " with parameters: "
                     + getArgumentLogString(parsedArgs, SendContractTransactionOption.values()));
         }
-        final String whiteBlocMasterHost = parsedArgs.get(SendContractTransactionOption.WhiteBlocMasterHost.getName()).get();
-        final String whiteBlocMasterrpcport = parsedArgs.get(SendContractTransactionOption.WhiteBlocRpcPortofNode.getName()).get();
+        final String ip = parsedArgs.get(SendContractTransactionOption.ip.getName()).get();
+        final String port = parsedArgs.get(SendContractTransactionOption.port.getName()).get();
 
         final String from = parsedArgs.get(SendContractTransactionOption.from.getName()).get();
         final String contractadress=parsedArgs.get(SendContractTransactionOption.contractadress.getName()).get();
@@ -52,7 +53,7 @@ public class SendContractTransactionActionEngine implements ActionEngine {
         sampleResult.sampleStart();
         try
         {
-            Web3UtilsWhiteblock whiteblock=new Web3UtilsWhiteblock(whiteBlocMasterHost,whiteBlocMasterrpcport,Optional.absent(),Optional.of(from),Optional.absent(),Optional.absent(),traceMode,context);
+            Web3UtilsWhiteblock whiteblock=new Web3UtilsWhiteblock(ip,port, new WhiteblockAccount(from),traceMode,context);
             String hash=whiteblock.createContractTransaction(contractadress,amount);
 
             appendLineToStringBuilder(responseBuilder, "Transaction sent : hash of the transaction "+hash);

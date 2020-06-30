@@ -3,6 +3,7 @@ package com.neotys.ethereumJ.CustomActions;
 import com.google.common.base.Optional;
 import com.neotys.action.result.ResultFactory;
 import com.neotys.ethereumJ.Web3J.Web3UtilsWhiteblock;
+import com.neotys.ethereumJ.common.utils.Whiteblock.data.WhiteblockAccount;
 import com.neotys.extensions.action.ActionParameter;
 import com.neotys.extensions.action.engine.ActionEngine;
 import com.neotys.extensions.action.engine.Context;
@@ -37,14 +38,12 @@ public class SendFundsActionEngine implements ActionEngine {
             logger.debug("Executing " + this.getClass().getName() + " with parameters: "
                     + getArgumentLogString(parsedArgs, SendFundsOption.values()));
         }
-        final String whiteBlocMasterHost = parsedArgs.get(SendFundsOption.WhiteBlocMasterHost.getName()).get();
-        final String whiteBlocMasterrpcport = parsedArgs.get(SendFundsOption.WhiteBlocMasterHost.getName()).get();
+        final String ip = parsedArgs.get(SendFundsOption.IP.getName()).get();
+        final String port = parsedArgs.get(SendFundsOption.Port.getName()).get();
 
         final String from = parsedArgs.get(SendFundsOption.from.getName()).get();
         final String to = parsedArgs.get(SendFundsOption.to.getName()).get();
         final String amount = parsedArgs.get(SendFundsOption.amount.getName()).get();
-        final Optional<String> publickey = parsedArgs.get(SendFundsOption.publickey.getName());
-        final Optional<String> privatekey = parsedArgs.get(SendFundsOption.privatekey.getName());
         final Optional<String> traceMode = parsedArgs.get(SendFundsOption.TraceMode.getName());
 
         if (!isaDouble(amount))
@@ -52,7 +51,7 @@ public class SendFundsActionEngine implements ActionEngine {
 
         sampleResult.sampleStart();
         try {
-            Web3UtilsWhiteblock whiteblock = new Web3UtilsWhiteblock(whiteBlocMasterHost,whiteBlocMasterrpcport,Optional.absent(), Optional.of(from), privatekey, publickey, traceMode, context);
+            Web3UtilsWhiteblock whiteblock = new Web3UtilsWhiteblock(ip,port,new WhiteblockAccount(from), traceMode, context);
             String hash = whiteblock.transfertFunds(to, amount);
 
             appendLineToStringBuilder(responseBuilder, "Transaction sent : hash of the transaction " + hash);

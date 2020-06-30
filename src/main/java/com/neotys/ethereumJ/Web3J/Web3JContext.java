@@ -1,80 +1,51 @@
 package com.neotys.ethereumJ.Web3J;
 
 import com.google.common.base.Optional;
+import com.neotys.ethereumJ.common.utils.Whiteblock.data.WhiteblockAccount;
 import com.neotys.extensions.action.engine.Context;
 
+import static com.neotys.ethereumJ.common.utils.Whiteblock.Constants.WHITEBLOCK_DEFAULT_PASSWORD;
+
 public class Web3JContext {
-    private final String ipOftheNode;
-    private Optional<String> accountAdress;
+    private final String ip;
     private Optional<String> tracemode;
     private Context context;
     private String port;
-    private String walletpassord;
-    private Optional<String> privateKey;
-    private Optional<String> publicKey;
-    private Optional<String> rpctoken;
+    private WhiteblockAccount account;
 
-    public Web3JContext(String ipOftheNode, String port,Optional<String> token, Optional<String> accountAdress,
-                        String pwd, Optional<String> tracemode, Optional<String> privateKey, Optional<String> publicKey, Context context) {
-        this.ipOftheNode = ipOftheNode;
-        this.accountAdress = accountAdress;
+    public Web3JContext(String ip, String port, WhiteblockAccount account,
+                        Optional<String> tracemode, Context context) {
+        this.ip = ip;
+        this.account = account;
         this.tracemode = tracemode;
         this.context = context;
-        this.walletpassord=pwd;
-        this.privateKey=privateKey;
-        this.publicKey=publicKey;
-        this.port=port;
-        this.rpctoken=token;
+        this.port = port;
     }
 
     public Web3JContext(String ip, String port, Context context) {
-        this.ipOftheNode = ip;
+        this.ip = ip;
         this.port=port;
         this.context = context;
     }
 
-    public Optional<String> getRpctoken() {
-        return rpctoken;
-    }
 
-    public void setRpctoken(Optional<String> rpctoken) {
-        this.rpctoken = rpctoken;
+    public String getPrivateKey() {
+        return account.getPrivateKey();
     }
-
-    public Optional<String> getPrivateKey() {
-        return privateKey;
-    }
-
-    public void setPrivateKey(Optional<String> privateKey) {
-        this.privateKey = privateKey;
-    }
-
-    public Optional<String> getPublicKey() {
-        return publicKey;
-    }
-
-    public void setPublicKey(Optional<String> publicKey) {
-        this.publicKey = publicKey;
+    public String getPublicKey() {
+        return account.getPublicKey();
     }
 
     public String getWalletpassord() {
-        return walletpassord;
-    }
-
-    public void setWalletpassord(String walletpassord) {
-        this.walletpassord = walletpassord;
+        return WHITEBLOCK_DEFAULT_PASSWORD;
     }
 
     public String getIpOftheNode() {
-        return ipOftheNode;
+        return ip;
     }
 
-    public Optional<String> getAccountAdress() {
-        return accountAdress;
-    }
-
-    public void setAccountAdress( Optional<String> accountAdress) {
-        this.accountAdress = accountAdress;
+    public String getAccountAddress() {
+        return account.getAccount();
     }
 
     public Optional<String> getTracemode() {

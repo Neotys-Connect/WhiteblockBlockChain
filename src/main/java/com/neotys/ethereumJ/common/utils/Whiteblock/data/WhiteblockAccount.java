@@ -25,4 +25,8 @@ public class WhiteblockAccount {
     public String getPublicKey() {
         return cred.getEcKeyPair().getPublicKey().toString(16);
     }
+
+    public String generateOutPut() {
+        return "<privateKey>"+getPrivateKey()+"<privateKey>";
+    }
 }

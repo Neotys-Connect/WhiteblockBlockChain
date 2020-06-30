@@ -81,6 +81,7 @@ public class BuildWhiteblockNetworkActionEngine implements ActionEngine {
             // TODO: Add logic for the custom ethereum case, which generates the accounts, and stores it somewhere it
             testIDs  = WhiteblockProcessBuilder.buildEthereum(wbContext, org,
                     new WhiteblockBuildMeta(rawDefinition,defFilePath), accounts);
+            responseBuilder.append("<build>");
             if (testIDs.size() >0) {
 
                 responseBuilder.append("<TestIds>");
@@ -99,16 +100,10 @@ public class BuildWhiteblockNetworkActionEngine implements ActionEngine {
                     responseBuilder.append("<privateKey>");
                     responseBuilder.append(account.getPrivateKey());
                     responseBuilder.append("</privateKey>");
-                    responseBuilder.append("<publicKey>");
-                    responseBuilder.append(account.getPublicKey());
-                    responseBuilder.append("</publicKey>");
-                    responseBuilder.append("<address>");
-                    responseBuilder.append(account.getAccount());
-                    responseBuilder.append("</address>");
                 });
                 responseBuilder.append("</accounts>");
             }
-
+            responseBuilder.append("</build>");
             String testID = testIDs.get(0);
             while(!isTestReady(wbContext, testID, startPhase)) {
                  Thread.sleep(500);

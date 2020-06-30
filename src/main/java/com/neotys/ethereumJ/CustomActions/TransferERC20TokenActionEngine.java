@@ -3,6 +3,7 @@ package com.neotys.ethereumJ.CustomActions;
 import com.google.common.base.Optional;
 import com.neotys.action.result.ResultFactory;
 import com.neotys.ethereumJ.Web3J.Web3UtilsWhiteblock;
+import com.neotys.ethereumJ.common.utils.Whiteblock.data.WhiteblockAccount;
 import com.neotys.extensions.action.ActionParameter;
 import com.neotys.extensions.action.engine.ActionEngine;
 import com.neotys.extensions.action.engine.Context;
@@ -38,24 +39,22 @@ public class TransferERC20TokenActionEngine implements ActionEngine {
             logger.debug("Executing " + this.getClass().getName() + " with parameters: "
                     + getArgumentLogString(parsedArgs, TransferERC20TokenOption.values()));
         }
-        final String whiteBlocMasterHost = parsedArgs.get(TransferERC20TokenOption.WhiteBlocMasterHost.getName()).get();
-
-        final String whiteBlocMasterRpcPort = parsedArgs.get(TransferERC20TokenOption.WhiteBlocRpcPortofNode.getName()).get();
+        final String ip = parsedArgs.get(TransferERC20TokenOption.ip.getName()).get();
+        final String port = parsedArgs.get(TransferERC20TokenOption.port.getName()).get();
         final String to = parsedArgs.get(TransferERC20TokenOption.to.getName()).get();
 
         final String from = parsedArgs.get(TransferERC20TokenOption.from.getName()).get();
         final String contractadress=parsedArgs.get(TransferERC20TokenOption.contractadress.getName()).get();
         final String amount=parsedArgs.get(SendContractTransactionOption.amount.getName()).get();
         final Optional<String> traceMode=parsedArgs.get(TransferERC20TokenOption.TraceMode.getName());
-        final Optional<String> publickey=parsedArgs.get(TransferERC20TokenOption.publickey.getName());
-        final Optional<String> privatekey=parsedArgs.get(TransferERC20TokenOption.privatekey.getName());
 
         if(!isaDouble(amount))
-            return ResultFactory.newErrorResult(context, STATUS_CODE_INVALID_PARAMETER, "Amout needs to be double  :"+amount, null);
+            return ResultFactory.newErrorResult(context, STATUS_CODE_INVALID_PARAMETER, "Amout needs to be double  :"+
+                    amount, null);
         sampleResult.sampleStart();
         try
         {
-            Web3UtilsWhiteblock whiteblock=new Web3UtilsWhiteblock(whiteBlocMasterHost,whiteBlocMasterRpcPort,Optional.absent(),Optional.of(from),privatekey,publickey,traceMode,context);
+            Web3UtilsWhiteblock whiteblock=new Web3UtilsWhiteblock(ip,port, new WhiteblockAccount(from),traceMode,context);
             String hash=whiteblock.createERC20Transaction(contractadress,amount,to);
 
             appendLineToStringBuilder(responseBuilder, "Transaction sent : hash of the transaction "+hash);

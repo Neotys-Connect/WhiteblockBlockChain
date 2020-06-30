@@ -1,16 +1,17 @@
 package com.neotys.ethereumJ.CustomActions;
 
-import java.util.List;
-import java.util.Map;
-
 import com.google.common.base.Optional;
 import com.neotys.action.result.ResultFactory;
 import com.neotys.ethereumJ.Web3J.Web3UtilsWhiteblock;
+import com.neotys.ethereumJ.common.utils.Whiteblock.data.WhiteblockAccount;
 import com.neotys.extensions.action.ActionParameter;
 import com.neotys.extensions.action.engine.ActionEngine;
 import com.neotys.extensions.action.engine.Context;
 import com.neotys.extensions.action.engine.Logger;
 import com.neotys.extensions.action.engine.SampleResult;
+
+import java.util.List;
+import java.util.Map;
 
 import static com.neotys.action.argument.Arguments.getArgumentLogString;
 import static com.neotys.action.argument.Arguments.parseArguments;
@@ -38,8 +39,8 @@ public final class SendTransactionActionEngine implements ActionEngine {
 			logger.debug("Executing " + this.getClass().getName() + " with parameters: "
 					+ getArgumentLogString(parsedArgs, SendSignedTransactionOption.values()));
 		}
-		final String whiteBlocMasterHost = parsedArgs.get(SendTransactionOption.WhiteBlocMasterHost.getName()).get();
-		final String whiteBlocMasterRpcPort = parsedArgs.get(SendTransactionOption.WhiteBlocRpcPortofNode.getName()).get();
+		final String ip = parsedArgs.get(SendTransactionOption.IP.getName()).get();
+		final String port = parsedArgs.get(SendTransactionOption.Port.getName()).get();
 
 		final String from = parsedArgs.get(SendTransactionOption.from.getName()).get();
 		final String to=parsedArgs.get(SendTransactionOption.to.getName()).get();
@@ -52,7 +53,7 @@ public final class SendTransactionActionEngine implements ActionEngine {
 		sampleResult.sampleStart();
 		try
 		{
-			Web3UtilsWhiteblock whiteblock=new Web3UtilsWhiteblock(whiteBlocMasterHost,whiteBlocMasterRpcPort,Optional.absent(),Optional.of(from),Optional.absent(),Optional.absent(),traceMode,context);
+			Web3UtilsWhiteblock whiteblock=new Web3UtilsWhiteblock(ip,port, new WhiteblockAccount(from),traceMode,context);
 			String hash=whiteblock.createEtherTransaction(to,amount);
 
 			appendLineToStringBuilder(responseBuilder, "Transaction sent : hash of the transaction "+hash);

@@ -165,24 +165,24 @@ public class Web3JUtils {
         return result.toString();
     }
     public String transfertFunds(String to,String amoutwei) throws Exception {
-        Credentials credentials = Credentials.create(this.context.getPrivateKey().get());
+        Credentials credentials = Credentials.create(this.context.getPrivateKey());
         TransactionReceipt txReceipt = Transfer.sendFunds(web3JA,credentials,to,convertWeiStringTOBigInteger(amoutwei), Convert.Unit.ETHER).send();
         logInfo("transfertfunds receipt :" + txReceipt);
         String transactionhash= txReceipt.getTransactionHash();
         if(transactionhash==null)
             throw new Web3JExeption("Transaction Hash is null - not appble to send funds to : "+to +" amountwei  :" +
-                    amoutwei +" from "+ this.context.getAccountAdress().get()+ " error "+txReceipt.getLogs().toString());
+                    amoutwei +" from "+ this.context.getAccountAddress()+ " error "+txReceipt.getLogs().toString());
         else
             return transactionhash;
     }
 
-    public String createEtherSignedTransaction(String to, String amoutwei) throws ExecutionException, InterruptedException, IOException, Web3JExeption {
+    public String createEtherSignedTransaction(String to, String amountWei) throws ExecutionException, InterruptedException, IOException, Web3JExeption {
         if (unlockAccount()){
 
             // get the next available nonce
-            BigInteger nonce = getNonce(web3JA, this.context.getAccountAdress().get());
+            BigInteger nonce = getNonce(web3JA, this.context.getAccountAddress());
             logInfo("nonce :" + nonce.toString());
-            Credentials credentials = Credentials.create(this.context.getPrivateKey().get());
+            Credentials credentials = Credentials.create(this.context.getPrivateKey());
             //--get gas price
             BigInteger gasprice = web3JA.ethGasPrice().send().getGasPrice();
             logInfo("Gas Price :" + gasprice.toString());
@@ -192,7 +192,7 @@ public class Web3JUtils {
 
             logInfo("Gaslimit :" + blockGasLimit.toString());
             // create our transaction
-            RawTransaction rawTransaction = RawTransaction.createEtherTransaction(nonce, gasprice, blockGasLimit, to, convertEtherStringTOBigInteger(amoutwei));
+            RawTransaction rawTransaction = RawTransaction.createEtherTransaction(nonce, gasprice, blockGasLimit, to, convertEtherStringTOBigInteger(amountWei));
             // sign & send our transaction
             byte[] signedMessage = TransactionEncoder.signMessage(rawTransaction, credentials);
             logInfo("Signed message :"+ Arrays.toString(signedMessage));
@@ -204,21 +204,23 @@ public class Web3JUtils {
 
             String transactionHash = ethSendTransaction.getTransactionHash();
             if(transactionHash==null)
-                throw new Web3JExeption("Transaction Hash is null - not appble to send  signed transaction to : "+to +" amountwei  :" +amoutwei +" from "+ this.context.getAccountAdress().get()+" error "+ethSendTransaction.getError()+" result "+ethSendTransaction.getResult());
+                throw new Web3JExeption("Transaction Hash is null - not appble to send  signed transaction to : "+to +" amountwei  :" +
+                        amountWei +" from "+ this.context.getAccountAddress()+" error "+ethSendTransaction.getError()+
+                        " result "+ethSendTransaction.getResult());
 
 
             return transactionHash;
         }
         else
-            throw new Web3JExeption("Unable to unlock account :"+context.getAccountAdress());
+            throw new Web3JExeption("Unable to unlock account :"+context.getAccountAddress());
     }
-    public String createSignedContractTransaction(String contradtadress, String amoutwei) throws ExecutionException, InterruptedException, IOException, Web3JExeption {
+    public String createSignedContractTransaction(String contractAddress, String amoutwei) throws ExecutionException, InterruptedException, IOException, Web3JExeption {
         if (unlockAccount()){
 
             // get the next available nonce
-            BigInteger nonce = getNonce(web3JA, this.context.getAccountAdress().get());
+            BigInteger nonce = getNonce(web3JA, this.context.getAccountAddress());
             logInfo("nonce :" + nonce.toString());
-            Credentials credentials = Credentials.create(this.context.getPrivateKey().get());
+            Credentials credentials = Credentials.create(this.context.getPrivateKey());
             //--get gas price
             BigInteger gasprice = web3JA.ethGasPrice().send().getGasPrice();
             logInfo("Gas Price :" + gasprice.toString());
@@ -227,7 +229,8 @@ public class Web3JUtils {
 
             logInfo("Gaslimit :" + blockGasLimit.toString());
             // create our transaction
-            RawTransaction rawTransaction = RawTransaction.createContractTransaction(nonce, gasprice, blockGasLimit,  convertEtherStringTOBigInteger(amoutwei),contradtadress);
+            RawTransaction rawTransaction = RawTransaction.createContractTransaction(nonce, gasprice, blockGasLimit,
+                    convertEtherStringTOBigInteger(amoutwei),contractAddress);
             // sign & send our transaction
             byte[] signedMessage = TransactionEncoder.signMessage(rawTransaction, credentials);
             logInfo("Signed message :"+ Arrays.toString(signedMessage));
@@ -240,59 +243,66 @@ public class Web3JUtils {
             String transactionHash = ethSendTransaction.getTransactionHash();
 
             if(transactionHash==null)
-                throw new Web3JExeption("Transaction Hash is null - not appble to send signed contract transaction on contract : "+contradtadress +" amountwei  :" +amoutwei +" from "+ this.context.getAccountAdress().get()+" error "+ethSendTransaction.getRawResponse());
+                throw new Web3JExeption("Transaction Hash is null - not appble to send signed contract transaction on contract : "+
+                        contractAddress +" amountwei  :" +amoutwei +" from "+ this.context.getAccountAddress()+
+                        " error "+ethSendTransaction.getRawResponse());
 
             return transactionHash;
         }
         else
-            throw new Web3JExeption("Unable to unlock account :"+context.getAccountAdress());
+            throw new Web3JExeption("Unable to unlock account :"+context.getAccountAddress());
     }
 
     public String getBalance() throws IOException, ExecutionException, InterruptedException, Web3JExeption {
         BigDecimal balance;
         if(unlockAccount())
         {
-            balance=getBalanceEther(context.getAccountAdress().get());
+            balance=getBalanceEther(context.getAccountAddress());
             return balance.toPlainString();
         }
         else
-            throw new Web3JExeption("Unable to unlock account :"+context.getAccountAdress());
+            throw new Web3JExeption("Unable to unlock account :"+context.getAccountAddress());
     }
 
-    public String createERC721Transaction(String tokenid,String contractadress,String value, String to) throws Exception {
+    public String createERC721Transaction(String tokenid,String contractAddress,String value, String to) throws Exception {
         if (unlockAccount()) {
             NoOpProcessor processor = new NoOpProcessor(this.web3JA);
-            Credentials credentials = Credentials.create(this.context.getPrivateKey().get());
+            Credentials credentials = Credentials.create(this.context.getPrivateKey());
             BigInteger gasprice = web3JA.ethGasPrice().send().getGasPrice();
             logInfo("Gas Price :"+gasprice.toString());
             //--get gas limit
-            BigInteger blockGasLimit = web3JA.ethGetBlockByNumber(DefaultBlockParameterName.LATEST, false).send().getBlock().getGasLimit();
+            BigInteger blockGasLimit = web3JA.ethGetBlockByNumber(DefaultBlockParameterName.LATEST, false).send()
+                    .getBlock().getGasLimit();
 
             //deploy new contract
             TransactionManager txManager = new FastRawTransactionManager(this.web3JA, credentials, processor);
-            ERC721 token = ERC721.load(contractadress, this.web3JA, txManager,gasprice, blockGasLimit);
+            ERC721 token = ERC721.load(contractAddress, this.web3JA, txManager,gasprice, blockGasLimit);
 
 
 
-            TransactionReceipt receipt=token.safeTransferFrom(this.context.getAccountAdress().get(),to,BigInteger.valueOf(Long.parseLong(tokenid)),convertEtherStringTOBigInteger(value)).send();
+            TransactionReceipt receipt=token.safeTransferFrom(this.context.getAccountAddress(),to,
+                    BigInteger.valueOf(Long.parseLong(tokenid)),convertEtherStringTOBigInteger(value)).send();
              String transactionHash = receipt.getTransactionHash();
             if(transactionHash==null)
-                throw new Web3JExeption("Transaction Hash is null - not able to send  EC721 transaction on contract : "+contractadress +" amountwei  :" +value +" from "+ this.context.getAccountAdress().get()+" error "+ receipt.getStatus());
+                throw new Web3JExeption("Transaction Hash is null - not able to send  EC721 transaction on contract : "+
+                        contractAddress +" amountwei  :" +value +" from "+ this.context.getAccountAddress()+" error "+
+                        receipt.getStatus());
 
             return transactionHash;
         }
         else
-            throw new Web3JExeption("Unable to unlock account :"+context.getAccountAdress().get());
+            throw new Web3JExeption("Unable to unlock account :"+context.getAccountAddress());
     }
 
     public String createERC20Transaction(String contractadress,String value, String to) throws Exception {
         if (unlockAccount()) {
             NoOpProcessor processor = new NoOpProcessor(this.web3JA);
-            Credentials credentials = Credentials.create(this.context.getPrivateKey().get());
+            Credentials credentials = Credentials.create(this.context.getPrivateKey());
             BigInteger gasprice = web3JA.ethGasPrice().send().getGasPrice();
             logInfo("Gas Price :"+gasprice.toString());
             //--get gas limit
-            BigInteger blockGasLimit = web3JA.ethGetBlockByNumber(DefaultBlockParameterName.LATEST, false).send().getBlock().getGasLimit();
+            BigInteger blockGasLimit = web3JA.ethGetBlockByNumber(DefaultBlockParameterName.LATEST, false).send()
+                    .getBlock().getGasLimit();
 
             //deploy new contract
             TransactionManager txManager = new FastRawTransactionManager(this.web3JA, credentials, processor);
@@ -303,31 +313,36 @@ public class Web3JUtils {
 
 
             if(transactionHash==null)
-                throw new Web3JExeption("Transaction Hash is null - not able to send  EC20 transaction on contract : "+contractadress +" amountwei  :" +value +" from "+ this.context.getAccountAdress().get()+" error "+ receipt.getStatus());
+                throw new Web3JExeption("Transaction Hash is null - not able to send  EC20 transaction on contract : "+
+                        contractadress +" amountwei  :" +value +" from "+ this.context.getAccountAddress()+
+                        " error "+ receipt.getStatus());
 
             return transactionHash;
         }
         else
-            throw new Web3JExeption("Unable to unlock account :"+context.getAccountAdress().get());
+            throw new Web3JExeption("Unable to unlock account :"+context.getAccountAddress());
     }
 
 
-    public String createContractTransaction(String contractadress, String amountWei) throws ExecutionException, InterruptedException, IOException, Web3JExeption {
+    public String createContractTransaction(String contractadress, String amountWei)
+            throws ExecutionException, InterruptedException, IOException, Web3JExeption {
          if (unlockAccount()) {
 
             // get the next available nonce
-            BigInteger nonce = getNonce(web3JA, context.getAccountAdress().get());
+            BigInteger nonce = getNonce(web3JA, context.getAccountAddress());
             logInfo("nonce :"+nonce.toString());
             //--get gas price
             BigInteger gasprice = web3JA.ethGasPrice().send().getGasPrice();
 
             logInfo("Gas Price :"+gasprice.toString());
             //--get gas limit
-            BigInteger blockGasLimit = web3JA.ethGetBlockByNumber(DefaultBlockParameterName.LATEST, false).send().getBlock().getGasLimit();
+            BigInteger blockGasLimit = web3JA.ethGetBlockByNumber(DefaultBlockParameterName.LATEST, false).send()
+                    .getBlock().getGasLimit();
 
             logInfo("Gaslimit :"+blockGasLimit.toString());
             // create our transaction
-            Transaction transaction= Transaction.createContractTransaction(context.getAccountAdress().get(),nonce,gasprice,blockGasLimit,convertEtherStringTOBigInteger(amountWei),contractadress);
+            Transaction transaction= Transaction.createContractTransaction(context.getAccountAddress(),nonce,
+                    gasprice,blockGasLimit,convertEtherStringTOBigInteger(amountWei),contractadress);
 
             EthSendTransaction ethSendTransaction = web3JA.ethSendTransaction(transaction).send();
             // ...
@@ -336,28 +351,33 @@ public class Web3JUtils {
 
 
              if(transactionHash==null)
-                 throw new Web3JExeption("Transaction Hash is null - not appble to send  contract transaction on contract : "+contractadress +" amountwei  :" +amountWei +" from "+ this.context.getAccountAdress().get()+" error "+ethSendTransaction.getRawResponse());
+                 throw new Web3JExeption("Transaction Hash is null - not appble to send  contract transaction on contract : "+
+                         contractadress +" amountwei  :" +amountWei +" from "+ this.context.getAccountAddress()+" error "+
+                         ethSendTransaction.getRawResponse());
 
             return transactionHash;
 
         }
         else
-             throw new Web3JExeption("Unable to unlock account :"+context.getAccountAdress().get());
+             throw new Web3JExeption("Unable to unlock account :"+context.getAccountAddress());
     }
 
     public Boolean unlockAccount() throws IOException {
-        PersonalUnlockAccount personalUnlockAccount = web3JA.personalUnlockAccount(context.getAccountAdress().get(), context.getWalletpassord()).send();
+        PersonalUnlockAccount personalUnlockAccount = web3JA.personalUnlockAccount(context.getAccountAddress(),
+                context.getWalletpassord()).send();
         if(personalUnlockAccount.accountUnlocked()==null)
             logInfo(personalUnlockAccount.getError().getMessage());
         return personalUnlockAccount.accountUnlocked() != null && personalUnlockAccount.accountUnlocked();
     }
 
     public String createEtherTransaction( String to, String amountWei) throws IOException, ExecutionException, InterruptedException, Web3JExeption {
-        logInfo("adress :"+context.getAccountAdress().get()+" pawsd:"+ context.getWalletpassord() + " ip "+context.getIpOftheNode()+ " publickey " + context.getPublicKey()+ " private "+context.getPrivateKey());
+        logInfo("adress :"+context.getAccountAddress()+" pawsd:"+ context.getWalletpassord() +
+                " ip "+context.getIpOftheNode()+ " publickey " + context.getPublicKey()+ " private "+
+                context.getPrivateKey());
         if (unlockAccount()) {
 
             // get the next available nonce
-            BigInteger nonce = getNonce(web3JA, context.getAccountAdress().get());
+            BigInteger nonce = getNonce(web3JA, context.getAccountAddress());
             logInfo("nonce :"+nonce.toString());
             //--get gas price
             BigInteger gasprice = web3JA.ethGasPrice().send().getGasPrice();
@@ -367,7 +387,8 @@ public class Web3JUtils {
 
            logInfo("Gas Limit :"+blockGasLimit.toString());
             // create our transaction
-            Transaction transaction= Transaction.createEtherTransaction(context.getAccountAdress().get(),nonce,gasprice,blockGasLimit,to,convertEtherStringTOBigInteger(amountWei));
+            Transaction transaction= Transaction.createEtherTransaction(context.getAccountAddress(),nonce,
+                    gasprice,blockGasLimit,to,convertEtherStringTOBigInteger(amountWei));
 
             EthSendTransaction ethSendTransaction = web3JA.ethSendTransaction(transaction).send();
             // ...
@@ -376,7 +397,7 @@ public class Web3JUtils {
 
             if(transactionHash==null)
                 throw new Web3JExeption("Transaction Hash is null - not able to send  ether transaction to : "+to +
-                        " amountwei  :" +amountWei +" from "+ this.context.getAccountAdress().get()+" error "+
+                        " amountwei  :" +amountWei +" from "+ this.context.getAccountAddress()+" error "+
                         ethSendTransaction.getRawResponse());
 
 
@@ -384,6 +405,6 @@ public class Web3JUtils {
 
         }
         else
-            throw new Web3JExeption("Unable to unlock account :"+context.getAccountAdress().get());
+            throw new Web3JExeption("Unable to unlock account :"+context.getAccountAddress());
     }
 }

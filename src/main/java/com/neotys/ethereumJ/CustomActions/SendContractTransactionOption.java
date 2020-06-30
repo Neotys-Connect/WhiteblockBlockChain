@@ -14,11 +14,11 @@ import static com.neotys.extensions.action.ActionParameter.Type.TEXT;
 
 enum SendContractTransactionOption implements Option {
 
-    WhiteBlocMasterHost("WhiteBlocMasterHost", Required, True, TEXT,
-            "Host of the master Node ",
-            "Master Node of your Whiteblock Network",
+    ip("ip", Required, True, TEXT,
+            "rpc host ip or hostname",
+            "rpc host ip or hostname",
             NON_EMPTY),
-    WhiteBlocRpcPortofNode("WhiteBlocRpcPortofNode", Required, True, TEXT,
+    port("port", Required, True, TEXT,
             "RPC port of the  node",
             "RPC port of the  node",
             INTEGER_VALIDATOR),
