@@ -51,6 +51,7 @@ public class GetMonitoringDataActionEngine implements ActionEngine {
                     + getArgumentLogString(parsedArgs, GetMonitoringDataOption.values()));
         }
         final String bearerToken=parsedArgs.get(GetMonitoringDataOption.AccessToken.getName()).get();
+        final String testID = parsedArgs.get(GetMonitoringDataOption.TestID.getName()).get();
         final Optional<String> proxyName=parsedArgs.get(GetMonitoringDataOption.ProxyName.getName());
 
         final Optional<String> dataExchangeApiKey = parsedArgs.get(GetMonitoringDataOption.NeoLoadDataExchangeApiKey.getName());
@@ -69,11 +70,10 @@ public class GetMonitoringDataActionEngine implements ActionEngine {
 
             sampleResult.sampleStart();
             // Check last execution time (and fail if called less than 45 seconds ago).
-            // TODO: Determine if we still need to enforce this 45 second rule
 
             WhiteblockHttpContext whiteBlockContext=new WhiteblockHttpContext(bearerToken,tracemode,context,proxyName);
             WhiteblockDataToNeoLoad whiteblockDataToNeoLoad=new WhiteblockDataToNeoLoad(whiteBlockContext,
-                    (int)whiteblockLastBlockNumber, whiteblockCurrentBlockNumber, Optional.absent());
+                    (int)whiteblockLastBlockNumber, whiteblockCurrentBlockNumber,Optional.absent(), testID);
             whiteblockDataToNeoLoad.sendToNeoLoadWeb();
 
             sampleResult.sampleEnd();

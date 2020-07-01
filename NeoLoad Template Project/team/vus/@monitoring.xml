@@ -10,6 +10,7 @@
         pacingMode="MODE_PACING_SIMPLE" pacingStart="0" pacingValue="4"
         slaProfileEnabled="false" traceVariableNamesAsString="" weightsEnabled="false">
         <description>Eléments répétés jusqu'à que l'Utilisateur Virtuel s'arrête.</description>
+        <weighted-embedded-action uid="0743d035-c0d2-4c41-a211-14308dd2cb3e"/>
         <weighted-embedded-action uid="31da664f-4d52-49e4-bc3d-622dab9df8e7"/>
     </actions-container>
     <end-container element-number="1" execution-type="0" pacingEnd="0"

@@ -12,14 +12,14 @@
         </lg-address>
         <!--****** END LG ADDRESSES ******-->
     </lg-networkiface>
-    <lg-networkiface description="eno2" enabled="false"
-        isLoopBack="false" name="eno2">
+    <lg-networkiface description="enp7s0" enabled="false"
+        isLoopBack="false" name="enp7s0">
         <!--****** LG ADDRESSES ******-->
-        <lg-address enabled="false" hostname="192.168.1.21">
-            <ip value="192.168.1.21"/>
+        <lg-address enabled="false" hostname="192.168.1.14">
+            <ip value="192.168.1.14"/>
         </lg-address>
-        <lg-address enabled="false" hostname="fe80:0:0:0:63d2:3955:f063:173a%eno2">
-            <ip value="fe80:0:0:0:63d2:3955:f063:173a%eno2"/>
+        <lg-address enabled="false" hostname="fe80:0:0:0:4476:f9d8:f332:641f%enp7s0">
+            <ip value="fe80:0:0:0:4476:f9d8:f332:641f%enp7s0"/>
         </lg-address>
         <!--****** END LG ADDRESSES ******-->
     </lg-networkiface>

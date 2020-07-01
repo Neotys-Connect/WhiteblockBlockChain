@@ -1,5 +1,5 @@
-<custom-action actionType="GetContractsList" isHit="false"
-    name="getcontractslist" uid="7a2040b3-4a71-478e-b647-c686d020caf3">
+<custom-action actionType="GetContractsList" enabled="false"
+    isHit="false" name="getcontractslist" uid="7a2040b3-4a71-478e-b647-c686d020caf3">
     <description>Get the list of account available in the network .
 
 Possible parameters are:&#xd;

@@ -29,6 +29,7 @@ public class WhiteblockDataToNeoLoad {
     final WhiteblockHttpContext context;
     final int startBlock;
     final int endBlock;
+    final String testID;
 
     private com.neotys.rest.dataexchange.model.Entry toEntry(final WhiteblockData whiteblockMetric) {
 
@@ -69,12 +70,14 @@ public class WhiteblockDataToNeoLoad {
         return monitor;
     }
 
-    public WhiteblockDataToNeoLoad(WhiteblockHttpContext context, int start, int end, Optional<DataExchangeAPIClient> apiclient)
+    public WhiteblockDataToNeoLoad(WhiteblockHttpContext context, int start, int end,
+                                   Optional<DataExchangeAPIClient> apiclient, String testID)
     {
         dataExchangeAPIClient=apiclient;
         this.context=context;
         startBlock=start;
         endBlock=end;
+        this.testID = testID;
 
 
     }
@@ -116,7 +119,6 @@ public class WhiteblockDataToNeoLoad {
         return basePathBuilder.toString();
     }
     public void sendToNeoLoadWeb() throws Exception {
-        String testID = context.getContext().getTestId();
 
         ApiClient neoLoadWebApiClient = new ApiClient();
         neoLoadWebApiClient.setApiKey(context.getContext().getAccountToken());
