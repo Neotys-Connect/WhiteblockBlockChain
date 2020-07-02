@@ -14,5 +14,29 @@ Possible parameters are:&#xd;
     <custom-action-parameter name="AccessToken" type="TEXT" value="eyJhbGciOiJIUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICIxYTIzN2Q1NC1hZWNjLTQwYjEtYTI1MC04MTJhNDA0MGFhMDgifQ.eyJqdGkiOiJmNTdjMTFhYy02M2JmLTRiYmUtYmViZC1mMjlmZTY5N2E5ODUiLCJleHAiOjAsIm5iZiI6MCwiaWF0IjoxNTkyMzE4NTMyLCJpc3MiOiJodHRwczovL2F1dGguaW5mcmEud2hpdGVibG9jay5pby9hdXRoL3JlYWxtcy93YiIsImF1ZCI6Imh0dHBzOi8vYXV0aC5pbmZyYS53aGl0ZWJsb2NrLmlvL2F1dGgvcmVhbG1zL3diIiwic3ViIjoiOTg0Y2YyZmEtZmQ4Mi00MTIyLWJkNmUtYWQxYTFlZWY5NjI3IiwidHlwIjoiT2ZmbGluZSIsImF6cCI6ImNsaSIsImF1dGhfdGltZSI6MCwic2Vzc2lvbl9zdGF0ZSI6IjBhYzU4MzdlLThkNGEtNDY5ZS04ZGMyLWQxMmI0ZmFhMmIyZiIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyJdfSwic2NvcGUiOiJvZmZsaW5lX2FjY2VzcyBwcm9maWxlIGVtYWlsIn0.iHEahkFtLwct8HTtecs5yAjqH-HG4PvsFWXiuF3Ydpc"/>
     <custom-action-parameter name="StartPhase" type="TEXT" value="start"/>
     <custom-action-parameter name="TraceMode" type="TEXT" value="true"/>
-    <responsePageFileDescription>recorded-responses/res_c5912bfd-861f-4303-9c6a-9abdc751e4a3</responsePageFileDescription>
+    <responsePageFileDescription>recorded-responses/res_cust_2a2031f2-b43f-48dd-b3e2-6c16d003c9b9</responsePageFileDescription>
+    <variable-extractor assertionOnNoMatch="true"
+        defaultValue="&lt;NOT FOUND>" displayMode="0"
+        endsWithSimple="&lt;/testid>" extractFromVarNameAdv=""
+        extractFromVarNameSimple="" extractType="0" extractTypeAdv="0"
+        extractTypeSimple="0" matchNumber="1" matchNumberAdv="1"
+        matchNumberSimple="1" name="Testid"
+        regExp="&lt;testid>(.*?)&lt;/testid>" regExpAdv=""
+        setDefaultValue="true" startsWithSimple="&lt;testid>"
+        template="$1$" templateAdv="$1$"
+        uid="0ffece9e-bf59-4313-9519-55da37729115" xpath="">
+        <variable-extractor-group extract="true" occurs="1" pattern="" type="4"/>
+    </variable-extractor>
+    <variable-extractor assertionOnNoMatch="true"
+        defaultValue="&lt;NOT FOUND>" displayMode="0"
+        endsWithSimple="&lt;/privateKey>" extractFromVarNameAdv=""
+        extractFromVarNameSimple="" extractType="0" extractTypeAdv="0"
+        extractTypeSimple="0" matchNumber="-1" matchNumberAdv="1"
+        matchNumberSimple="-1" name="Accounts"
+        regExp="&lt;privateKey>(.*?)&lt;/privateKey>" regExpAdv=""
+        setDefaultValue="true" startsWithSimple="&lt;privateKey>"
+        template="$1$" templateAdv="$1$"
+        uid="ce0d0bb6-3b49-4501-b013-f27438657553" xpath="">
+        <variable-extractor-group extract="true" occurs="1" pattern="" type="4"/>
+    </variable-extractor>
 </custom-action>

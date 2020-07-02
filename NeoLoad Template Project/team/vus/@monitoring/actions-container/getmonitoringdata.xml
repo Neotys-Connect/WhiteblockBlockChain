@@ -7,8 +7,8 @@ Possible parameters are:&#xd;
 - ProxyName (optional): name of the neoload proxy Default value is "name of the neoload proxy".&#xd;
 - dataExchangeApiUrl (optional): Where the DataExchange server is located. Optional, by default it is: http://${NL-ControllerIp}:7400/DataExchange/v1/Service.svc/&#xd;
 - dataExchangeApiKey (optional): Identification key specified in NeoLoad.&#xd;
-- TraceMode (optional): enable loggin details  : true: enable ; false : Disable Default value is "enable logging ".&#xd;
-</description>
+- TraceMode (optional): enable loggin details  : true: enable ; false : Disable Default value is "enable logging ".</description>
     <custom-action-parameter name="AccessToken" type="TEXT" value="Access token for whiteblock"/>
     <custom-action-parameter name="TraceMode" type="TEXT" value="enable logging "/>
+    <responsePageFileDescription>recorded-responses/res_0743d035-c0d2-4c41-a211-14308dd2cb3e</responsePageFileDescription>
 </custom-action>
