@@ -1,3 +1,3 @@
-<loop-action enabled="false" loop="${node_port_matchNr}" name="addNodes" uid="53613c98-68f8-4fce-b5a1-14d60199edff">
+<loop-action loop="${nodeIp_port_matchNr}" name="addNodes" uid="53613c98-68f8-4fce-b5a1-14d60199edff">
     <embedded-action>2b202752-4c4d-4274-b5df-b31aeb3536da</embedded-action>
 </loop-action>

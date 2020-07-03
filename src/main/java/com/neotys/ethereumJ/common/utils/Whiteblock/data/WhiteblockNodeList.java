@@ -10,8 +10,10 @@ public class WhiteblockNodeList extends WhiteblockDataModel {
 
     public WhiteblockNodeList(JSONArray list) {
         this.whiteblockNodeList = new ArrayList<>();
-        for(int i = 0; i < list.length(); i ++){
-            this.whiteblockNodeList.add(new WhiteblockNode(list.getJSONObject(i)));
+        if(list !=null) {
+            for (int i = 0; i < list.length(); i++) {
+                this.whiteblockNodeList.add(new WhiteblockNode(list.getJSONObject(i)));
+            }
         }
     }
     public List<WhiteblockNode> getWhiteblockNodeList() {

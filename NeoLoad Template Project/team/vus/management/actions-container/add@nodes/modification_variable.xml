@@ -1,5 +1,6 @@
 <variable-modifier-action definedMode="1" dest-variable-name=""
     name="modification_variable" shared-variable-name="Nodes"
-    sharedMode="3" src-variable-name="${node_port_${addNodes_counter}}"
+    sharedMode="3"
+    src-variable-name="${nodeIp_port_${addNodes_counter}_g1}_${nodeIp_port_${addNodes_counter}_g2}"
     uid="2b202752-4c4d-4274-b5df-b31aeb3536da"
     variable-category="SHARED" variable-name=""/>
