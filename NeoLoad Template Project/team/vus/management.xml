@@ -15,6 +15,8 @@
         <weighted-embedded-action uid="6baa62f6-ba86-45f6-9b05-44fd86a3f806"/>
         <weighted-embedded-action uid="603a6c92-a7e5-41ab-949a-41efb36d1c23"/>
         <weighted-embedded-action uid="53613c98-68f8-4fce-b5a1-14d60199edff"/>
+        <weighted-embedded-action uid="ec0a1418-623d-4541-b7a2-e45050c94444"/>
+        <weighted-embedded-action uid="99b4f552-46f8-4d8a-a91a-cd5e3ba89f4c"/>
     </actions-container>
     <end-container element-number="1" execution-type="0" pacingEnd="0"
         pacingMode="MODE_NO_PACING" pacingStart="0" pacingValue="0"

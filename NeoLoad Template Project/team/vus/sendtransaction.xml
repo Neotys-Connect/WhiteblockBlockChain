@@ -11,9 +11,9 @@
         pacingMode="MODE_NO_PACING" pacingStart="0" pacingValue="3"
         slaProfileEnabled="false" traceVariableNamesAsString="" weightsEnabled="false">
         <description>Eléments répétés jusqu'à que l'Utilisateur Virtuel s'arrête.</description>
-        <weighted-embedded-action uid="91ec1133-7339-4152-8680-8770ac644f75"/>
+        <weighted-embedded-action uid="1b368580-41dc-45f5-a645-f07c4b646790"/>
         <weighted-embedded-action uid="52ffea87-6031-445b-8b50-e69aaa67075e"/>
-        <weighted-embedded-action uid="d2494dae-4f65-47f5-9c61-08371f5db4ef"/>
+        <weighted-embedded-action uid="eb42b98f-0a26-4ccf-bd4b-8a217115b5de"/>
         <weighted-embedded-action uid="a5192850-8c46-41a6-8a52-35e23f5d0790"/>
         <weighted-embedded-action uid="867b4d23-777a-4aa5-95b9-cfc4f208a1e8"/>
         <weighted-embedded-action uid="647e4104-1392-4c82-9c60-63274c0e8f23"/>

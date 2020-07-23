@@ -7,9 +7,33 @@ Possible parameters are:&#xd;
 - AccessToken (required): You can get this by running the command genesis auth print-access-token Default value is "A Whiteblock Genesis access token".&#xd;
 - ProxyName (optional): name of the neoload proxy Default value is "name of the neoload proxy".&#xd;
 - TraceMode (optional): enable loggin details  : true: enable ; false : Disable Default value is "enable logging ".</description>
-    <custom-action-parameter name="TestID" type="TEXT" value="4943ffb3-f5c9-45c8-a548-fc901fd7d913"/>
+    <custom-action-parameter name="TestID" type="TEXT" value="${testid}"/>
     <custom-action-parameter name="Service" type="TEXT" value="geth"/>
-    <custom-action-parameter name="AccessToken" type="TEXT" value="eyJhbGciOiJIUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICIxYTIzN2Q1NC1hZWNjLTQwYjEtYTI1MC04MTJhNDA0MGFhMDgifQ.eyJqdGkiOiJmNTdjMTFhYy02M2JmLTRiYmUtYmViZC1mMjlmZTY5N2E5ODUiLCJleHAiOjAsIm5iZiI6MCwiaWF0IjoxNTkyMzE4NTMyLCJpc3MiOiJodHRwczovL2F1dGguaW5mcmEud2hpdGVibG9jay5pby9hdXRoL3JlYWxtcy93YiIsImF1ZCI6Imh0dHBzOi8vYXV0aC5pbmZyYS53aGl0ZWJsb2NrLmlvL2F1dGgvcmVhbG1zL3diIiwic3ViIjoiOTg0Y2YyZmEtZmQ4Mi00MTIyLWJkNmUtYWQxYTFlZWY5NjI3IiwidHlwIjoiT2ZmbGluZSIsImF6cCI6ImNsaSIsImF1dGhfdGltZSI6MCwic2Vzc2lvbl9zdGF0ZSI6IjBhYzU4MzdlLThkNGEtNDY5ZS04ZGMyLWQxMmI0ZmFhMmIyZiIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyJdfSwic2NvcGUiOiJvZmZsaW5lX2FjY2VzcyBwcm9maWxlIGVtYWlsIn0.iHEahkFtLwct8HTtecs5yAjqH-HG4PvsFWXiuF3Ydpc"/>
+    <custom-action-parameter name="AccessToken" type="TEXT" value="${Accestoken}"/>
     <custom-action-parameter name="TraceMode" type="TEXT" value="true"/>
-    <responsePageFileDescription>recorded-responses/res_ffbaa325-cf31-4ee9-9f9d-53a426b956ce</responsePageFileDescription>
+    <responsePageFileDescription>recorded-responses/res_cust_be45d927-dbec-49b9-9a38-8e047e6968ff</responsePageFileDescription>
+    <variable-extractor assertionOnNoMatch="true"
+        defaultValue="&lt;NOT FOUND>" displayMode="1" endsWithSimple=""
+        extractFromVarNameAdv="" extractFromVarNameSimple=""
+        extractType="0" extractTypeAdv="0" extractTypeSimple="0"
+        matchNumber="0" matchNumberAdv="0" matchNumberSimple="1"
+        name="nodeIp_port"
+        regExp="&lt;ip>([^&lt;]+)&lt;/ip>[^&lt;]*&lt;ports>[^&lt;]*&lt;ports>(\d+)&lt;/ports>[^&lt;]*&lt;/ports>"
+        regExpAdv="&lt;ip>([^&lt;]+)&lt;/ip>[^&lt;]*&lt;ports>[^&lt;]*&lt;ports>(\d+)&lt;/ports>[^&lt;]*&lt;/ports>"
+        setDefaultValue="true" startsWithSimple="" template="$1$ $2$"
+        templateAdv="$1$ $2$" uid="c9b90d84-28a3-4c24-9873-2f4f44d1bb14" xpath="">
+        <variable-extractor-group extract="true" occurs="1" pattern="" type="4"/>
+    </variable-extractor>
+    <variable-extractor assertionOnNoMatch="true"
+        defaultValue="&lt;NOT FOUND>" displayMode="0"
+        endsWithSimple="&quot;" extractFromVarName="${accountsJSON}"
+        extractFromVarNameAdv=""
+        extractFromVarNameSimple="${accountsJSON}" extractType="2"
+        extractTypeAdv="0" extractTypeSimple="2" matchNumber="0"
+        matchNumberAdv="1" matchNumberSimple="0" name="PrivateFRom"
+        regExp="&quot;(.*?)&quot;" regExpAdv="" setDefaultValue="true"
+        startsWithSimple="&quot;" template="$1$" templateAdv="$1$"
+        uid="74e793ed-c97f-4db6-bdd2-933b334a5770" xpath="">
+        <variable-extractor-group extract="true" occurs="1" pattern="" type="4"/>
+    </variable-extractor>
 </custom-action>

@@ -1,5 +1,0 @@
-<variable-modifier-action definedMode="1"
-    dest-variable-name="nodedetail" name="getNodeip"
-    shared-variable-name="Nodes" sharedMode="4" src-variable-name=""
-    uid="e6c14d43-c3a5-4e31-a610-22662f55c89a"
-    variable-category="SHARED" variable-name=""/>

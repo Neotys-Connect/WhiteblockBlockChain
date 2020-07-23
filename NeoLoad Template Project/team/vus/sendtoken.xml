@@ -13,6 +13,8 @@
         slaProfileEnabled="false" traceVariableNamesAsString="" weightsEnabled="false">
         <description>Eléments répétés jusqu'à que l'Utilisateur Virtuel s'arrête.</description>
         <weighted-embedded-action uid="ffbaa325-cf31-4ee9-9f9d-53a426b956ce"/>
+        <weighted-embedded-action uid="15c66aad-59da-49fd-a926-d964edf05b18"/>
+        <weighted-embedded-action uid="f98c4875-6fcb-4da8-8844-80b89a0457f3"/>
         <weighted-embedded-action uid="7f738f02-130e-4bfb-a1e6-12b474c1e2a4"/>
         <weighted-embedded-action uid="824f5c55-31ed-4b1f-86bf-67f02dad2193"/>
         <weighted-embedded-action uid="87631e24-113b-4705-95ff-859eaa0a4905"/>

@@ -4,19 +4,19 @@
 // is available in the appendix of the documentation.
 
 // Get variable value from VariableManager
-var acountdetail = context.variableManager.getValue("nodedetail");
-if (acountdetail==null) {
+
+var accountList = context.variableManager.peekSharedValue("ALL_accounts");
+if (accountList==null) {
+        context.fail("Variable 'nodedetail' not found");
+}
+var testid = context.variableManager.peekSharedValue("testid");
+if (accountList==null) {
         context.fail("Variable 'nodedetail' not found");
 }
 
-// Do some computation using the methods
-// you defined in the JS Library
-var data=acountdetail.split("_");
-
-var ip=data[0];
-var port=data[1];
 
 
 // Inject the computed value in a runtime variable
-context.variableManager.setValue("nodeip",ip);
-context.variableManager.setValue("nodeport",port);
+
+context.variableManager.setValue("accountsJSON",accountList);
+context.variableManager.setValue("testid",testid);
