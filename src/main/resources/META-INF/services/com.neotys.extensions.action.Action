@@ -1,4 +1,3 @@
-com.neotys.ethereumJ.CustomActions.SendTransactionAction
 com.neotys.ethereumJ.CustomActions.BuildWhiteblockNetworkAction
 com.neotys.ethereumJ.CustomActions.GetNodesListAction
 com.neotys.ethereumJ.CustomActions.GetMonitoringDataAction
@@ -9,3 +8,4 @@ com.neotys.ethereumJ.CustomActions.SendContractTransactionAction
 com.neotys.ethereumJ.CustomActions.GetBalanceAction
 com.neotys.ethereumJ.CustomActions.TransferERC20TokenAction
 com.neotys.ethereumJ.CustomActions.SafeTransfertERC721TokenAction
+com.neotys.ethereumJ.CustomActions.GetAddressAction
