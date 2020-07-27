@@ -28,7 +28,7 @@ public class GetAddressAction implements Action {
     public List<ActionParameter> getDefaultActionParameters() {
         final ArrayList<ActionParameter> parameters = new ArrayList<>();
 
-        for (final GetBalanceOption option : GetBalanceOption.values()) {
+        for (final GetAddressOption option : GetAddressOption.values()) {
             if (Option.AppearsByDefault.True.equals(option.getAppearsByDefault())) {
                 parameters.add(new ActionParameter(option.getName(), option.getDefaultValue(),
                         option.getType()));
@@ -55,7 +55,7 @@ public class GetAddressAction implements Action {
 
     @Override
     public String getDescription() {
-        return "Get the address from the private key.\n\n" + Arguments.getArgumentDescriptions(GetBalanceOption.values());
+        return "Get the address from the private key.\n\n" + Arguments.getArgumentDescriptions(GetAddressOption.values());
 
     }
 
