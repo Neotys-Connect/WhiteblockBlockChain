@@ -53,7 +53,8 @@ public class SendSignedTransactionActionEngine implements ActionEngine {
         sampleResult.sampleStart();
         try
         {
-            Web3UtilsWhiteblock whiteblock=new Web3UtilsWhiteblock(nodeIP,nodePort, new WhiteblockAccount(from),traceMode,context);
+            Web3UtilsWhiteblock whiteblock=new Web3UtilsWhiteblock(nodeIP,nodePort,
+                    new WhiteblockAccount(from),traceMode,context);
             String hash=whiteblock.createEtherSignedTransaction(to,amount);
 
             appendLineToStringBuilder(responseBuilder, "Transaction sent : hash of the transaction "+hash);

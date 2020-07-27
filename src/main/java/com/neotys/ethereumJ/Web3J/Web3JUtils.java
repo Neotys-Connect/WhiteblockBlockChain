@@ -177,7 +177,6 @@ public class Web3JUtils {
     }
 
     public String createEtherSignedTransaction(String to, String amountWei) throws ExecutionException, InterruptedException, IOException, Web3JExeption {
-        if (unlockAccount()){
 
             // get the next available nonce
             BigInteger nonce = getNonce(web3JA, this.context.getAccountAddress());
@@ -210,9 +209,6 @@ public class Web3JUtils {
 
 
             return transactionHash;
-        }
-        else
-            throw new Web3JExeption("Unable to unlock account :"+context.getAccountAddress());
     }
     public String createSignedContractTransaction(String contractAddress, String amoutwei) throws ExecutionException, InterruptedException, IOException, Web3JExeption {
         if (unlockAccount()){
