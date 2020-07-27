@@ -99,7 +99,16 @@
             <groupId>com.neotys.ascode</groupId>
             <artifactId>swagger-java-client</artifactId>
             <version>1.0.5</version>
+            <exclusions>
+
+                <exclusion>
+                    <artifactId>okio</artifactId>
+                    <groupId>com.squareup.okio</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp -->
+
 
         <dependency>
             <groupId>com.fasterxml.jackson.dataformat</groupId>

@@ -10,12 +10,11 @@ if (accountList==null) {
         context.fail("Variable 'nodedetail' not found");
 }
 var testid = context.variableManager.peekSharedValue("testid");
-if (accountList==null) {
-        context.fail("Variable 'nodedetail' not found");
+if (testid==null) {
+        context.fail("Variable 'testid' not found");
 }
 
-
-
+logger.debug("testid="+testid);
 // Inject the computed value in a runtime variable
 
 context.variableManager.setValue("accountsJSON",accountList);

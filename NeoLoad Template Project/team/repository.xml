@@ -1182,28 +1182,3 @@
 <!--****** END DASHBOARDS  ******-->
 <!--****** RESULTS GRAPH DESC TEMPLATES ******-->
 <charts-templates-description name="template.customs"/>
-<!--****** END RESULTS GRAPH DESC TEMPLATES******-->
-<!--****** CloudModel ******-->
-<cloud-model>
-    <!--****** Cloud Workgroups ******-->
-    <cloud-workgroup id="a0320000009R6MBAA0" licenseMode="CLASSIC" name="PS Neotys France"/>
-    <!--******End Cloud  Workgroups ******-->
-    <!--******Cloud sessions******-->
-    <cloud-session architecture="MEDIUM" duration="3600"
-        id="1568099561888" licenseMode="CLASSIC" name="testwb"
-        nlBuildNumber="20190307-5" nlPatchVersion="V6.9.0"
-        owner="henrik.rexed@neotys.com" startDate="1568099640000" workgroupId="a0320000009R6MBAA0">
-        <cloud-timezone id="Europe/Paris"
-            longName="(GMT+01:00) Central European Summer Time (Europe/Paris)"
-            mediumName="(GMT+01:00) CEST" shortName="CEST"/>
-    </cloud-session>
-    <!--******End Cloud sessions ******-->
-    <!--******Cloud lgs ******-->
-    <cloud-lg createDate="1568099603000" id="1568099561888-2496"
-        port="443" publicIPAddress="5.104.99.223"
-        runningDate="1568099648000" sessionId="1568099561888" zoneName="Europe France (Paris 2)"/>
-    <cloud-lg createDate="1568099627000" id="1568099561888-2497"
-        port="443" publicIPAddress="34.94.53.84"
-        runningDate="1568099689000" sessionId="1568099561888" zoneName="USA West - California (Los Angeles 2)"/>
-    <!--******End Cloud lgs ******-->
-</cloud-model>

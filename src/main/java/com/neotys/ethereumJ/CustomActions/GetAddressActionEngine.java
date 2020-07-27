@@ -24,7 +24,7 @@ public class GetAddressActionEngine implements ActionEngine {
         final StringBuilder responseBuilder = new StringBuilder();
         final Map<String, Optional<String>> parsedArgs;
         try {
-            parsedArgs = parseArguments(parameters, GetBalanceOption.values());
+            parsedArgs = parseArguments(parameters, GetAddressOption.values());
         } catch (final IllegalArgumentException iae) {
             return ResultFactory.newErrorResult(context, STATUS_CODE_INVALID_PARAMETER, "Could not parse arguments: ", iae);
         }

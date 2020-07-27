@@ -27,10 +27,7 @@
         <runtime-policy continueOnError="true" thinktimePolicy="0"
             thinktimeValue="5000" vuStartDelay="120000" vuStartMode="1"/>
         <!--****** POPULATION LG HOSTS ******-->
-        <lg-hosts>
-            <lg-host-entry>$zoneID=Europe France (Paris 2);$lgID=5.104.99.223:443</lg-host-entry>
-            <lg-host-entry>$zoneID=USA West - California (Los Angeles 2);$lgID=34.94.53.84:443</lg-host-entry>
-        </lg-hosts>
+        <lg-hosts/>
     </population-policy>
     <!--****** POPULATION POLICY ******-->
     <population-policy name="Monitoring">
