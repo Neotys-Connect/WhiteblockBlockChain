@@ -29,6 +29,7 @@ tests:
   - name: geth_network_2_nodes 
     phases:
       - name: start
+        duration: 3h
         system: 
         - type: geth
           count: 2
@@ -38,7 +39,7 @@ tests:
             networks: 
               - name: common-network
         - type: record
-          duration: 3h
+          
           count: 1
           port-mappings:
             - "8080:8080"
