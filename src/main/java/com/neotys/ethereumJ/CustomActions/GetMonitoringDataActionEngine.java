@@ -65,7 +65,16 @@ public class GetMonitoringDataActionEngine implements ActionEngine {
         // We should use the block numbers rather than the time, due to potential time sync issues.
         // It also provides more consistent data.
         Object whiteblockLastBlockNumber = context.getCurrentVirtualUser().get(Constants.WHITEBLOCK_LAST_BLOCK_NUMBER);
-        final Integer whiteblockCurrentBlockNumber = (int)whiteblockLastBlockNumber + Constants.WHITEBLOCK_MAX_STATS_BLOCKS;
+        final Integer whiteblockCurrentBlockNumber;
+        if(whiteblockLastBlockNumber!=null) {
+            whiteblockCurrentBlockNumber = (int) whiteblockLastBlockNumber + Constants.WHITEBLOCK_MAX_STATS_BLOCKS;
+
+        }
+        else {
+            whiteblockLastBlockNumber=1;
+            whiteblockCurrentBlockNumber = (int) whiteblockLastBlockNumber + Constants.WHITEBLOCK_MAX_STATS_BLOCKS;
+        }
+
         try {
 
             sampleResult.sampleStart();

@@ -7,7 +7,7 @@ Possible parameters are:&#xd;
 - AccessToken (required): You can get this by running the command genesis auth print-access-token Default value is "A Whiteblock Genesis access token".&#xd;
 - ProxyName (optional): name of the neoload proxy Default value is "name of the neoload proxy".&#xd;
 - TraceMode (optional): enable loggin details  : true: enable ; false : Disable Default value is "enable logging ".</description>
-    <custom-action-parameter name="TestID" type="TEXT" value="84d3c82d-74fa-4019-9921-32000675b732"/>
+    <custom-action-parameter name="TestID" type="TEXT" value="${JStestid}"/>
     <custom-action-parameter name="Service" type="TEXT" value="geth"/>
     <custom-action-parameter name="AccessToken" type="TEXT" value="${Accestoken}"/>
     <custom-action-parameter name="TraceMode" type="TEXT" value="true"/>

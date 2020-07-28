@@ -1,14 +1,16 @@
 <custom-action actionType="GetMonitoringData" isHit="false"
-    name="getmonitoringdata" uid="0743d035-c0d2-4c41-a211-14308dd2cb3e">
+    name="getmonitoringdata" uid="eab7221f-0a4a-41f9-ad9d-97058faee638">
     <description>Retrieve the monitoring from Whiteblock .
 
 Possible parameters are:&#xd;
 - AccessToken (required): Access token for whiteblock Default value is "Access token for whiteblock".&#xd;
+- TestID (required): Whiteblock test ID Default value is "Whiteblock test ID".&#xd;
 - ProxyName (optional): name of the neoload proxy Default value is "name of the neoload proxy".&#xd;
 - dataExchangeApiUrl (optional): Where the DataExchange server is located. Optional, by default it is: http://${NL-ControllerIp}:7400/DataExchange/v1/Service.svc/&#xd;
 - dataExchangeApiKey (optional): Identification key specified in NeoLoad.&#xd;
 - TraceMode (optional): enable loggin details  : true: enable ; false : Disable Default value is "enable logging ".</description>
-    <custom-action-parameter name="AccessToken" type="TEXT" value="Access token for whiteblock"/>
-    <custom-action-parameter name="TraceMode" type="TEXT" value="enable logging "/>
-    <responsePageFileDescription>recorded-responses/res_0743d035-c0d2-4c41-a211-14308dd2cb3e</responsePageFileDescription>
+    <custom-action-parameter name="AccessToken" type="TEXT" value="${Accestoken}"/>
+    <custom-action-parameter name="TestID" type="TEXT" value="${JStestid}"/>
+    <custom-action-parameter name="TraceMode" type="TEXT" value="true"/>
+    <responsePageFileDescription>recorded-responses/res_eab7221f-0a4a-41f9-ad9d-97058faee638</responsePageFileDescription>
 </custom-action>

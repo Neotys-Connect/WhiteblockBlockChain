@@ -18,4 +18,4 @@ logger.debug("testid="+testid);
 // Inject the computed value in a runtime variable
 
 context.variableManager.setValue("accountsJSON",accountList);
-context.variableManager.setValue("testid",testid);
+context.variableManager.setValue("JStestid",testid);

@@ -300,6 +300,7 @@
                                     <exclude>*:javax.ws.rs-api</exclude>
                                     <exclude>*:slf4j-api</exclude>
                                     <exclude>*:guava</exclude>
+                                    <exclude>*:guava-jdk5</exclude>
                                 </excludes>
                             </artifactSet>
                         </configuration>
