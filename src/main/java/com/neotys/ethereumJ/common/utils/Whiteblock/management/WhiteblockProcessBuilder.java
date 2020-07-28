@@ -229,7 +229,7 @@ public class WhiteblockProcessBuilder {
             throw new WhiteblockLogicException("the record service helper should have exactly one port binding."+
                     " Note: record listens on :8080 by default");
         }
-        String url = "https://" + record.getIP() + ":" + record.getPorts().get(0).toString();
+        String url = "http://" + record.getIP() + ":" + record.getPorts().get(0).toString();
         url += String.format("/stats/block/%d/%d",startBlock, endBlock);
         return new WhiteblockMonitoringData(WhiteblockRestAPI.jRequest("GET",url,null,context));
 
