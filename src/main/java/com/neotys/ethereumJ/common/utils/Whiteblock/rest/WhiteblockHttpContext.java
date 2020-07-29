@@ -20,7 +20,7 @@ public class WhiteblockHttpContext {
     private Context context;
     private Optional<String> proxy;
     private final Credential credential;
-    public static final String DOMAIN = "infra.whiteblock.io";
+    public static final String DOMAIN = "genesis.whiteblock.io";
     public static final String HOST = "https://www."+DOMAIN;
     public static final String TOKEN_URL = "https://auth."+DOMAIN+"/auth/realms/wb/protocol/openid-connect/token";
     public static final String AUTH_URL = "https://auth."+DOMAIN+"/auth/realms/wb/protocol/openid-connect/auth";
