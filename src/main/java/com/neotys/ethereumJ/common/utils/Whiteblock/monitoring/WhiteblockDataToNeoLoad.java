@@ -29,7 +29,8 @@ public class WhiteblockDataToNeoLoad {
     final WhiteblockHttpContext context;
     final int startBlock;
     final int endBlock;
-    final String testID;
+    final String wbtestID;
+    final String nltestID;
 
     private com.neotys.rest.dataexchange.model.Entry toEntry(final WhiteblockData whiteblockMetric) {
 
@@ -71,13 +72,14 @@ public class WhiteblockDataToNeoLoad {
     }
 
     public WhiteblockDataToNeoLoad(WhiteblockHttpContext context, int start, int end,
-                                   Optional<DataExchangeAPIClient> apiclient, String testID)
+                                   Optional<DataExchangeAPIClient> apiclient, String testID,String nltestid)
     {
         dataExchangeAPIClient=apiclient;
         this.context=context;
         startBlock=start;
         endBlock=end;
-        this.testID = testID;
+        this.wbtestID = testID;
+        this.nltestID=nltestid;
 
 
     }
@@ -123,17 +125,17 @@ public class WhiteblockDataToNeoLoad {
         ApiClient neoLoadWebApiClient = new ApiClient();
         neoLoadWebApiClient.setApiKey(context.getContext().getAccountToken());
         neoLoadWebApiClient.setBasePath(getBasePath(context));
-        WhiteblockMonitoringData monitoringData= WhiteblockProcessBuilder.getEthMonitoringData(context, testID,
+        WhiteblockMonitoringData monitoringData= WhiteblockProcessBuilder.getEthMonitoringData(context, wbtestID,
                 startBlock,endBlock);
         traceInfo(context,String.valueOf(monitoringData.getBlockTime()));
         traceInfo(context, monitoringData.generateOutPut());
-        if(testID != null)
+        if(wbtestID != null)
         {
             ResultsApi resultsApi=new ResultsApi(neoLoadWebApiClient);
             MonitorPostRequest monitorPostRequest=new MonitorPostRequest();
             monitorPostRequest.monitors(convertWhiteblockMonitoringToCustomMonitor(monitoringData));
             traceInfo(context,generateLogFromMonitorRequest(monitorPostRequest));
-            resultsApi.postTestMonitors(monitorPostRequest,testID);
+            resultsApi.postTestMonitors(monitorPostRequest, nltestID);
         }
     }
 

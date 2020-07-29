@@ -1,6 +1,0 @@
-<variable-modifier-action definedMode="1" dest-variable-name=""
-    name="modification_variable" shared-variable-name="Accounts"
-    sharedMode="3"
-    src-variable-name="${Accounts_${addaccounts_counter}}"
-    uid="8859032d-044a-41dc-8d5f-86081d7fc95d"
-    variable-category="SHARED" variable-name=""/>

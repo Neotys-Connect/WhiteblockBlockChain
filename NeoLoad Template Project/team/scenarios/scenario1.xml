@@ -17,15 +17,31 @@
     </population-policy>
     <!--****** POPULATION POLICY ******-->
     <population-policy name="SendTransactions">
-        <duration-policy-entry iterations="1" time="300" timeUnit="0" type="2"/>
+        <duration-policy-entry iterations="1" time="360" timeUnit="0" type="2"/>
         <volume-policy-entry>
-            <constant-volume-policy iterationNumber="1" userNumber="5"/>
+            <constant-volume-policy iterationNumber="1" userNumber="48"/>
         </volume-policy-entry>
         <start-stop-policy-entry start-delay="0"
             start-population="Management" start-type="2"
             stop-delay="60000" stop-type="0"/>
         <runtime-policy continueOnError="true" thinktimePolicy="0"
             thinktimeValue="5000" vuStartDelay="250000" vuStartMode="1"/>
+        <!--****** POPULATION LG HOSTS ******-->
+        <lg-hosts>
+            <lg-host-entry>$zoneID=Zone par défaut;$lgID=localhost:7100</lg-host-entry>
+        </lg-hosts>
+    </population-policy>
+    <!--****** POPULATION POLICY ******-->
+    <population-policy name="Monitoring">
+        <duration-policy-entry iterations="1" time="360" timeUnit="0" type="2"/>
+        <volume-policy-entry>
+            <constant-volume-policy iterationNumber="1" userNumber="1"/>
+        </volume-policy-entry>
+        <start-stop-policy-entry start-delay="0"
+            start-population="Management" start-type="2"
+            stop-delay="60000" stop-type="0"/>
+        <runtime-policy continueOnError="true" thinktimePolicy="0"
+            thinktimeValue="5000" vuStartDelay="0" vuStartMode="0"/>
         <!--****** POPULATION LG HOSTS ******-->
         <lg-hosts>
             <lg-host-entry>$zoneID=Zone par défaut;$lgID=localhost:7100</lg-host-entry>

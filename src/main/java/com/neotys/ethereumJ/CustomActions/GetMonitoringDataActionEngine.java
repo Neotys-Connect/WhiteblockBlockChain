@@ -82,7 +82,7 @@ public class GetMonitoringDataActionEngine implements ActionEngine {
 
             WhiteblockHttpContext whiteBlockContext=new WhiteblockHttpContext(bearerToken,tracemode,context,proxyName);
             WhiteblockDataToNeoLoad whiteblockDataToNeoLoad=new WhiteblockDataToNeoLoad(whiteBlockContext,
-                    (int)whiteblockLastBlockNumber, whiteblockCurrentBlockNumber,Optional.absent(), testID);
+                    (int)whiteblockLastBlockNumber, whiteblockCurrentBlockNumber,Optional.absent(), testID,context.getTestId());
             whiteblockDataToNeoLoad.sendToNeoLoadWeb();
 
             sampleResult.sampleEnd();
