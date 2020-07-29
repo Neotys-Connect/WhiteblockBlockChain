@@ -19,29 +19,13 @@
     <population-policy name="SendTransactions">
         <duration-policy-entry iterations="1" time="300" timeUnit="0" type="2"/>
         <volume-policy-entry>
-            <constant-volume-policy iterationNumber="1" userNumber="150"/>
+            <constant-volume-policy iterationNumber="1" userNumber="5"/>
         </volume-policy-entry>
         <start-stop-policy-entry start-delay="0"
             start-population="Management" start-type="2"
             stop-delay="60000" stop-type="0"/>
         <runtime-policy continueOnError="true" thinktimePolicy="0"
             thinktimeValue="5000" vuStartDelay="250000" vuStartMode="1"/>
-        <!--****** POPULATION LG HOSTS ******-->
-        <lg-hosts>
-            <lg-host-entry>$zoneID=Europe Ireland (Dublin 1);$lgID=52.31.224.99:443</lg-host-entry>
-        </lg-hosts>
-    </population-policy>
-    <!--****** POPULATION POLICY ******-->
-    <population-policy name="Monitoring">
-        <duration-policy-entry iterations="1" time="300" timeUnit="0" type="2"/>
-        <volume-policy-entry>
-            <constant-volume-policy iterationNumber="1" userNumber="1"/>
-        </volume-policy-entry>
-        <start-stop-policy-entry start-delay="120000"
-            start-population="Management" start-type="2"
-            stop-delay="60000" stop-type="0"/>
-        <runtime-policy continueOnError="true" thinktimePolicy="0"
-            thinktimeValue="5000" vuStartDelay="0" vuStartMode="0"/>
         <!--****** POPULATION LG HOSTS ******-->
         <lg-hosts>
             <lg-host-entry>$zoneID=Zone par défaut;$lgID=localhost:7100</lg-host-entry>
@@ -75,6 +59,26 @@
                 connectionName="NeoLoad" dashed="false"
                 monitorName="throughput" monitoredHostName="NeoLoad"
                 scale="1.0" selected="false"/>
+        </chart-description>
+        <chart-description autoRange="true"
+            chart-description-type="chart-description-type"
+            domainMarkerVisible="true" granularityLevel="0"
+            historyState="XMIN" includeInReport="false"
+            rangeMarkerVisible="true" title="Controller/CPU Load" typeName="CLASSIC">
+            <monitor-curve-description color="0,255,0"
+                connectionName="NeoLoad" dashed="false"
+                monitorName="cpu" monitoredHostName="NeoLoad"
+                scale="1.0" selected="true"/>
+        </chart-description>
+        <chart-description autoRange="true"
+            chart-description-type="chart-description-type"
+            domainMarkerVisible="true" granularityLevel="0"
+            historyState="XMIN" includeInReport="false"
+            rangeMarkerVisible="true" title="Controller/Memory Used" typeName="CLASSIC">
+            <monitor-curve-description color="255,200,0"
+                connectionName="NeoLoad" dashed="false"
+                monitorName="memory" monitoredHostName="NeoLoad"
+                scale="1.0" selected="true"/>
         </chart-description>
         <empty-chart-description/>
         <empty-chart-description/>

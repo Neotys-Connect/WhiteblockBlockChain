@@ -1,17 +1,13 @@
 <!--****** MONITORED HOSTS ******-->
 <monitored-host-system host-name="" load-generator="false" uid="NeoLoad">
-    <embedded-action>79e41097-5560-4c5f-8a40-5649876c96b7</embedded-action>
+    <embedded-action>56271553-a3bd-489b-be83-08ed901fe9d8</embedded-action>
 </monitored-host-system>
 <monitored-host-system host-name="localhost:7100" load-generator="true" uid="LG localhost:7100">
-    <embedded-action>bd56a5a8-f6ca-4bce-987e-64f2243411f0</embedded-action>
-</monitored-host-system>
-<monitored-host-system host-name="52.31.224.99:443"
-    load-generator="true" uid="LG 52.31.224.99:443">
-    <embedded-action>a5ed315f-6b40-4a4f-af69-2e81f6e0f288</embedded-action>
+    <embedded-action>71f3a847-7d47-4214-956f-776cbe7ba96e</embedded-action>
 </monitored-host-system>
 <!--****** END MONITORED HOSTS ******-->
 <!--****** MONITOR CONNECTIONS ******-->
-<connection-system interval="1000" name="NeoLoad" server-port="0" uid="79e41097-5560-4c5f-8a40-5649876c96b7">
+<connection-system interval="1000" name="NeoLoad" server-port="0" uid="56271553-a3bd-489b-be83-08ed901fe9d8">
     <monitor-category name="Default" short-display-name="Default">
         <monitor-wrapped-statistic callTime="ON_BENCH" computing="0"
             format="NUMBER" name="UserLoad" sampling="0" unit=""/>
@@ -25,10 +21,10 @@
             format="NUMBER" name="WarningAlerts" sampling="0" unit=""/>
         <monitor-wrapped-statistic callTime="ON_BENCH" computing="0"
             format="NUMBER" name="cpu" sampling="0"
-            threshold="d1d8640a-9609-4752-80fa-aff9eb85fb9f" unit="%"/>
+            threshold="9c663a7e-24c3-49eb-ba8d-737d3312557e" unit="%"/>
         <monitor-wrapped-statistic callTime="ON_BENCH" computing="0"
             format="NUMBER" name="memory" sampling="0"
-            threshold="612b1301-e947-4192-b004-0449a9f27722" unit="%"/>
+            threshold="907287ec-00d3-480d-9431-723b72fa639e" unit="%"/>
         <monitor-wrapped-statistic callTime="ON_BENCH" computing="0"
             format="NUMBER" name="threadcount" sampling="0" unit=""/>
         <monitor-category name="Load Generator Connections" short-display-name="Load Generator Connections">
@@ -37,7 +33,7 @@
             <monitor-wrapped-statistic callTime="ON_BENCH" computing="0"
                 format="NUMBER" name="totallgdisconnections"
                 sampling="0"
-                threshold="61e95835-19d3-4b8e-a299-1202db51cca9" unit=""/>
+                threshold="853190d5-b239-4b2f-a8e3-8589dd7183ea" unit=""/>
             <monitor-wrapped-statistic callTime="ON_BENCH" computing="0"
                 format="NUMBER" name="totallgreconnections" sampling="0" unit=""/>
         </monitor-category>
@@ -54,6 +50,16 @@
                 <monitor-wrapped-statistic callTime="ON_BENCH"
                     computing="0" format="NUMBER"
                     name="obytesperinterface~NeoLoad~wlp2s0"
+                    sampling="0" unit="Mb/s"/>
+            </monitor-category>
+            <monitor-category name="enp0s31f6 (enp0s31f6)" short-display-name="enp0s31f6 (enp0s31f6)">
+                <monitor-wrapped-statistic callTime="ON_BENCH"
+                    computing="0" format="NUMBER"
+                    name="ibytesperinterface~NeoLoad~enp0s31f6"
+                    sampling="0" unit="Mb/s"/>
+                <monitor-wrapped-statistic callTime="ON_BENCH"
+                    computing="0" format="NUMBER"
+                    name="obytesperinterface~NeoLoad~enp0s31f6"
                     sampling="0" unit="Mb/s"/>
             </monitor-category>
         </monitor-category>
@@ -74,18 +80,6 @@
                 format="NUMBER"
                 name="zoneuserload~Europe Ireland (Dublin 1)"
                 sampling="0" unit=""/>
-            <monitor-category name="SendTransactions" short-display-name="SendTransactions">
-                <monitor-wrapped-statistic callTime="ON_BENCH"
-                    computing="0" format="NUMBER"
-                    name="zoneuserloadperpopulation~Europe Ireland (Dublin 1)~SendTransactions"
-                    sampling="0" unit=""/>
-                <monitor-category name="sendtoken" short-display-name="sendtoken">
-                    <monitor-wrapped-statistic callTime="ON_BENCH"
-                        computing="0" format="NUMBER"
-                        name="zoneuserloadperpopulation~Europe Ireland (Dublin 1)~SendTransactions~sendtoken"
-                        sampling="0" unit=""/>
-                </monitor-category>
-            </monitor-category>
         </monitor-category>
         <monitor-category name="Zone par défaut" short-display-name="Zone par défaut">
             <monitor-wrapped-statistic callTime="ON_BENCH" computing="0"
@@ -103,21 +97,21 @@
                         sampling="0" unit=""/>
                 </monitor-category>
             </monitor-category>
-            <monitor-category name="Monitoring" short-display-name="Monitoring">
+            <monitor-category name="SendTransactions" short-display-name="SendTransactions">
                 <monitor-wrapped-statistic callTime="ON_BENCH"
                     computing="0" format="NUMBER"
-                    name="zoneuserloadperpopulation~Zone par défaut~Monitoring"
+                    name="zoneuserloadperpopulation~Zone par défaut~SendTransactions"
                     sampling="0" unit=""/>
-                <monitor-category name="Monitoring" short-display-name="Monitoring">
+                <monitor-category name="sendtoken" short-display-name="sendtoken">
                     <monitor-wrapped-statistic callTime="ON_BENCH"
                         computing="0" format="NUMBER"
-                        name="zoneuserloadperpopulation~Zone par défaut~Monitoring~Monitoring"
+                        name="zoneuserloadperpopulation~Zone par défaut~SendTransactions~sendtoken"
                         sampling="0" unit=""/>
                 </monitor-category>
             </monitor-category>
         </monitor-category>
     </monitor-category>
-    <threshold enabled="true" uid="d1d8640a-9609-4752-80fa-aff9eb85fb9f">
+    <threshold enabled="true" uid="9c663a7e-24c3-49eb-ba8d-737d3312557e">
         <threshold-condition durationKind="SECONDS" durationNumber="15"
             operator="GREATER_THAN" severity="LOW" valueMax="Infinity" valueMin="80.0">
             <threshold-comment language="fr">
@@ -137,7 +131,7 @@
             </threshold-comment>
         </threshold-condition>
     </threshold>
-    <threshold enabled="true" uid="612b1301-e947-4192-b004-0449a9f27722">
+    <threshold enabled="true" uid="907287ec-00d3-480d-9431-723b72fa639e">
         <threshold-condition durationKind="SECONDS" durationNumber="15"
             operator="GREATER_THAN" severity="LOW" valueMax="Infinity" valueMin="80.0">
             <threshold-comment language="fr">
@@ -157,7 +151,7 @@
             </threshold-comment>
         </threshold-condition>
     </threshold>
-    <threshold enabled="true" uid="61e95835-19d3-4b8e-a299-1202db51cca9">
+    <threshold enabled="true" uid="853190d5-b239-4b2f-a8e3-8589dd7183ea">
         <threshold-condition durationKind="NB_OF_TIMES"
             durationNumber="1" operator="GREATER_THAN" severity="LOW"
             valueMax="Infinity" valueMin="1.0">
@@ -170,14 +164,14 @@
         </threshold-condition>
     </threshold>
 </connection-system>
-<connection-system interval="1000" name="NeoLoad" server-port="0" uid="bd56a5a8-f6ca-4bce-987e-64f2243411f0">
+<connection-system interval="1000" name="NeoLoad" server-port="0" uid="71f3a847-7d47-4214-956f-776cbe7ba96e">
     <monitor-category name="Default" short-display-name="Default">
         <monitor-wrapped-statistic callTime="ON_BENCH" computing="0"
             format="NUMBER" name="lgcpu.localhost:7100" sampling="0"
-            threshold="b3846a93-3352-4bd9-a8fb-70c69a9c1c91" unit="%"/>
+            threshold="75023ce8-ff78-4174-97b1-861662f79268" unit="%"/>
         <monitor-wrapped-statistic callTime="ON_BENCH" computing="0"
             format="NUMBER" name="lgmemory.localhost:7100" sampling="0"
-            threshold="f00b61c9-3f77-4035-938f-0f7f534fc710" unit="%"/>
+            threshold="2f1e9cd1-36a4-47b9-94cc-7b5cc98331aa" unit="%"/>
         <monitor-wrapped-statistic callTime="ON_BENCH" computing="0"
             format="NUMBER" name="lgthroughput.localhost:7100"
             sampling="0" unit="Mb/s"/>
@@ -196,7 +190,7 @@
                 format="NUMBER"
                 name="lg.jetty.httpclient.taskpool.used.localhost:7100"
                 sampling="0"
-                threshold="fc2e5a79-e8cd-453a-a173-aa3375095ca9" unit="%"/>
+                threshold="7bdbc6fa-3257-46e2-9c5f-da5a0025c883" unit="%"/>
         </monitor-category>
         <monitor-category name="Controller Connection" short-display-name="Controller Connection">
             <monitor-wrapped-statistic callTime="ON_BENCH" computing="0"
@@ -225,129 +219,19 @@
                     name="lgobytesperinterface~localhost:7100~wlp2s0"
                     sampling="0" unit="Mb/s"/>
             </monitor-category>
-        </monitor-category>
-    </monitor-category>
-    <threshold enabled="true" uid="b3846a93-3352-4bd9-a8fb-70c69a9c1c91">
-        <threshold-condition durationKind="SECONDS" durationNumber="15"
-            operator="GREATER_THAN" severity="LOW" valueMax="Infinity" valueMin="80.0">
-            <threshold-comment language="fr">
-                <threshold-content>CPU de l'injecteur surchargï¿½.</threshold-content>
-            </threshold-comment>
-            <threshold-comment language="en">
-                <threshold-content>Load generator CPU high.</threshold-content>
-            </threshold-comment>
-        </threshold-condition>
-        <threshold-condition durationKind="SECONDS" durationNumber="15"
-            operator="GREATER_THAN" severity="HIGH" valueMax="Infinity" valueMin="90.0">
-            <threshold-comment language="fr">
-                <threshold-content>CPU de l'injecteur surchargï¿½.</threshold-content>
-            </threshold-comment>
-            <threshold-comment language="en">
-                <threshold-content>Load generator CPU high.</threshold-content>
-            </threshold-comment>
-        </threshold-condition>
-    </threshold>
-    <threshold enabled="true" uid="f00b61c9-3f77-4035-938f-0f7f534fc710">
-        <threshold-condition durationKind="SECONDS" durationNumber="15"
-            operator="GREATER_THAN" severity="LOW" valueMax="Infinity" valueMin="80.0">
-            <threshold-comment language="fr">
-                <threshold-content>Quantitï¿½ de mï¿½moire en cours d'utilisation ï¿½levï¿½e</threshold-content>
-            </threshold-comment>
-            <threshold-comment language="en">
-                <threshold-content>Too high amount of memory used</threshold-content>
-            </threshold-comment>
-        </threshold-condition>
-        <threshold-condition durationKind="SECONDS" durationNumber="15"
-            operator="GREATER_THAN" severity="HIGH" valueMax="Infinity" valueMin="90.0">
-            <threshold-comment language="fr">
-                <threshold-content>Quantitï¿½ de mï¿½moire en cours d'utilisation ï¿½levï¿½e</threshold-content>
-            </threshold-comment>
-            <threshold-comment language="en">
-                <threshold-content>Too high amount of memory used</threshold-content>
-            </threshold-comment>
-        </threshold-condition>
-    </threshold>
-    <threshold enabled="true" uid="fc2e5a79-e8cd-453a-a173-aa3375095ca9">
-        <threshold-condition durationKind="SECONDS" durationNumber="15"
-            operator="GREATER_THAN" severity="LOW" valueMax="Infinity" valueMin="70.0">
-            <threshold-comment language="fr">
-                <threshold-content>Quantitï¿½ de tï¿½ches Jetty en cours d'exï¿½cution ï¿½levï¿½e</threshold-content>
-            </threshold-comment>
-            <threshold-comment language="en">
-                <threshold-content>Too high amount of tasks queue by Jetty</threshold-content>
-            </threshold-comment>
-        </threshold-condition>
-        <threshold-condition durationKind="SECONDS" durationNumber="15"
-            operator="GREATER_THAN" severity="HIGH" valueMax="Infinity" valueMin="90.0">
-            <threshold-comment language="fr">
-                <threshold-content>Quantitï¿½ de tï¿½ches Jetty en cours d'exï¿½cution ï¿½levï¿½e</threshold-content>
-            </threshold-comment>
-            <threshold-comment language="en">
-                <threshold-content>Too high amount of tasks queue by Jetty</threshold-content>
-            </threshold-comment>
-        </threshold-condition>
-    </threshold>
-</connection-system>
-<connection-system interval="1000" name="NeoLoad" server-port="0" uid="a5ed315f-6b40-4a4f-af69-2e81f6e0f288">
-    <monitor-category name="Default" short-display-name="Default">
-        <monitor-wrapped-statistic callTime="ON_BENCH" computing="0"
-            format="NUMBER" name="lgcpu.52.31.224.99:443" sampling="0"
-            threshold="c10b0149-04b1-48d0-a4d6-8603f52c886c" unit="%"/>
-        <monitor-wrapped-statistic callTime="ON_BENCH" computing="0"
-            format="NUMBER" name="lgmemory.52.31.224.99:443"
-            sampling="0"
-            threshold="fe1040ae-2637-4c42-9654-77d3af6e03b0" unit="%"/>
-        <monitor-wrapped-statistic callTime="ON_BENCH" computing="0"
-            format="NUMBER" name="lgthroughput.52.31.224.99:443"
-            sampling="0" unit="Mb/s"/>
-        <monitor-wrapped-statistic callTime="ON_BENCH" computing="0"
-            format="NUMBER"
-            name="lguserloadperpopulation~52.31.224.99:443" sampling="0" unit=""/>
-        <monitor-wrapped-statistic callTime="ON_BENCH" computing="0"
-            format="NUMBER" name="lgthreadcount.52.31.224.99:443"
-            sampling="0" unit=""/>
-        <monitor-category name="Http client" short-display-name="Http client">
-            <monitor-wrapped-statistic callTime="ON_BENCH" computing="0"
-                format="NUMBER"
-                name="lg.jetty.httpclient.threadpool.used.52.31.224.99:443"
-                sampling="0" unit="%"/>
-            <monitor-wrapped-statistic callTime="ON_BENCH" computing="0"
-                format="NUMBER"
-                name="lg.jetty.httpclient.taskpool.used.52.31.224.99:443"
-                sampling="0"
-                threshold="a2917d8c-d07e-4f52-a3c6-38aba737a486" unit="%"/>
-        </monitor-category>
-        <monitor-category name="Controller Connection" short-display-name="Controller Connection">
-            <monitor-wrapped-statistic callTime="ON_BENCH" computing="0"
-                format="NUMBER" name="lgdisconnections.52.31.224.99:443"
-                sampling="0" unit=""/>
-            <monitor-wrapped-statistic callTime="ON_BENCH" computing="0"
-                format="NUMBER" name="lgreconnections.52.31.224.99:443"
-                sampling="0" unit=""/>
-            <monitor-wrapped-statistic callTime="ON_BENCH" computing="0"
-                format="NUMBER" name="lgping.52.31.224.99:443"
-                sampling="0" unit="ms"/>
-        </monitor-category>
-        <monitor-category name="Network" short-display-name="Network">
-            <monitor-wrapped-statistic callTime="ON_BENCH" computing="0"
-                format="NUMBER" name="lgotcp.52.31.224.99:443"
-                sampling="0" unit=""/>
-            <monitor-wrapped-statistic callTime="ON_BENCH" computing="0"
-                format="NUMBER" name="lgtcp.52.31.224.99:443"
-                sampling="0" unit=""/>
-            <monitor-category name="eth0 (eth0)" short-display-name="eth0 (eth0)">
+            <monitor-category name="enp0s31f6 (enp0s31f6)" short-display-name="enp0s31f6 (enp0s31f6)">
                 <monitor-wrapped-statistic callTime="ON_BENCH"
                     computing="0" format="NUMBER"
-                    name="lgibytesperinterface~52.31.224.99:443~eth0"
+                    name="lgibytesperinterface~localhost:7100~enp0s31f6"
                     sampling="0" unit="Mb/s"/>
                 <monitor-wrapped-statistic callTime="ON_BENCH"
                     computing="0" format="NUMBER"
-                    name="lgobytesperinterface~52.31.224.99:443~eth0"
+                    name="lgobytesperinterface~localhost:7100~enp0s31f6"
                     sampling="0" unit="Mb/s"/>
             </monitor-category>
         </monitor-category>
     </monitor-category>
-    <threshold enabled="true" uid="c10b0149-04b1-48d0-a4d6-8603f52c886c">
+    <threshold enabled="true" uid="75023ce8-ff78-4174-97b1-861662f79268">
         <threshold-condition durationKind="SECONDS" durationNumber="15"
             operator="GREATER_THAN" severity="LOW" valueMax="Infinity" valueMin="80.0">
             <threshold-comment language="fr">
@@ -367,7 +251,7 @@
             </threshold-comment>
         </threshold-condition>
     </threshold>
-    <threshold enabled="true" uid="fe1040ae-2637-4c42-9654-77d3af6e03b0">
+    <threshold enabled="true" uid="2f1e9cd1-36a4-47b9-94cc-7b5cc98331aa">
         <threshold-condition durationKind="SECONDS" durationNumber="15"
             operator="GREATER_THAN" severity="LOW" valueMax="Infinity" valueMin="80.0">
             <threshold-comment language="fr">
@@ -387,7 +271,7 @@
             </threshold-comment>
         </threshold-condition>
     </threshold>
-    <threshold enabled="true" uid="a2917d8c-d07e-4f52-a3c6-38aba737a486">
+    <threshold enabled="true" uid="7bdbc6fa-3257-46e2-9c5f-da5a0025c883">
         <threshold-condition durationKind="SECONDS" durationNumber="15"
             operator="GREATER_THAN" severity="LOW" valueMax="Infinity" valueMin="70.0">
             <threshold-comment language="fr">
