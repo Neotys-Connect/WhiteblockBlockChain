@@ -8,3 +8,4 @@ com.neotys.ethereumJ.CustomActions.GetBalanceAction
 com.neotys.ethereumJ.CustomActions.TransferERC20TokenAction
 com.neotys.ethereumJ.CustomActions.SafeTransfertERC721TokenAction
 com.neotys.ethereumJ.CustomActions.GetAddressAction
+com.neotys.ethereumJ.CustomActions.GetBlockAction

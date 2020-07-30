@@ -10,6 +10,7 @@ import org.web3j.protocol.Web3j;
 import org.web3j.protocol.admin.Admin;
 import org.web3j.protocol.admin.methods.response.PersonalUnlockAccount;
 import org.web3j.protocol.core.DefaultBlockParameterName;
+import org.web3j.protocol.core.DefaultBlockParameterNumber;
 import org.web3j.protocol.core.methods.request.Transaction;
 import org.web3j.protocol.core.methods.response.*;
 import org.web3j.protocol.http.HttpService;
@@ -72,6 +73,15 @@ public class Web3JUtils {
 
     public String getNetID(Web3j web3j) throws InterruptedException, ExecutionException {
         return web3j.netVersion().sendAsync().get().getNetVersion();
+    }
+
+    public EthBlock getBlock(long block) throws Exception {
+        return web3j.ethGetBlockByNumber(new DefaultBlockParameterNumber(block), true).sendAsync().get();
+    }
+
+
+    public EthBlock getBlock(String block) throws Exception {
+        return web3j.ethGetBlockByNumber(DefaultBlockParameterName.fromString(block), true).sendAsync().get();
     }
 
 

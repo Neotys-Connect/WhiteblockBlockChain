@@ -14,14 +14,14 @@ import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-public class GetBalanceAction implements Action {
+public class GetBlockAction implements Action {
     private static final String BUNDLE_NAME = "com.neotys.ethereumJ.GetBlock.bundle";
     private static final String DISPLAY_NAME = ResourceBundle.getBundle(BUNDLE_NAME, Locale.getDefault()).getString("displayName");
     private static final String DISPLAY_PATH = ResourceBundle.getBundle(BUNDLE_NAME, Locale.getDefault()).getString("displayPath");
 
     @Override
     public String getType() {
-        return "GetBalance";
+        return "GetBlock";
     }
 
     @Override
@@ -40,7 +40,7 @@ public class GetBalanceAction implements Action {
 
     @Override
     public Class<? extends ActionEngine> getEngineClass() {
-        return GetBalanceActionEngine.class;
+        return GetBlockActionEngine.class;
     }
 
     @Override
@@ -55,7 +55,7 @@ public class GetBalanceAction implements Action {
 
     @Override
     public String getDescription() {
-        return "Send GetBalance RPC Transaction in the network .\n\n" + Arguments.getArgumentDescriptions(GetBalanceOption.values());
+        return "Send GetBlock RPC Call in the network .\n\n" + Arguments.getArgumentDescriptions(GetBalanceOption.values());
 
     }
 
